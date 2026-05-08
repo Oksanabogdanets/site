@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Rilès — Оксана Богданець</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════ ЭКРАН: ГЛАВНАЯ ══════════════════════ -->
+  <div class="screen active" id="screen-home">
+    <div class="scroll-area">
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="avatar-placeholder">✨</div>
+        <div class="hero-badge">Reels-продюсер · стратег</div>
+        <h1 class="hero-title">Оксана Богданець</h1>
+        <p class="hero-sub">Навчаю продавати свої послуги через Reels — системно, без хаосу і зайвих витрат на рекламу</p>
+        <button class="btn-primary" onclick="openApply()">
+          Хочу на наставництво →
+        </button>
+        <p class="no-risk">Місць обмежено · Відповідаю протягом 24 годин</p>
+      </div>
+
+      <!-- Статистика -->
+      <div class="section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-num">3+</span>
+            <span class="stat-label">роки в Reels-системах</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">$11К+</span>
+            <span class="stat-label">кейс за 5 днів</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">400К+</span>
+            <span class="stat-label">охоплення без реклами</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-num">89</span>
+            <span class="stat-label">продажів за один запуск</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Болі -->
+      <div class="section">
+        <h2 class="section-title">Впізнаєш себе?</h2>
+        <div class="pain-list">
+          <div class="pain-item">
+            <span class="pain-icon">😮‍💨</span>
+            <span>Знімаєш Reels, але без результату — ні переглядів, ні заявок</span>
+          </div>
+          <div class="pain-item">
+            <span class="pain-icon">💭</span>
+            <span>Є знання і продукт, але сторінка не продає сама по собі</span>
+          </div>
+          <div class="pain-item">
+            <span class="pain-icon">😰</span>
+            <span>Все хаотично — немає системи, немає розуміння що далі</span>
+          </div>
+          <div class="pain-item">
+            <span class="pain-icon">🎯</span>
+            <span>Хочеш стабільні заявки з контенту, а не тільки зрідка</span>
+          </div>
+        </div>
+        <p class="pain-bridge">Якщо хоча б один пункт — про тебе, ти на правильній сторінці.</p>
+      </div>
+
+      <!-- Що отримаєш -->
+      <div class="section">
+        <h2 class="section-title">Після наставництва</h2>
+        <p class="section-sub">Що зміниться за 5 тижнів</p>
+        <div class="method-cards">
+          <div class="method-card">
+            <span class="method-icon">📦</span>
+            <h3>Упакована сторінка</h3>
+            <p>Профіль, який продає сам — чітке позиціонування і офер, що чіпляє ЦА</p>
+          </div>
+          <div class="method-card">
+            <span class="method-icon">🎬</span>
+            <h3>Reels-воронка</h3>
+            <p>Система, де клієнти самі пишуть після перегляду контенту</p>
+          </div>
+          <div class="method-card">
+            <span class="method-icon">💰</span>
+            <h3>Перші продажі</h3>
+            <p>Вже під час навчання — не після, а в процесі</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="section cta-section">
+        <h2>Починаємо?</h2>
+        <p>5 тижнів · 5 модулів · повне занурення</p>
+        <button class="btn-primary" onclick="openApply()">
+          Хочу на наставництво
+        </button>
+        <p class="no-risk">⏳ Набір обмежений</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════ ЕКРАН: ПРОГРАМА ══════════════════════ -->
+  <div class="screen" id="screen-program">
+    <div class="scroll-area">
+      <div class="top-bar">
+        <button class="back-btn" onclick="navigate('home', document.querySelector('.nav-item'))">‹ Назад</button>
+        <span class="top-bar-title">Програма</span>
+      </div>
+      <div class="page-header">
+        <h1>Програма</h1>
+        <p>5 модулів · 5 тижнів · повне занурення</p>
+      </div>
+
+      <!-- Формат -->
+      <div class="section">
+        <div class="format-cards">
+          <div class="format-item">🎥 Відеоуроки на навчальній платформі</div>
+          <div class="format-item">📹 3 Zoom-зустрічі на тиждень</div>
+          <div class="format-item">✏️ Практичні завдання + перевірка Оксани</div>
+          <div class="format-item">📓 Особистий простір у Notion</div>
+          <div class="format-item">👥 Лекції від 4 запрошених спікерів</div>
+          <div class="format-item">💬 Зворотний зв'язок на кожному етапі</div>
+        </div>
+      </div>
+
+      <!-- Модулі -->
+      <div class="section">
+        <h2 class="section-title">Що розбираємо</h2>
+
+        <div class="module-card">
+          <div class="module-num">0</div>
+          <div class="module-body">
+            <h3>Переднавчання</h3>
+            <p class="module-sub">Формуємо основу бренду</p>
+            <ul class="module-list">
+              <li>Як все влаштовано</li>
+              <li>Постановка цілей і мислення</li>
+              <li>Розпакування особистості й експертності</li>
+              <li>Аналіз ринку і конкурентів</li>
+              <li>Аналіз ЦА</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">1</div>
+          <div class="module-body">
+            <h3>Продукт</h3>
+            <p class="module-sub">Створюємо те, що реально купують</p>
+            <ul class="module-list">
+              <li>Розпакування продукту</li>
+              <li>Формати і продуктова лінійка</li>
+              <li>Ціноутворення</li>
+              <li>Перший тестовий продаж</li>
+              <li>Офер, що чіпляє</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">2</div>
+          <div class="module-body">
+            <h3>Воронка</h3>
+            <p class="module-sub">Збираємо систему заявок</p>
+            <ul class="module-list">
+              <li>Як влаштована воронка</li>
+              <li>Тема і гачок воронки</li>
+              <li>Збір воронки</li>
+              <li>Налаштування бота</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">3</div>
+          <div class="module-body">
+            <h3>Продаючі Reels</h3>
+            <p class="module-sub">Контент, який продає замість тебе</p>
+            <ul class="module-list">
+              <li>Як писати сценарії, які продають</li>
+              <li>Зйомка — повний супровід</li>
+              <li>Монтаж — якісний результат</li>
+              <li>Урок від спеціаліста</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="module-card">
+          <div class="module-num">4</div>
+          <div class="module-body">
+            <h3>Таргет і AI-асистент</h3>
+            <p class="module-sub">Запускаємо рекламу і масштаб</p>
+            <ul class="module-list">
+              <li>Базове налаштування таргету</li>
+              <li>Запуск і продажі через трафік</li>
+              <li>AI-асистент у контенті та воронках</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Тарифи -->
+      <div class="section">
+        <h2 class="section-title">Тарифи</h2>
+
+        <div class="tier-card">
+          <div class="tier-name">BASIC</div>
+          <div class="tier-price">$180</div>
+          <div class="tier-format">груповий формат</div>
+          <ul class="tier-features">
+            <li>✓ Доступ до всіх відеоуроків</li>
+            <li>✓ Додаткові матеріали і шаблони</li>
+            <li>✓ Доступ на 6 місяців</li>
+          </ul>
+          <button class="btn-secondary btn-full" onclick="openApply()">Обрати Basic</button>
+        </div>
+
+        <div class="tier-card tier-card--popular">
+          <div class="popular-badge">Популярний</div>
+          <div class="tier-name">STANDARD</div>
+          <div class="tier-price">$590</div>
+          <div class="tier-format">груповий формат</div>
+          <ul class="tier-features">
+            <li>✓ Всі матеріали та відеоуроки</li>
+            <li>✓ 5 тижнів роботи</li>
+            <li>✓ 3 Zoom-зустрічі щотижня</li>
+            <li>✓ Особистий простір у Notion</li>
+            <li>✓ Перевірка домашніх завдань</li>
+            <li>✓ Зворотний зв'язок від куратора</li>
+            <li>✓ Лекції від 4 спікерів</li>
+          </ul>
+          <button class="btn-primary btn-full" onclick="openApply()">Обрати Standard</button>
+        </div>
+
+        <div class="tier-card">
+          <div class="tier-name">VIP</div>
+          <div class="tier-price">$890</div>
+          <div class="tier-format">індивідуальний</div>
+          <ul class="tier-features">
+            <li>✓ Все з тарифу STANDARD</li>
+            <li>✓ 3 особисті Zoom-зустрічі зі мною</li>
+            <li>✓ Індивідуальна стратегія Reels-воронки</li>
+            <li>✓ Персональний розбір профілю</li>
+            <li>✓ Пріоритетна підтримка</li>
+          </ul>
+          <button class="btn-secondary btn-full" onclick="openApply()">Обрати VIP</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════ ЕКРАН: КЕЙСИ ══════════════════════ -->
+  <div class="screen" id="screen-cases">
+    <div class="scroll-area">
+      <div class="top-bar">
+        <button class="back-btn" onclick="navigate('home', document.querySelector('.nav-item'))">‹ Назад</button>
+        <span class="top-bar-title">Кейси</span>
+      </div>
+      <div class="page-header">
+        <h1>Результати учнів</h1>
+        <p>Реальні цифри. Реальні люди.</p>
+      </div>
+
+      <div class="cases-list">
+
+        <div class="case-card">
+          <div class="case-niche">Коуч по відносинах</div>
+          <h3 class="case-title">Марія К.</h3>
+          <div class="case-result">
+            <span class="case-big-num">$11 500</span>
+            <span class="case-result-label">за 5 днів після запуску</span>
+          </div>
+          <div class="case-details">
+            <div class="case-row">
+              <span class="case-label">Вихідна точка</span>
+              <span>800 підписників, 0 продажів</span>
+            </div>
+            <div class="case-row">
+              <span class="case-label">Що зробили</span>
+              <span>Запустили онлайн-курс через Reels-стратегію</span>
+            </div>
+            <div class="case-row">
+              <span class="case-label">Результат</span>
+              <span>23 продажі · 14 000+ переглядів Reels</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-niche">Онлайн-школа · Англійська мова</div>
+          <h3 class="case-title">Запуск без реклами</h3>
+          <div class="case-result">
+            <span class="case-big-num">$8 000</span>
+            <span class="case-result-label">через 12 Reels за 3 тижні</span>
+          </div>
+          <div class="case-details">
+            <div class="case-row">
+              <span class="case-label">Завдання</span>
+              <span>Залучити учнів без платної реклами</span>
+            </div>
+            <div class="case-row">
+              <span class="case-label">Результат</span>
+              <span>340 000 охоплення · 67 заявок</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-niche">Коуч по продуктивності</div>
+          <h3 class="case-title">Ілля С.</h3>
+          <div class="case-result">
+            <span class="case-big-num">$2 400</span>
+            <span class="case-result-label">перший запуск з теплої бази</span>
+          </div>
+          <div class="case-details">
+            <div class="case-row">
+              <span class="case-label">Вихідна точка</span>
+              <span>1 200 підписників, монетизації немає</span>
+            </div>
+            <div class="case-row">
+              <span class="case-label">Результат</span>
+              <span>8% конверсія в покупку · 3 тижні роботи</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-card">
+          <div class="case-niche">Онлайн-школа програмування</div>
+          <h3 class="case-title">Ігор Т.</h3>
+          <div class="case-result">
+            <span class="case-big-num">89</span>
+            <span class="case-result-label">продажів за один запуск</span>
+          </div>
+          <div class="case-details">
+            <div class="case-row">
+              <span class="case-label">Результат</span>
+              <span>400К+ органічного охоплення за період запуску</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Відгуки -->
+      <div class="section">
+        <h2 class="section-title">Що кажуть учні</h2>
+        <div class="reviews-list">
+
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">А</div>
+              <div>
+                <div class="review-name">Анна М.</div>
+                <div class="review-niche">Нутриціолог</div>
+              </div>
+            </div>
+            <p class="review-text">«До роботи знімала Reels всліпу — ні переглядів, ні заявок. За перший місяць +12 клієнтів тільки з органіки.»</p>
+            <div class="review-result">+12 клієнтів за місяць</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">Д</div>
+              <div>
+                <div class="review-name">Дмитро Р.</div>
+                <div class="review-niche">Бізнес-коуч</div>
+              </div>
+            </div>
+            <p class="review-text">«Скептично ставився до Reels — здавалося, це не для серйозного бізнесу. Запустили продукт на $15К без рекламного бюджету.»</p>
+            <div class="review-result">$15 000 без реклами</div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-avatar">М</div>
+              <div>
+                <div class="review-name">Михайло К.</div>
+                <div class="review-niche">SMM-спеціаліст</div>
+              </div>
+            </div>
+            <p class="review-text">«Пройшов навчання по запускам — тепер пропоную цю послугу своїм клієнтам. Додав +$1 500 до щомісячного доходу за перші 2 місяці.»</p>
+            <div class="review-result">+$1 500/міс додатково</div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="section cta-section">
+        <button class="btn-primary" onclick="openApply()">
+          Хочу такий же результат →
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════ ЕКРАН: ЗАПИСАТИСЬ ══════════════════════ -->
+  <div class="screen" id="screen-apply">
+    <div class="scroll-area">
+      <div class="top-bar">
+        <button class="back-btn" onclick="navigate('home', document.querySelector('.nav-item'))">‹ Назад</button>
+        <span class="top-bar-title">Записатись</span>
+      </div>
+      <div class="page-header">
+        <h1>Записатись</h1>
+        <p>Залиш заявку — відповім протягом 24 годин</p>
+      </div>
+
+      <!-- FAQ -->
+      <div class="section">
+        <h2 class="section-title">Часті запитання</h2>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Для кого це наставництво?
+              <span class="faq-arrow">›</span>
+            </button>
+            <div class="faq-a">
+              Для тих, хто стартує з нуля або впирається в «стелю доходів» і хоче рости далі. Незалежно від рівня — можеш почати заробляти з блогу вже зараз.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Скільки часу займає на тиждень?
+              <span class="faq-arrow">›</span>
+            </button>
+            <div class="faq-a">
+              В середньому 6–8 годин: відеоуроки + 3 Zoom-зустрічі + практичні завдання. Всі матеріали залишаються у тебе назавжди.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Чи є результат якщо я боюся камери?
+              <span class="faq-arrow">›</span>
+            </button>
+            <div class="faq-a">
+              Так. Ми разом проходимо через зйомку — від страху до впевненості. Катерина В. (психолог) боялася камери, а тепер знімає кожного тижня і отримує задоволення.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Чи можна платити частинами?
+              <span class="faq-arrow">›</span>
+            </button>
+            <div class="faq-a">
+              Так, є розстрочка. Уточни при записі — підберемо зручний варіант.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Коли починається наступний набір?
+              <span class="faq-arrow">›</span>
+            </button>
+            <div class="faq-a">
+              Набір обмежений. Залиш заявку — надішлю актуальну дату старту і деталі.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Форма -->
+      <div class="section">
+        <h2 class="section-title">Залишити заявку</h2>
+        <form id="contact-form" onsubmit="submitForm(event)">
+          <input type="text" name="hp" style="display:none" tabindex="-1" autocomplete="off" />
+
+          <div class="form-group">
+            <input type="text" id="f-name" placeholder="Ім'я" required class="form-input" />
+          </div>
+          <div class="form-group">
+            <input type="text" id="f-contact" placeholder="Telegram або Instagram @username" required class="form-input" />
+          </div>
+          <div class="form-group">
+            <select id="f-tier" class="form-input form-select">
+              <option value="">Який тариф цікавить?</option>
+              <option value="basic">BASIC — $180</option>
+              <option value="standard">STANDARD — $590</option>
+              <option value="vip">VIP — $890</option>
+              <option value="unknown">Ще не вирішила</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <textarea id="f-task" placeholder="Коротко про себе і свій продукт (необов'язково)" class="form-input form-textarea" rows="3"></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-full">
+            Відправити заявку →
+          </button>
+          <p class="no-risk">Без спаму · Відповідаю протягом 24 годин</p>
+        </form>
+
+        <div id="form-success" class="form-success hidden">
+          <span class="success-icon">🎉</span>
+          <strong>Заявку отримано!</strong>
+          <p>Відповім протягом 24 годин. Побачимось на наставництві!</p>
+        </div>
+
+        <div class="alternative-contact">
+          <p>Хочеш написати напряму?</p>
+          <a href="https://t.me/ksysha_bogdanets" class="tg-link" onclick="openTelegram(event)">
+            ✈️ Написати Оксані
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════ НИЖНЯ НАВІГАЦІЯ ══════════════════════ -->
+  <nav class="bottom-nav">
+    <button class="nav-item active" onclick="navigate('home', this)">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Головна</span>
+    </button>
+    <button class="nav-item" onclick="navigate('program', this)">
+      <span class="nav-icon">📚</span>
+      <span class="nav-label">Програма</span>
+    </button>
+    <button class="nav-item" onclick="navigate('cases', this)">
+      <span class="nav-icon">⭐</span>
+      <span class="nav-label">Кейси</span>
+    </button>
+    <button class="nav-item" onclick="navigate('apply', this)">
+      <span class="nav-icon">✉️</span>
+      <span class="nav-label">Записатись</span>
+    </button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
