@@ -4,7 +4,7 @@
     { "src": "public/content-sprint-2.html", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/content-sprint-2", "dest": "/public/content-sprint-2.html" },
+    { "src": "/content-sprint", "dest": "/public/content-sprint-2.html" },
     { "src": "/content-sprint-2.html", "dest": "/public/content-sprint-2.html" }
   ]
 }
