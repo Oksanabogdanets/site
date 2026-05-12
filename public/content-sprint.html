@@ -715,16 +715,16 @@
     .dk-scroll::-webkit-scrollbar { display:none; }
     .dk-scroll.dragging { cursor:grabbing; }
     .dk-track { display:flex; gap:24px; width:max-content; }
-    .dk-card { width:600px; flex-shrink:0; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px -18px rgba(26,22,17,0.5); background:var(--ink); display:flex; flex-direction:column; transition:transform 0.3s,box-shadow 0.3s; }
+    .dk-card { width:580px; flex-shrink:0; border-radius:20px; overflow:hidden; box-shadow:0 20px 60px -18px rgba(26,22,17,0.5); background:var(--ink); display:flex; flex-direction:column; transition:transform 0.3s,box-shadow 0.3s; }
     .dk-card:hover { transform:translateY(-5px); box-shadow:0 32px 72px -20px rgba(26,22,17,0.6); }
-    .dk-main { display:grid; grid-template-columns:1fr 220px; flex:1; min-height:320px; }
-    .dk-main.flip { grid-template-columns:220px 1fr; }
+    .dk-main { display:grid; grid-template-columns:1fr 190px; flex:1; }
+    .dk-main.flip { grid-template-columns:190px 1fr; }
     .dk-main.full { grid-template-columns:1fr; }
     .dk-text { padding:30px 26px 24px; display:flex; flex-direction:column; }
     .dk-label { font-size:0.62rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(201,167,105,0.6); margin-bottom:6px; }
     .dk-name { font-family:'Fraunces',serif; font-size:1.7rem; font-weight:700; color:var(--gold); text-transform:uppercase; letter-spacing:0.03em; line-height:1.05; margin-bottom:6px; }
     .dk-niche { font-size:0.78rem; color:rgba(251,247,240,0.5); margin-bottom:20px; line-height:1.45; font-style:italic; }
-    .dk-stat { font-family:'Fraunces',serif; font-size:2.2rem; font-weight:700; color:var(--gold); line-height:1; margin-bottom:3px; }
+    .dk-stat { font-family:'Fraunces',serif; font-size:clamp(1.4rem,3.5vw,2rem); font-weight:700; color:var(--gold); line-height:1.1; margin-bottom:3px; word-break:break-word; }
     .dk-stat-lbl { font-size:0.63rem; text-transform:uppercase; letter-spacing:0.14em; color:rgba(251,247,240,0.38); margin-bottom:18px; }
     .dk-bul { list-style:none; display:flex; flex-direction:column; gap:7px; }
     .dk-bul li { font-size:0.79rem; color:rgba(251,247,240,0.7); padding:5px 10px 5px 13px; border-left:2px solid rgba(201,167,105,0.35); line-height:1.4; }
