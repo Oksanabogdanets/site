@@ -3,114 +3,135 @@
 <head>
 <meta charset="UTF-8">
 <style>
+  @page {
+    size: 1080px 1350px;
+    margin: 0;
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
     font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    background: #f0f0f0;
-    padding: 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
+    background: #fff;
   }
 
   .slide {
     width: 1080px;
     height: 1350px;
     background: #fff;
-    padding: 80px 90px;
+    padding: 70px 80px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    page-break-after: always;
     position: relative;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+    overflow: hidden;
   }
 
-  .slide-num {
+  .slide:last-child {
+    page-break-after: avoid;
+  }
+
+  .num {
     position: absolute;
-    top: 40px;
-    right: 50px;
-    font-size: 28px;
-    color: #999;
+    top: 36px;
+    right: 56px;
+    font-size: 26px;
+    color: #aaa;
     font-weight: 500;
+    letter-spacing: 1px;
   }
 
-  .slide-title {
-    font-size: 72px;
-    font-weight: 700;
-    line-height: 1.15;
+  .handle {
+    font-size: 24px;
+    color: #bbb;
+    margin-top: auto;
+    padding-top: 20px;
+  }
+
+  /* СЛАЙД 1 */
+  .title-big {
+    font-size: 96px;
+    font-weight: 800;
+    line-height: 1.1;
     color: #111;
-    letter-spacing: -1px;
+    letter-spacing: -2px;
+    margin-top: 80px;
   }
 
-  .slide-subtitle {
-    font-size: 32px;
-    color: #666;
-    margin-top: 20px;
+  .title-sub {
+    font-size: 34px;
+    color: #888;
+    margin-top: 30px;
     font-weight: 400;
     line-height: 1.4;
   }
 
-  .handle {
-    font-size: 28px;
-    color: #999;
-    margin-top: auto;
+  /* КАТЕГОРІЇ */
+  .cat {
+    margin-bottom: 44px;
   }
 
-  .section {
-    margin-bottom: 50px;
-  }
-
-  .section-title {
-    font-size: 38px;
-    font-weight: 700;
+  .cat-title {
+    font-size: 34px;
+    font-weight: 800;
     color: #111;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     line-height: 1.2;
   }
 
-  ol {
+  .cat-list {
     list-style: none;
-    counter-reset: item;
     padding: 0;
+    counter-reset: n;
   }
 
-  ol li {
-    counter-increment: item;
-    font-size: 26px;
-    color: #333;
-    line-height: 1.5;
-    padding: 6px 0;
+  .cat-list li {
+    counter-increment: n;
     display: flex;
-    gap: 14px;
+    gap: 12px;
+    font-size: 24px;
+    color: #333;
+    padding: 5px 0;
+    line-height: 1.4;
   }
 
-  ol li::before {
-    content: counter(item) ".";
-    color: #999;
-    font-size: 24px;
-    min-width: 36px;
+  .cat-list li::before {
+    content: counter(n) ".";
+    color: #aaa;
+    font-size: 22px;
+    min-width: 32px;
+    flex-shrink: 0;
     padding-top: 2px;
   }
 
-  .cta-slide {
+  .divider {
+    height: 1px;
+    background: #eee;
+    margin: 30px 0;
+  }
+
+  /* CTA SLIDE */
+  .cta-wrap {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    gap: 0;
+    height: 100%;
+    padding-bottom: 40px;
   }
 
-  .cta-slide .big-title {
-    font-size: 64px;
+  .cta-title {
+    font-size: 72px;
     font-weight: 800;
-    line-height: 1.2;
+    line-height: 1.15;
     color: #111;
-    margin-bottom: 30px;
+    letter-spacing: -1px;
+    margin-bottom: 36px;
   }
 
-  .cta-slide .desc {
+  .cta-desc {
     font-size: 32px;
     color: #555;
-    line-height: 1.5;
+    line-height: 1.55;
     margin-bottom: 60px;
   }
 
@@ -118,24 +139,17 @@
     display: inline-block;
     background: #111;
     color: #fff;
-    font-size: 30px;
-    font-weight: 600;
-    padding: 22px 48px;
-    border-radius: 12px;
-    margin-bottom: 50px;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 22px 44px;
+    border-radius: 14px;
     width: fit-content;
+    margin-bottom: 50px;
   }
 
   .cta-handle {
     font-size: 28px;
-    color: #999;
-  }
-
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: #eee;
-    margin: 40px 0;
+    color: #aaa;
   }
 </style>
 </head>
@@ -143,214 +157,203 @@
 
 <!-- СЛАЙД 1 -->
 <div class="slide">
-  <div class="slide-num">1/7</div>
-  <div style="margin-top: 120px;">
-    <div class="slide-title">100 ідей<br>для Reels<br>з гачками</div>
-    <div class="slide-subtitle">Збережи і використовуй<br>як банк гачків →</div>
-  </div>
+  <div class="num">1 / 7</div>
+  <div class="title-big">100 ідей<br>для Reels<br>з гачками</div>
+  <div class="title-sub">Збережи і використовуй<br>як банк гачків →</div>
   <div class="handle">@ksysha_bogdanets</div>
 </div>
 
 <!-- СЛАЙД 2 -->
 <div class="slide">
-  <div class="slide-num">2/7</div>
-  <div>
-    <div class="section">
-      <div class="section-title">🎯 1. Спостереження / інсайти</div>
-      <ol>
-        <li>"Я помітила одну дивну річ..."</li>
-        <li>"Ти теж це робиш але не помічаєш"</li>
-        <li>"Ніхто не звертає на це уваги"</li>
-        <li>"Ти точно це бачила але..."</li>
-        <li>"Проблема не в тому що ти думаєш"</li>
-        <li>"Ти не туди дивишся"</li>
-        <li>"Це не очевидно але важливо"</li>
-        <li>"Ти недооцінюєш це"</li>
-        <li>"Ось де правда"</li>
-        <li>"Я теж не помічала"</li>
-      </ol>
-    </div>
-    <div class="divider"></div>
-    <div class="section">
-      <div class="section-title">⚡ 2. Особистий досвід</div>
-      <ol>
-        <li>"Я перевірила це на собі"</li>
-        <li>"Я раніше ігнорувала це... даремно"</li>
-        <li>"Я була в шоці коли зрозуміла це"</li>
-        <li>"Я теж робила цю помилку"</li>
-        <li>"Я змінила одну річ — і..."</li>
-        <li>"Я робила це роками неправильно"</li>
-        <li>"Тепер роблю інакше"</li>
-        <li>"Шкодую що не знала це раніше"</li>
-        <li>"Ось як це роблю я"</li>
-        <li>"Тепер по-іншому"</li>
-      </ol>
-    </div>
+  <div class="num">2 / 7</div>
+  <div class="cat">
+    <div class="cat-title">🎯 1. Спостереження / інсайти</div>
+    <ol class="cat-list">
+      <li>"Я помітила одну дивну річ..."</li>
+      <li>"Ти теж це робиш але не помічаєш"</li>
+      <li>"Ніхто не звертає на це уваги"</li>
+      <li>"Ти точно це бачила але..."</li>
+      <li>"Проблема не в тому що ти думаєш"</li>
+      <li>"Ти не туди дивишся"</li>
+      <li>"Це не очевидно але важливо"</li>
+      <li>"Ти недооцінюєш це"</li>
+      <li>"Ось де правда"</li>
+      <li>"Я теж не помічала"</li>
+    </ol>
+  </div>
+  <div class="divider"></div>
+  <div class="cat">
+    <div class="cat-title">⚡ 2. Особистий досвід</div>
+    <ol class="cat-list">
+      <li>"Я перевірила це на собі"</li>
+      <li>"Я раніше ігнорувала це... даремно"</li>
+      <li>"Я була в шоці коли зрозуміла це"</li>
+      <li>"Я теж робила цю помилку"</li>
+      <li>"Я змінила одну річ — і..."</li>
+      <li>"Я робила це роками неправильно"</li>
+      <li>"Тепер роблю інакше"</li>
+      <li>"Шкодую що не знала це раніше"</li>
+      <li>"Ось як це роблю я"</li>
+      <li>"Тепер по-іншому"</li>
+    </ol>
   </div>
   <div class="handle">@ksysha_bogdanets</div>
 </div>
 
 <!-- СЛАЙД 3 -->
 <div class="slide">
-  <div class="slide-num">3/7</div>
-  <div>
-    <div class="section">
-      <div class="section-title">🔍 3. Розбір / пояснення</div>
-      <ol>
-        <li>"Ось що реально працює"</li>
-        <li>"Дивись що відбувається коли ти..."</li>
-        <li>"Ось як це виглядає насправді"</li>
-        <li>"Якщо коротко — роби так"</li>
-        <li>"Покажу на прикладі"</li>
-        <li>"Без зайвих слів"</li>
-        <li>"Порівняй це з цим"</li>
-        <li>"Різниця колосальна"</li>
-        <li>"Ось відповідь"</li>
-        <li>"Зараз буде суть"</li>
-      </ol>
-    </div>
-    <div class="divider"></div>
-    <div class="section">
-      <div class="section-title">⚠️ 4. Помилки</div>
-      <ol>
-        <li>"Ось де ти втрачаєш результат"</li>
-        <li>"Ось де більшість зупиняється"</li>
-        <li>"Ти ускладнюєш"</li>
-        <li>"Ти упускаєш головне"</li>
-        <li>"Ось чому це не працює у тебе"</li>
-        <li>"Ти витрачаєш час даремно"</li>
-        <li>"Ти відкладаєш це"</li>
-        <li>"Це непомітно гальмує тебе"</li>
-        <li>"Але це заважає"</li>
-        <li>"Ти звикла до цього"</li>
-      </ol>
-    </div>
+  <div class="num">3 / 7</div>
+  <div class="cat">
+    <div class="cat-title">🔍 3. Розбір / пояснення</div>
+    <ol class="cat-list">
+      <li>"Ось що реально працює"</li>
+      <li>"Дивись що відбувається коли ти..."</li>
+      <li>"Ось як це виглядає насправді"</li>
+      <li>"Якщо коротко — роби так"</li>
+      <li>"Покажу на прикладі"</li>
+      <li>"Без зайвих слів"</li>
+      <li>"Порівняй це з цим"</li>
+      <li>"Різниця колосальна"</li>
+      <li>"Ось відповідь"</li>
+      <li>"Зараз буде суть"</li>
+    </ol>
+  </div>
+  <div class="divider"></div>
+  <div class="cat">
+    <div class="cat-title">⚠️ 4. Помилки</div>
+    <ol class="cat-list">
+      <li>"Ось де ти втрачаєш результат"</li>
+      <li>"Ось де більшість зупиняється"</li>
+      <li>"Ти ускладнюєш"</li>
+      <li>"Ти упускаєш головне"</li>
+      <li>"Ось чому це не працює у тебе"</li>
+      <li>"Ти витрачаєш час даремно"</li>
+      <li>"Ти відкладаєш це"</li>
+      <li>"Це непомітно гальмує тебе"</li>
+      <li>"Але це заважає"</li>
+      <li>"Ти звикла до цього"</li>
+    </ol>
   </div>
   <div class="handle">@ksysha_bogdanets</div>
 </div>
 
 <!-- СЛАЙД 4 -->
 <div class="slide">
-  <div class="slide-num">4/7</div>
-  <div>
-    <div class="section">
-      <div class="section-title">🚀 5. Простота / оптимізація</div>
-      <ol>
-        <li>"Це простіше ніж ти думаєш"</li>
-        <li>"Насправді все простіше"</li>
-        <li>"Ось як прискорити процес"</li>
-        <li>"Це економить купу часу"</li>
-        <li>"Зроби це один раз"</li>
-        <li>"Мінімум дій — максимум результату"</li>
-        <li>"Це скорочує шлях"</li>
-        <li>"Ось як прибрати зайве"</li>
-        <li>"Зроби простіше"</li>
-        <li>"Почни з цього"</li>
-      </ol>
-    </div>
-    <div class="divider"></div>
-    <div class="section">
-      <div class="section-title">🧠 6. Переосмислення</div>
-      <ol>
-        <li>"Спробуй зробити навпаки"</li>
-        <li>"Це здається логічним але ні"</li>
-        <li>"Тут є підвох"</li>
-        <li>"Це ламає звичний підхід"</li>
-        <li>"Якщо ти це зрозумієш — стане легше"</li>
-        <li>"Це змінить підхід"</li>
-        <li>"Зрозуміють не всі"</li>
-        <li>"Але ти зрозумієш"</li>
-        <li>"Фокус ось тут"</li>
-        <li>"Не розпилюйся"</li>
-      </ol>
-    </div>
+  <div class="num">4 / 7</div>
+  <div class="cat">
+    <div class="cat-title">🚀 5. Простота / оптимізація</div>
+    <ol class="cat-list">
+      <li>"Це простіше ніж ти думаєш"</li>
+      <li>"Насправді все простіше"</li>
+      <li>"Ось як прискорити процес"</li>
+      <li>"Це економить купу часу"</li>
+      <li>"Зроби це один раз"</li>
+      <li>"Мінімум дій — максимум результату"</li>
+      <li>"Це скорочує шлях"</li>
+      <li>"Ось як прибрати зайве"</li>
+      <li>"Зроби простіше"</li>
+      <li>"Почни з цього"</li>
+    </ol>
+  </div>
+  <div class="divider"></div>
+  <div class="cat">
+    <div class="cat-title">🧠 6. Переосмислення</div>
+    <ol class="cat-list">
+      <li>"Спробуй зробити навпаки"</li>
+      <li>"Це здається логічним але ні"</li>
+      <li>"Тут є підвох"</li>
+      <li>"Це ламає звичний підхід"</li>
+      <li>"Якщо ти це зрозумієш — стане легше"</li>
+      <li>"Це змінить підхід"</li>
+      <li>"Зрозуміють не всі"</li>
+      <li>"Але ти зрозумієш"</li>
+      <li>"Фокус ось тут"</li>
+      <li>"Не розпилюйся"</li>
+    </ol>
   </div>
   <div class="handle">@ksysha_bogdanets</div>
 </div>
 
 <!-- СЛАЙД 5 -->
 <div class="slide">
-  <div class="slide-num">5/7</div>
-  <div>
-    <div class="section">
-      <div class="section-title">🎯 7. Залучення</div>
-      <ol>
-        <li>"Ось швидкий тест для тебе"</li>
-        <li>"Перевір прямо зараз"</li>
-        <li>"Зроби це разом зі мною"</li>
-        <li>"Зупинись на секунду"</li>
-        <li>"Відповідь собі чесно"</li>
-        <li>"Ти на якому етапі?"</li>
-        <li>"Порівняй себе"</li>
-        <li>"Що б ти обрала?"</li>
-        <li>"1 або 2?"</li>
-        <li>"Вгадай результат"</li>
-      </ol>
-    </div>
-    <div class="divider"></div>
-    <div class="section">
-      <div class="section-title">💬 8. Чесна розмова</div>
-      <ol>
-        <li>"Давай чесно"</li>
-        <li>"Ти готова це почути?"</li>
-        <li>"Це не для всіх"</li>
-        <li>"Але якщо ти досмотриш..."</li>
-        <li>"Пора це виправити"</li>
-        <li>"Ти можеш краще"</li>
-        <li>"Ось твоя точка росту"</li>
-        <li>"Серйозно"</li>
-        <li>"Ось де правда"</li>
-        <li>"Пора це змінити"</li>
-      </ol>
-    </div>
+  <div class="num">5 / 7</div>
+  <div class="cat">
+    <div class="cat-title">🎯 7. Залучення</div>
+    <ol class="cat-list">
+      <li>"Ось швидкий тест для тебе"</li>
+      <li>"Перевір прямо зараз"</li>
+      <li>"Зроби це разом зі мною"</li>
+      <li>"Зупинись на секунду"</li>
+      <li>"Відповідь собі чесно"</li>
+      <li>"Ти на якому етапі?"</li>
+      <li>"Порівняй себе"</li>
+      <li>"Що б ти обрала?"</li>
+      <li>"1 або 2?"</li>
+      <li>"Вгадай результат"</li>
+    </ol>
+  </div>
+  <div class="divider"></div>
+  <div class="cat">
+    <div class="cat-title">💬 8. Чесна розмова</div>
+    <ol class="cat-list">
+      <li>"Давай чесно"</li>
+      <li>"Ти готова це почути?"</li>
+      <li>"Це не для всіх"</li>
+      <li>"Але якщо ти досмотриш..."</li>
+      <li>"Пора це виправити"</li>
+      <li>"Ти можеш краще"</li>
+      <li>"Ось твоя точка росту"</li>
+      <li>"Серйозно"</li>
+      <li>"Ось де правда"</li>
+      <li>"Пора це змінити"</li>
+    </ol>
   </div>
   <div class="handle">@ksysha_bogdanets</div>
 </div>
 
 <!-- СЛАЙД 6 -->
 <div class="slide">
-  <div class="slide-num">6/7</div>
-  <div>
-    <div class="section">
-      <div class="section-title">⏳ 9. Утримання уваги</div>
-      <ol>
-        <li>"Дивись уважно"</li>
-        <li>"Дивись до кінця"</li>
-        <li>"Фінал важливий"</li>
-        <li>"Там найголовніше"</li>
-        <li>"Не перемикайся"</li>
-        <li>"Залишилось трохи"</li>
-        <li>"Готова?"</li>
-        <li>"Хвилина — і зрозумієш"</li>
-        <li>"Дивись..."</li>
-        <li>"Ось і все"</li>
-      </ol>
-    </div>
-    <div class="divider"></div>
-    <div class="section">
-      <div class="section-title">🔄 10. Заклик до дії</div>
-      <ol>
-        <li>"Спробуй повторити"</li>
-        <li>"Результат здивує"</li>
-        <li>"Зроби це зараз"</li>
-        <li>"Перевір на практиці"</li>
-        <li>"Не відкладай"</li>
-        <li>"Почни прямо сьогодні"</li>
-        <li>"Збережи щоб не загубити"</li>
-        <li>"Повернись до цього пізніше"</li>
-        <li>"Використай це"</li>
-        <li>"Спробуй і напиши результат"</li>
-      </ol>
-    </div>
+  <div class="num">6 / 7</div>
+  <div class="cat">
+    <div class="cat-title">⏳ 9. Утримання уваги</div>
+    <ol class="cat-list">
+      <li>"Дивись уважно"</li>
+      <li>"Дивись до кінця"</li>
+      <li>"Фінал важливий"</li>
+      <li>"Там найголовніше"</li>
+      <li>"Не перемикайся"</li>
+      <li>"Залишилось трохи"</li>
+      <li>"Готова?"</li>
+      <li>"Хвилина — і зрозумієш"</li>
+      <li>"Дивись..."</li>
+      <li>"Ось і все"</li>
+    </ol>
+  </div>
+  <div class="divider"></div>
+  <div class="cat">
+    <div class="cat-title">🔄 10. Заклик до дії</div>
+    <ol class="cat-list">
+      <li>"Спробуй повторити"</li>
+      <li>"Результат здивує"</li>
+      <li>"Зроби це зараз"</li>
+      <li>"Перевір на практиці"</li>
+      <li>"Не відкладай"</li>
+      <li>"Почни прямо сьогодні"</li>
+      <li>"Збережи щоб не загубити"</li>
+      <li>"Повернись до цього пізніше"</li>
+      <li>"Використай це"</li>
+      <li>"Спробуй і напиши результат"</li>
+    </ol>
   </div>
   <div class="handle">@ksysha_bogdanets</div>
 </div>
 
 <!-- СЛАЙД 7 — CTA -->
-<div class="slide cta-slide">
-  <div>
-    <div class="big-title">Перестань знімати Reels у пустоту.</div>
-    <div class="desc">За 7 днів навчись знімати так,<br>щоб клієнти писали самі.<br>Без реклами. Без мільйона підписників.</div>
+<div class="slide">
+  <div class="num">7 / 7</div>
+  <div class="cta-wrap">
+    <div class="cta-title">Перестань знімати Reels у пустоту.</div>
+    <div class="cta-desc">За 7 днів навчись знімати так,<br>щоб клієнти писали самі.<br>Без реклами. Без мільйона підписників.</div>
     <div class="cta-btn">Sprint — в описі профілю</div>
     <div class="cta-handle">@ksysha_bogdanets</div>
   </div>
