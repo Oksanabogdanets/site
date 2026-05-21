@@ -30,31 +30,39 @@ def on_page(canvas, doc):
     # Header
     canvas.saveState()
     canvas.setFillColor(BURG2)
-    canvas.rect(0, H - 108, W, 108, fill=1, stroke=0)
+    canvas.rect(0, H - 120, W, 120, fill=1, stroke=0)
     canvas.setStrokeColor(GOLD)
     canvas.setLineWidth(0.5)
-    canvas.line(20*mm, H - 110, W - 20*mm, H - 110)
+    canvas.line(20*mm, H - 122, W - 20*mm, H - 122)
 
     canvas.setFillColor(TAUPE2)
     canvas.setFont('Sans', 9)
-    canvas.drawCentredString(W/2, H - 26, 'індивідуальна програма')
+    canvas.drawCentredString(W/2, H - 26, 'індивідуальна програма для')
 
     canvas.setFillColor(WHITE)
-    canvas.setFont('Serif-Bold', 24)
-    canvas.drawCentredString(W/2, H - 50, 'НАВЧАННЯ SMM')
+    canvas.setFont('Serif-Bold', 28)
+    canvas.drawCentredString(W/2, H - 48, 'VIVA DENT')
 
-    canvas.setFont('Sans', 12)
+    canvas.setFont('Sans', 11)
     canvas.setFillColor(TAUPE2)
-    canvas.drawCentredString(W/2, H - 67, 'для стоматологічної клініки')
+    canvas.drawCentredString(W/2, H - 63, 'Стоматологічна клініка')
+
+    canvas.setStrokeColor(GOLD)
+    canvas.setLineWidth(0.4)
+    canvas.line(W/2 - 40, H - 71, W/2 + 40, H - 71)
+
+    canvas.setFont('Serif-Bold', 13)
+    canvas.setFillColor(WHITE)
+    canvas.drawCentredString(W/2, H - 80, 'НАВЧАННЯ SMM')
 
     canvas.setFont('Sans', 8)
     canvas.setFillColor(colors.HexColor('#9B8060'))
-    canvas.drawCentredString(W/2, H - 82, '5 днів  ·  10 годин  ·  від нуля до самостійного ведення соцмереж')
+    canvas.drawCentredString(W/2, H - 93, '5 днів  ·  10 годин  ·  від нуля до самостійного ведення соцмереж')
 
     # Price badge
     bw, bh = 80, 24
     bx = W/2 - bw/2
-    by = H - 112
+    by = H - 126
     canvas.setFillColor(GOLD)
     canvas.roundRect(bx, by, bw, bh, 4, fill=1, stroke=0)
     canvas.setFillColor(WHITE)
@@ -114,7 +122,7 @@ s_topics = ParagraphStyle('tp', fontName='Sans',       fontSize=12, textColor=MU
 s_daynum = ParagraphStyle('dn', fontName='Serif-Bold', fontSize=10, textColor=TAUPE2,alignment=1, leading=12)
 s_num    = ParagraphStyle('n',  fontName='Serif-Bold', fontSize=32, textColor=WHITE, alignment=1, leading=36)
 
-story = [Spacer(1, 50*mm)]
+story = [Spacer(1, 56*mm)]
 
 for d in days:
     cell_left = [
