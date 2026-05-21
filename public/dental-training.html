@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Навчання SMM — Стоматологічна клініка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Dancing+Script:wght@600;700&family=Lora:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --cream:  #F8F0E8;
+      --cream2: #EDE0CF;
+      --burg:   #641C2A;
+      --burg2:  #4A1320;
+      --taupe:  #9B8060;
+      --taupe2: #C4A882;
+      --dark:   #1A0F08;
+      --text:   #2C1A10;
+      --muted:  #7A5840;
+      --gold:   #B8926A;
+    }
+
+    body {
+      font-family: 'Lora', Georgia, serif;
+      background: var(--cream);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 32px; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--burg2);
+      color: #fff;
+      padding: 80px 32px 70px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 30% 50%, rgba(184,146,106,0.15) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: var(--taupe2);
+      display: block;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(2rem, 6vw, 3.4rem);
+      text-transform: uppercase;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--taupe2);
+      display: block;
+      font-size: 0.7em;
+      font-weight: 700;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      opacity: 0.8;
+      max-width: 500px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .hero-price-box {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      padding: 18px 48px;
+      border-radius: 4px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+    }
+    .hero-price-box span {
+      display: block;
+      font-family: 'Lora', serif;
+      font-weight: 400;
+      font-size: 0.65rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 4px;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex; align-items: center; gap: 16px;
+      margin: 0 auto; max-width: 260px; padding: 40px 0 0;
+    }
+    .divider::before, .divider::after {
+      content: ''; flex: 1; height: 1px;
+      background: var(--gold); opacity: 0.5;
+    }
+    .divider span { color: var(--gold); font-size: 0.9rem; }
+
+    /* ── INTRO ── */
+    .intro {
+      text-align: center;
+      padding: 60px 32px 40px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .intro .script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.3rem;
+      color: var(--burg);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .intro h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .intro p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    /* ── DAYS ── */
+    .days { padding: 20px 32px 80px; max-width: 900px; margin: 0 auto; }
+
+    .day-card {
+      background: #fff;
+      border: 1px solid rgba(184,146,106,0.25);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 24px rgba(44,26,16,0.07);
+      display: grid;
+      grid-template-columns: 120px 1fr;
+    }
+
+    .day-num {
+      background: var(--burg);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      text-align: center;
+    }
+    .day-num .script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 0.85rem;
+      opacity: 0.75;
+      margin-bottom: 4px;
+    }
+    .day-num .num {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 2.8rem;
+      line-height: 1;
+    }
+
+    .day-body { padding: 28px 32px; }
+
+    .day-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--burg);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .day-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(184,146,106,0.3);
+    }
+
+    .topics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .topic {
+      background: var(--cream2);
+      border: 1px solid rgba(184,146,106,0.3);
+      border-radius: 20px;
+      padding: 5px 16px;
+      font-size: 0.82rem;
+      color: var(--text);
+      font-family: 'Lora', serif;
+    }
+
+    .result-label {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .result-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.65;
+      font-style: italic;
+      border-left: 2px solid var(--gold);
+      padding-left: 14px;
+    }
+
+    /* ── PRICE ── */
+    .price-section {
+      background: var(--dark);
+      color: #fff;
+      padding: 80px 32px;
+      text-align: center;
+    }
+    .price-section .script {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.4rem;
+      color: var(--taupe2);
+      display: block;
+      margin-bottom: 10px;
+    }
+    .price-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      text-transform: uppercase;
+      margin-bottom: 48px;
+    }
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 700px;
+      margin: 0 auto 48px;
+    }
+    .price-item {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(184,146,106,0.2);
+      border-radius: 6px;
+      padding: 24px 16px;
+      text-align: center;
+    }
+    .price-item .p-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--taupe2);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .price-item .p-lab {
+      font-size: 0.75rem;
+      opacity: 0.6;
+      line-height: 1.4;
+    }
+    .price-total {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      padding: 24px 60px;
+      border-radius: 4px;
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+    .price-note {
+      font-size: 0.82rem;
+      opacity: 0.55;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--burg2);
+      color: rgba(248,240,232,0.5);
+      padding: 32px;
+      text-align: center;
+      font-size: 0.8rem;
+      line-height: 1.9;
+    }
+    footer strong { color: var(--taupe2); }
+
+    /* ── ORNAMENT ── */
+    .ornament {
+      text-align: center;
+      color: var(--gold);
+      opacity: 0.4;
+      font-size: 1.2rem;
+      letter-spacing: 0.3em;
+      padding: 8px 0;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .day-card { grid-template-columns: 80px 1fr; }
+      .day-num .num { font-size: 2rem; }
+      .day-body { padding: 20px; }
+      .price-grid { grid-template-columns: 1fr; max-width: 280px; }
+      .hero { padding: 60px 20px 50px; }
+      .days { padding: 20px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <span class="hero-script">індивідуальна програма</span>
+  <h1>Навчання SMM<em>для стоматологічної клініки</em></h1>
+  <p class="hero-sub">5 днів · 10 годин · від нуля до самостійного ведення соцмереж</p>
+  <div class="hero-price-box">
+    <span>вартість програми</span>
+    20 000 ₴
+  </div>
+</section>
+
+<!-- INTRO -->
+<div class="intro">
+  <span class="script">що ви отримаєте</span>
+  <h2>Програма навчання</h2>
+  <p>Індивідуальна програма під вашу клініку. Після навчання адміністратор самостійно веде Stories, каруселі та робить базовий монтаж відео.</p>
+  <div class="divider"><span>✦</span></div>
+</div>
+
+<!-- DAYS -->
+<div class="days">
+
+  <div class="day-card">
+    <div class="day-num">
+      <span class="script">день</span>
+      <span class="num">1</span>
+    </div>
+    <div class="day-body">
+      <div class="day-title">Сторітелінг</div>
+      <div class="topics">
+        <span class="topic">Експертні</span>
+        <span class="topic">Кейси</span>
+        <span class="topic">Болі клієнтів</span>
+        <span class="topic">Заперечення</span>
+      </div>
+      <div class="result-label">Результат</div>
+      <div class="result-text">Навчимося прописувати Stories які привертають увагу цільової аудиторії, викликають довіру та залучають нових пацієнтів у клініку</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-num">
+      <span class="script">день</span>
+      <span class="num">2</span>
+    </div>
+    <div class="day-body">
+      <div class="day-title">Каруселі</div>
+      <div class="topics">
+        <span class="topic">Експертні</span>
+        <span class="topic">Продуктові</span>
+        <span class="topic">Знайомство з фахівцями</span>
+        <span class="topic">Кейси</span>
+        <span class="topic">Особисті</span>
+      </div>
+      <div class="result-label">Результат</div>
+      <div class="result-text">Вмієш створювати каруселі які люди гортають до кінця, зберігають і пересилають — це органічне просування сторінки</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-num">
+      <span class="script">день</span>
+      <span class="num">3</span>
+    </div>
+    <div class="day-body">
+      <div class="day-title">Воронки</div>
+      <div class="topics">
+        <span class="topic">Через Stories</span>
+        <span class="topic">Через каруселі</span>
+        <span class="topic">Запис на консультацію</span>
+      </div>
+      <div class="result-label">Результат</div>
+      <div class="result-text">Розумієш як вибудувати систему контенту яка веде людину від першого перегляду до запису на консультацію</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-num">
+      <span class="script">день</span>
+      <span class="num">4</span>
+    </div>
+    <div class="day-body">
+      <div class="day-title">Зйомка</div>
+      <div class="topics">
+        <span class="topic">Налаштування камери</span>
+        <span class="topic">Виставлення світла</span>
+        <span class="topic">Розкадрування</span>
+      </div>
+      <div class="result-label">Результат</div>
+      <div class="result-text">Знімаєш на телефон так що виглядає як у справжнього фотографа — клієнти бачать якісну клініку ще до першого візиту</div>
+    </div>
+  </div>
+
+  <div class="day-card">
+    <div class="day-num">
+      <span class="script">день</span>
+      <span class="num">5</span>
+    </div>
+    <div class="day-body">
+      <div class="day-title">Монтаж</div>
+      <div class="topics">
+        <span class="topic">Базовий монтаж відео</span>
+        <span class="topic">Stories</span>
+        <span class="topic">Reels</span>
+      </div>
+      <div class="result-label">Результат</div>
+      <div class="result-text">Монтуєш Stories та Reels сама, без фрілансерів і без паніки — повна самостійність у веденні соцмереж</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- PRICE -->
+<section class="price-section">
+  <span class="script">інвестиція в результат</span>
+  <h2>Вартість програми</h2>
+  <div class="price-grid">
+    <div class="price-item">
+      <div class="p-val">5</div>
+      <div class="p-lab">днів навчання</div>
+    </div>
+    <div class="price-item">
+      <div class="p-val">10</div>
+      <div class="p-lab">годин практики</div>
+    </div>
+    <div class="price-item">
+      <div class="p-val">2 000 ₴</div>
+      <div class="p-lab">вартість години</div>
+    </div>
+  </div>
+  <div class="price-total">20 000 ₴</div>
+  <div class="price-note">індивідуально · під вашу клініку · з шаблонами</div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Оксана Богданець</strong><br>
+  SMM-стратег · Reels-продюсер
+</footer>
+
+</body>
+</html>
