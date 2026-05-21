@@ -109,12 +109,10 @@ days = [
     },
 ]
 
-s_title  = ParagraphStyle('t', fontName='Serif-Bold',  fontSize=11, textColor=BURG,  spaceAfter=7, leading=14)
-s_topics = ParagraphStyle('tp', fontName='Sans',       fontSize=8.5, textColor=MUTED, spaceAfter=10, leading=13)
-s_rlabel = ParagraphStyle('rl', fontName='Sans-Bold',  fontSize=7,  textColor=GOLD,  spaceAfter=4,  letterSpacing=0.8)
-s_result = ParagraphStyle('r',  fontName='Sans-Italic',fontSize=9,  textColor=MUTED, leading=14)
-s_daynum = ParagraphStyle('dn', fontName='Serif-Bold', fontSize=8,  textColor=TAUPE2,alignment=1, leading=10)
-s_num    = ParagraphStyle('n',  fontName='Serif-Bold', fontSize=26, textColor=WHITE, alignment=1, leading=30)
+s_title  = ParagraphStyle('t', fontName='Serif-Bold',  fontSize=16, textColor=BURG,  spaceAfter=12, leading=20)
+s_topics = ParagraphStyle('tp', fontName='Sans',       fontSize=12, textColor=MUTED, spaceAfter=0,  leading=18)
+s_daynum = ParagraphStyle('dn', fontName='Serif-Bold', fontSize=10, textColor=TAUPE2,alignment=1, leading=12)
+s_num    = ParagraphStyle('n',  fontName='Serif-Bold', fontSize=32, textColor=WHITE, alignment=1, leading=36)
 
 story = [Spacer(1, 50*mm)]
 
@@ -126,10 +124,8 @@ for d in days:
     cell_right = [
         Paragraph(d['title'], s_title),
         Paragraph(d['topics'], s_topics),
-        Paragraph('РЕЗУЛЬТАТ', s_rlabel),
-        Paragraph(d['result'], s_result),
     ]
-    tbl = Table([[cell_left, cell_right]], colWidths=[26*mm, 132*mm])
+    tbl = Table([[cell_left, cell_right]], colWidths=[30*mm, 128*mm])
     tbl.setStyle(TableStyle([
         ('BACKGROUND',    (0,0), (0,0), BURG),
         ('BACKGROUND',    (1,0), (1,0), WHITE),
@@ -152,9 +148,9 @@ for d in days:
 story.append(Spacer(1, 8))
 story.append(HRFlowable(width='100%', thickness=0.5, color=GOLD, spaceAfter=14))
 
-s_pval = ParagraphStyle('pv', fontName='Serif-Bold', fontSize=20, textColor=BURG,  alignment=1, leading=24)
-s_p450 = ParagraphStyle('p4', fontName='Serif-Bold', fontSize=20, textColor=GOLD,  alignment=1, leading=24)
-s_plab = ParagraphStyle('pl', fontName='Sans',       fontSize=8,  textColor=MUTED, alignment=1, spaceAfter=0)
+s_pval = ParagraphStyle('pv', fontName='Serif-Bold', fontSize=26, textColor=BURG,  alignment=1, leading=30)
+s_p450 = ParagraphStyle('p4', fontName='Serif-Bold', fontSize=26, textColor=GOLD,  alignment=1, leading=30)
+s_plab = ParagraphStyle('pl', fontName='Sans',       fontSize=11, textColor=MUTED, alignment=1, spaceAfter=0)
 
 price_tbl = Table([[
     [Paragraph('5',           s_pval), Paragraph('днів навчання',  s_plab)],
