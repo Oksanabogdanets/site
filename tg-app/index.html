@@ -540,6 +540,26 @@
     </button>
   </nav>
 
+  <!-- ══════════════════════ ЕКРАН-ОФФЕР (модалка) ══════════════════════ -->
+  <div id="offer-modal" class="offer-overlay hidden">
+    <div class="offer-card">
+      <div class="offer-emoji">🎁</div>
+      <h2 class="offer-title">Безкоштовний розбір профілю</h2>
+      <p class="offer-sub">Підпишись на бота — надішлю персональний розбір в особисті</p>
+      <ul class="offer-bullets">
+        <li>✓ Покажу що заважає заявкам з Reels</li>
+        <li>✓ Перша дізнаєшся про відкриття набору</li>
+        <li>✓ Ексклюзивні матеріали для підписників</li>
+      </ul>
+      <a href="https://t.me/oksana_bogdanets_bot?start=from_app"
+         class="btn-primary offer-btn"
+         onclick="closeOffer()">
+        Отримати розбір безкоштовно
+      </a>
+      <button class="offer-skip" onclick="closeOffer()">Пропустити</button>
+    </div>
+  </div>
+
   <script src="app.js"></script>
 </body>
 </html>

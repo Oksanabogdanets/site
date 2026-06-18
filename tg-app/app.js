@@ -191,7 +191,26 @@ function submitForm(e) {
   document.getElementById('form-success').classList.remove('hidden');
 }
 
-/* ─── 9. Тач-фидбек для всех кнопок ─── */
+/* ── 9. Екран-оффер ── */
+function showOfferIfNeeded() {
+  if (localStorage.getItem('offer_shown')) return;
+  setTimeout(() => {
+    document.getElementById('offer-modal').classList.remove('hidden');
+  }, 800);
+}
+
+function closeOffer() {
+  localStorage.setItem('offer_shown', '1');
+  const modal = document.getElementById('offer-modal');
+  modal.style.transition = 'opacity 200ms';
+  modal.style.opacity = '0';
+  setTimeout(() => modal.classList.add('hidden'), 200);
+  if (tg?.HapticFeedback) tg.HapticFeedback.selectionChanged();
+}
+
+showOfferIfNeeded();
+
+/* ── 10. Тач-рибек для всіх кнопок ── */
 document.querySelectorAll('button, a').forEach(el => {
-  el.addEventListener('touchstart', () => {}, { passive: true }); // разблокирует :active на iOS
+  el.addEventListener('touchstart', () => {}, { passive: true });
 });
