@@ -1185,6 +1185,47 @@
     .about { padding: 60px 20px; }
   }
 
+  /* ── VISUALS + BIGGER, CLEARER TYPE ── */
+  .hero { position: relative; }
+  .hero-visual {
+    position: absolute; inset: 0; z-index: 0;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none; opacity: 0.55;
+  }
+  .hero-visual svg { width: min(640px, 82vw); height: auto; }
+  .hero-left { position: relative; z-index: 2; }
+
+  .hero-subtitle { font-size: clamp(23px, 2.7vw, 33px); color: #d9cdbd; }
+  .hero-desc { font-size: 16.5px; line-height: 1.9; font-weight: 400; color: #c2b5a4; }
+
+  .about { grid-template-columns: 1.05fr 0.95fr; max-width: 1120px; gap: 84px; align-items: center; }
+  .about .pains { max-width: none; margin: 0; }
+  .about-visual { display: block; }
+  .about-visual svg { width: 100%; height: auto; }
+  .about-text { font-size: 17px; line-height: 1.95; font-weight: 400; color: #cabeae; }
+  .pains li { font-size: 15.5px; font-weight: 400; color: #c2b5a4; }
+
+  .service-title { font-size: 27px; }
+  .service-desc { font-size: 15px; line-height: 1.8; font-weight: 400; color: #bbae9d; }
+  .step-title { font-size: 25px; }
+  .step-desc { font-size: 15px; line-height: 1.75; font-weight: 400; color: #bbae9d; }
+  .highlight-list li { font-size: 15.5px; font-weight: 400; color: #c5b8a8; }
+  .topics-intro { font-size: 15.5px; font-weight: 400; color: #bbae9d; }
+  .chip { font-size: 15px; color: #d2c6b6; }
+  #forwhom .testimonial-text { font-size: 22px; }
+  .cta-section p { font-size: 17px; font-weight: 400; line-height: 1.85; color: #c2b5a4; }
+  .section-label { font-size: 11px; }
+  .nav-links a { font-size: 12px; }
+
+  @media (max-width: 900px) {
+    .about { grid-template-columns: 1fr; max-width: 840px; gap: 40px; padding: 60px 20px; }
+    .about-visual { max-width: 340px; margin: 0 auto; order: -1; }
+    .hero-visual { opacity: 0.42; }
+    .hero-visual svg { width: 94vw; }
+    .hero-subtitle { font-size: 20px; }
+    .hero-desc { font-size: 14.5px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1204,6 +1245,34 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
+  <div class="hero-visual" aria-hidden="true">
+    <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <g stroke="#c8aa82">
+        <circle cx="300" cy="300" r="80" stroke-opacity="0.5"/>
+        <circle cx="300" cy="300" r="140" stroke-opacity="0.34"/>
+        <circle cx="300" cy="300" r="200" stroke-opacity="0.2"/>
+        <circle cx="300" cy="300" r="262" stroke-opacity="0.1"/>
+      </g>
+      <g stroke="#c8aa82" stroke-opacity="0.16">
+        <line x1="380" y1="300" x2="560" y2="300"/>
+        <line x1="369" y1="340" x2="525" y2="430"/>
+        <line x1="340" y1="369" x2="430" y2="525"/>
+        <line x1="300" y1="380" x2="300" y2="560"/>
+        <line x1="260" y1="369" x2="170" y2="525"/>
+        <line x1="231" y1="340" x2="75" y2="430"/>
+        <line x1="220" y1="300" x2="40" y2="300"/>
+        <line x1="231" y1="260" x2="75" y2="170"/>
+        <line x1="260" y1="231" x2="170" y2="75"/>
+        <line x1="300" y1="220" x2="300" y2="40"/>
+        <line x1="340" y1="231" x2="430" y2="75"/>
+        <line x1="369" y1="260" x2="525" y2="170"/>
+      </g>
+      <circle cx="300" cy="300" r="7" fill="#c8aa82"/>
+      <circle cx="380" cy="300" r="4" fill="#c8aa82" fill-opacity="0.7"/>
+      <circle cx="300" cy="160" r="4" fill="#c8aa82" fill-opacity="0.7"/>
+      <circle cx="180" cy="370" r="4" fill="#c8aa82" fill-opacity="0.7"/>
+    </svg>
+  </div>
   <div class="hero-left">
     <div class="hero-tag">Терапевтична група</div>
     <h1>Самоцінність<br><em>2.0</em></h1>
@@ -1248,6 +1317,21 @@
       <li>постійно себе з кимось порівнювати;</li>
       <li>жити в стані «мене недостатньо».</li>
     </ul>
+  </div>
+  <div class="about-visual" aria-hidden="true">
+    <svg viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" fill="none">
+      <g stroke="#c8aa82" stroke-opacity="0.32">
+        <ellipse cx="250" cy="250" rx="205" ry="92"/>
+        <ellipse cx="250" cy="250" rx="205" ry="92" transform="rotate(60 250 250)"/>
+        <ellipse cx="250" cy="250" rx="205" ry="92" transform="rotate(120 250 250)"/>
+      </g>
+      <circle cx="250" cy="250" r="128" stroke="#c8aa82" stroke-opacity="0.16"/>
+      <circle cx="250" cy="250" r="190" stroke="#c8aa82" stroke-opacity="0.1"/>
+      <circle cx="250" cy="250" r="11" fill="#c8aa82"/>
+      <circle cx="455" cy="250" r="6" fill="#c8aa82" fill-opacity="0.8"/>
+      <circle cx="148" cy="427" r="6" fill="#c8aa82" fill-opacity="0.8"/>
+      <circle cx="148" cy="73" r="6" fill="#c8aa82" fill-opacity="0.8"/>
+    </svg>
   </div>
 </section>
 
