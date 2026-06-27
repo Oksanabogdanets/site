@@ -1270,18 +1270,24 @@
   }
 
   @media (max-width: 900px) {
-    .hero { display: block; min-height: auto; }
+    .hero {
+      display: grid; grid-template-columns: 1.04fr 0.96fr;
+      min-height: auto; align-items: center;
+    }
     .hero-left {
-      align-items: center; text-align: center;
-      padding: 104px 22px 30px;
+      align-items: flex-start; text-align: left;
+      padding: 92px 8px 44px 18px;
     }
-    .hero-tag { justify-content: center; }
-    .hero-actions { justify-content: center; align-items: stretch; }
-    .hero-right { padding: 4px 24px 56px; }
-    .hero-portrait {
-      width: 270px; max-width: 76%; height: 360px; margin: 0 auto;
-    }
-    .hero-portrait::after { right: -14px; top: 18px; }
+    .hero-tag { justify-content: flex-start; font-size: 8px; letter-spacing: 2px; margin-bottom: 14px; }
+    .hero-actions { justify-content: flex-start; align-items: stretch; flex-direction: column; gap: 10px; }
+    .hero-right { padding: 64px 14px 28px 2px; }
+    .hero-portrait { width: 100%; max-width: 215px; height: 300px; margin: 0; }
+    .hero-portrait::after { right: -9px; top: 12px; }
+    h1 { font-size: clamp(30px, 9.5vw, 48px); margin-bottom: 10px; }
+    .hero-subtitle { font-size: 14px; margin-bottom: 14px; }
+    .hero-desc { font-size: 12px; margin-bottom: 22px; max-width: 100%; }
+    .btn-primary { padding: 13px 14px; font-size: 9px; }
+    .btn-ghost { justify-content: flex-start; font-size: 9px; }
   }
 
 </style>
