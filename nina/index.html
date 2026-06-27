@@ -1213,6 +1213,62 @@
     .cta-handles { flex-direction: column; gap: 12px; font-size: 14.5px; }
     .cta-sep { display: none; }
   }
+
+  /* ── PAYMENT REQUISITES ── */
+  .payment { padding: 110px 80px; background: #141210; }
+  .payment-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+  .payment .section-label { justify-content: center; }
+  .payment .section-label::before { display: none; }
+  .payment-card {
+    margin: 40px auto 0; text-align: left;
+    border: 1px solid rgba(200,170,130,0.2); background: #0d0b09;
+    padding: 6px 32px;
+  }
+  .pay-row {
+    display: flex; justify-content: space-between; gap: 24px;
+    padding: 18px 0; border-bottom: 1px solid rgba(200,170,130,0.1);
+    align-items: baseline;
+  }
+  .pay-row:last-child { border-bottom: none; }
+  .pay-k {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); flex-shrink: 0;
+  }
+  .pay-v {
+    font-size: 15px; color: #d2c6b6; text-align: right;
+    word-break: break-word; font-weight: 400;
+  }
+  .pay-iban {
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    justify-content: flex-end; letter-spacing: 0.5px;
+  }
+  .copy-btn {
+    font-family: 'Montserrat', sans-serif; font-size: 10px; letter-spacing: 1.5px;
+    text-transform: uppercase; color: var(--warm-white); background: var(--rose);
+    border: none; padding: 7px 14px; cursor: pointer; transition: all .3s; white-space: nowrap;
+  }
+  .copy-btn:hover { background: var(--deep-rose); }
+  .payment-qr {
+    margin-top: 36px; display: flex; flex-direction: column;
+    align-items: center; gap: 14px;
+  }
+  .qr-img {
+    width: 220px; height: 220px; padding: 14px; background: #fff;
+    border: 1px solid rgba(200,170,130,0.3); display: block;
+  }
+  .payment-qr-cap {
+    font-size: 12px; letter-spacing: 1px; color: var(--text-light);
+    line-height: 1.6; text-align: center;
+  }
+  .payment-note { margin-top: 28px; font-size: 14px; color: var(--text-light); line-height: 1.7; }
+  .payment-note a { color: var(--rose); text-decoration: none; }
+  @media (max-width: 900px) {
+    .payment { padding: 64px 20px; }
+    .payment-card { padding: 4px 20px; }
+    .pay-row { flex-direction: column; gap: 6px; align-items: flex-start; padding: 14px 0; }
+    .pay-v { text-align: left; }
+    .pay-iban { justify-content: flex-start; }
+  }
   .about-text { font-size: 17px; line-height: 1.95; font-weight: 400; color: #cabeae; }
   .pains li { font-size: 15.5px; font-weight: 400; color: #c2b5a4; }
 
@@ -1533,6 +1589,27 @@
   </div>
 </section>
 
+<!-- PAYMENT -->
+<section class="payment" id="payment">
+  <div class="payment-inner">
+    <div class="section-label">Реквізити для оплати</div>
+    <h2>Оплата <em>участі</em></h2>
+    <div class="payment-card">
+      <div class="pay-row"><span class="pay-k">Отримувач</span><span class="pay-v">ФОП Демиденко Ніна Олегівна</span></div>
+      <div class="pay-row"><span class="pay-k">IBAN</span><span class="pay-v pay-iban"><span>UA553220010000026008370065761</span><button class="copy-btn" type="button" data-copy="UA553220010000026008370065761">копіювати</button></span></div>
+      <div class="pay-row"><span class="pay-k">ІПН / ЄДРПОУ</span><span class="pay-v">3242300887</span></div>
+      <div class="pay-row"><span class="pay-k">Банк</span><span class="pay-v">АТ «УНІВЕРСАЛ БАНК»</span></div>
+      <div class="pay-row"><span class="pay-k">МФО</span><span class="pay-v">322001</span></div>
+      <div class="pay-row"><span class="pay-k">ЄДРПОУ банку</span><span class="pay-v">21133352</span></div>
+    </div>
+    <div class="payment-qr">
+      <img class="qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbgAAAG4AQMAAAANBGDwAAAABlBMVEX///8AAABVwtN+AAAACXBIWXMAAA7EAAAOxAGVKw4bAAADmklEQVR4nO2cwXEDMQhFyfjgY0pwKS5tXdqWkhJ89METIvH5iM2kgQ1wiDcKT7n8QYBYi7o9RfRxe42fu1xU5DbW5O5//J6r5kB3ae7k3EOm3Z8XHY9X22I86td1ONuj7WYOY7eXeV+aq8tBUUNnsn1NDjqbpvuniSqp7/WBjZurzo1n4yC54fwBeqrvm0JsrrnQmXvI5/t4uoGbvzb3j7g4j6Ze6GFBxR4RVBCA/j7HmqvEUVHkxiH0Figq7cZVujdXlEs2klxIjqUSo1U4POQva64Q57K524crSrN5XLJgtCTXXFluiiuXPzuExBRINsOnw/TlkdbcyTlLZ71jItdIfW96zIKRv6zH5opyVgGjDQvJKVoqpigNnSn6bnhsriwHD1TODDvou/mqd+NU31FLzd2aq8rZIjuybLYh9bVzbIhrBi5zxulm1tzJuRVJZIpkOKv6KWVJy2NJJ2U1zdXkorh5Sxjv/ygodu19wf5Hc0W543XwIWlh303E49KGq8DP5spynr/s8ru0TqcbzjE19fFuubmanEeg+5TVBg9LfeejSY5CDE51xbPmzsohZiBpSSVy6qPgwGJd/A3f5qpyPlvkOuPN3oal1GzTmDrY4dJcUQ7OM1NxyZkHgtGheYJSibVUcxW5yEmY2fqJpUh94/7Pu/2v5v4HN0Xi17qqqfUKvTyjEDIVuV6Q7zZXk4Oz2RfbarpsLFyVG5vt0lxhziqhNTbiYccz23cunOXXfUBzBbmU767lQwTyFr/IYePmqnLKsVdv8SP1jcvCDbs+gxO8wNPcmbmoXVQ5EeAjSUkkBr4XlxTVXC3u2Il/cTdPfVEMr+YsWirP5spysyO79hDBPHR4xHzBjqmDaXe+B9ZcPY46EwYjb9vfOMoknr/k3Wy1uXNzoQHn7kpl4BJnU97/eVaDi+HmanI+K5J0JrzpU5qrj0cT+3XNFeTkkO9yvsCas/6yp/XdzAF3P14XN1eS21RXGzbe59rWlyCpC9HsmuJScwU5ygg5LBXFN8jTfAFuh2jNnZwLs6+hiTEjT1pSVvNMXdhLc1U5Cscz27gKTPMFrr74Vgqz5opyD/vwSQINRd1QFKX85Thf0FxV7qbpHOOVkJ9j0FmaUoFvc/+Jc+mYbbrmBGKQAPEFKWxz5TlZ861e/aSoQ1/2aZurytnSmotFBz/rLOaQopZqri7nZucYRpKeeE9Y/fB6xD0QNYn56+YKcj8wW+aRw94h6wAAAABJRU5ErkJggg==" alt="QR-код для оплати за реквізитами" width="220" height="220">
+      <span class="payment-qr-cap">Наведіть камеру банківського додатку,<br>щоб оплатити за реквізитами</span>
+    </div>
+    <p class="payment-note">Після оплати напишіть у Telegram <a href="https://t.me/nina8demi" target="_blank">@nina8demi</a>, щоб підтвердити участь у групі.</p>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-brand">
@@ -1559,5 +1636,16 @@
 </footer>
 <div class="footer-copy">© 2026 Ніна Демиденко · Терапевтична група «Самоцінність 2.0»</div>
 
+<script>
+  document.querySelectorAll('.copy-btn').forEach(function(b){
+    b.addEventListener('click', function(){
+      var v = b.getAttribute('data-copy');
+      navigator.clipboard && navigator.clipboard.writeText(v).then(function(){
+        var t = b.textContent; b.textContent = 'Скопійовано';
+        setTimeout(function(){ b.textContent = t; }, 1500);
+      });
+    });
+  });
+</script>
 </body>
 </html>
