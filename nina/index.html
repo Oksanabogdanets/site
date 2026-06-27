@@ -1214,6 +1214,16 @@
     .cta-sep { display: none; }
   }
 
+  /* ── FIX: decorative overlays must not block clicks ── */
+  .cta-section::before,
+  .hero-bg,
+  .services::before,
+  .testimonial-card::before { pointer-events: none; }
+  .cta-section .section-label,
+  .cta-section h2,
+  .cta-section p,
+  .cta-actions { position: relative; z-index: 1; }
+
   /* ── PAYMENT REQUISITES ── */
   .payment { padding: 110px 80px; background: #141210; }
   .payment-inner { max-width: 720px; margin: 0 auto; text-align: center; }
