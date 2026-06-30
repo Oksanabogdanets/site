@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -220,7 +220,7 @@
             <li>✓ Додаткові матеріали і шаблони</li>
             <li>✓ Доступ на 6 місяців</li>
           </ul>
-          <button class="btn-secondary btn-full" onclick="openApply()">Обрати Basic</button>
+          <button class="btn-secondary btn-full" onclick="openApply('basic')">Обрати Basic</button>
         </div>
 
         <div class="tier-card tier-card--popular">
@@ -237,7 +237,7 @@
             <li>✓ Зворотний зв'язок від куратора</li>
             <li>✓ Лекції від 4 спікерів</li>
           </ul>
-          <button class="btn-primary btn-full" onclick="openApply()">Обрати Standard</button>
+          <button class="btn-primary btn-full" onclick="openApply('standard')">Обрати Standard</button>
         </div>
 
         <div class="tier-card">
@@ -251,7 +251,7 @@
             <li>✓ Персональний розбір профілю</li>
             <li>✓ Пріоритетна підтримка</li>
           </ul>
-          <button class="btn-secondary btn-full" onclick="openApply()">Обрати VIP</button>
+          <button class="btn-secondary btn-full" onclick="openApply('vip')">Обрати VIP</button>
         </div>
       </div>
 
@@ -504,9 +504,12 @@
         </form>
 
         <div id="form-success" class="form-success hidden">
-          <span class="success-icon">🎉</span>
-          <strong>Заявку отримано!</strong>
-          <p>Відповім протягом 24 годин. Побачимось на наставництві!</p>
+          <span class="success-icon">✅</span>
+          <strong>Заявку сформовано!</strong>
+          <p>Текст заявки вже скопійовано. Відкрий чат, встав його і натисни ➤ — відповім протягом 24 годин 💙</p>
+          <a href="https://t.me/ksysha_bogdanets" class="btn-primary btn-full" onclick="openTelegram(event)" style="margin-top:14px">
+            ✈️ Надіслати Оксані в Telegram
+          </a>
         </div>
 
         <div class="alternative-contact">
@@ -569,7 +572,7 @@
       </ul>
       <a href="https://t.me/oksana_bogdanets_bot?start=from_app"
          class="btn-primary offer-btn"
-         onclick="closeOffer()">
+         onclick="openOfferBot(event)">
         Отримати розбір безкоштовно
       </a>
       <button class="offer-skip" onclick="closeOffer()">Пропустити</button>
