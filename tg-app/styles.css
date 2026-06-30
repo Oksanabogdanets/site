@@ -1111,5 +1111,31 @@ html, body {
   min-height: 44px;
 }
 
+/* ─── Фото Оксани в hero ─── */
+.avatar-photo {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center 22%;
+  border: 3px solid rgba(255,255,255,0.3);
+  box-shadow: 0 4px 20px rgba(42,171,238,0.35);
+  margin: 0 auto;
+  display: block;
+  background: var(--surface);
+}
+
+/* ─── Фото в картках кейсів ─── */
+.case-photo {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent);
+  background: #0e1621;
+  margin: 0 auto 14px;
+  display: block;
+}
+
 /* ─── Утилиты ─── */
 .hidden { display: none !important; }
