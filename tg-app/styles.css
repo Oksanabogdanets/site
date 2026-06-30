@@ -58,7 +58,7 @@ html, body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
-  user-select: none;
+  user-select: text; /* дозволяємо копіювати нік, ціну, текст кейсів */
 }
 
 /* ─── Экраны ─── */

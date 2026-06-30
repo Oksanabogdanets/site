@@ -248,9 +248,22 @@ function submitForm(e) {
 /* ─── 10. Экран-оффер (модалка) ─── */
 function showOfferIfNeeded() {
   if (localStorage.getItem('offer_shown')) return;
-  setTimeout(() => {
+  let shown = false;
+  const reveal = () => {
+    if (shown || localStorage.getItem('offer_shown')) return;
+    shown = true;
     document.getElementById('offer-modal').classList.remove('hidden');
-  }, 800);
+  };
+  // Показуємо оффер не одразу, а коли юзер погортав головну (ознака інтересу)
+  const home = document.getElementById('screen-home');
+  const area = home ? home.querySelector('.scroll-area') : null;
+  if (area) {
+    area.addEventListener('scroll', () => {
+      if (area.scrollTop > 500) reveal();
+    }, { passive: true });
+  }
+  // Запасний варіант: якщо юзер не гортав — показати через 30 секунд
+  setTimeout(reveal, 30000);
 }
 
 function closeOffer() {
