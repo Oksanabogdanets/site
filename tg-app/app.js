@@ -9,6 +9,8 @@ const CONTACT_USERNAME = 'ksysha_bogdanets';
 const CONTACT_URL = 'https://t.me/' + CONTACT_USERNAME;
 // Бот для лид-магнита (бесплатный разбор из оффер-модалки)
 const OFFER_BOT_URL = 'https://t.me/oksana_bogdanets_bot?start=from_app';
+// Ссылка для «Поделиться» (бот без параметров)
+const BOT_SHARE_URL = 'https://t.me/oksana_bogdanets_bot';
 
 /* ─── 1. Инициализация Telegram Web App ─── */
 const tg = window.Telegram?.WebApp;
@@ -162,6 +164,16 @@ function openOfferBot(e) {
   closeOffer();
 }
 
+/* ─── Поделиться приложением с другом ─── */
+function shareApp(e) {
+  if (e) e.preventDefault();
+  if (tg?.HapticFeedback) tg.HapticFeedback.impactOccurred('light');
+  const text = 'Наставництво з Reels від Оксани Богданець — заявки з контенту без бюджету на рекламу 🎬';
+  const url = 'https://t.me/share/url?url=' + encodeURIComponent(BOT_SHARE_URL) + '&text=' + encodeURIComponent(text);
+  if (tg?.openTelegramLink) tg.openTelegramLink(url);
+  else                      window.open(url, '_blank');
+}
+
 /* ─── 8. Хелперы: нативный алерт и копирование ─── */
 function notify(text) {
   if (tg?.showAlert) tg.showAlert(text);
@@ -251,6 +263,16 @@ function closeOffer() {
 }
 
 showOfferIfNeeded();
+
+/* ─── Персональне привітання з імені Telegram-юзера ─── */
+(function personalizeGreeting() {
+  const u = tg?.initDataUnsafe?.user;
+  const el = document.getElementById('hero-greeting');
+  if (el && u?.first_name) {
+    el.textContent = 'Вітаю, ' + u.first_name + ' 👋';
+    el.style.display = 'block';
+  }
+})();
 
 /* ─── 11. Тач-фидбек для всех кнопок (active-состояние на iOS) ─── */
 document.querySelectorAll('button, a').forEach(el => {
