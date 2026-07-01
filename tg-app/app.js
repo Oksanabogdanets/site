@@ -12,6 +12,10 @@ const OFFER_BOT_URL = 'https://t.me/oksana_bogdanets_bot?start=from_app';
 // Ссылка для «Поделиться» (бот без параметров)
 const BOT_SHARE_URL = 'https://t.me/oksana_bogdanets_bot';
 
+// Supabase — збереження заявок у базу (publishable key безпечний для браузера, база захищена RLS)
+const SUPABASE_URL = 'https://fawyeeigmshztekucqpr.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_dApSThQXCGI93rmtvN3Gjw_7KGwqPw2';
+
 /* ─── 1. Инициализация Telegram Web App ─── */
 const tg = window.Telegram?.WebApp;
 
@@ -199,6 +203,24 @@ function fallbackCopy(text) {
   document.body.removeChild(ta);
 }
 
+/* ─── Збереження заявки в Supabase (не блокує користувача) ─── */
+async function saveLead(lead) {
+  try {
+    await fetch(SUPABASE_URL + '/rest/v1/leads', {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(lead)
+    });
+  } catch (e) {
+    console.warn('Не вдалось зберегти заявку в базу:', e);
+  }
+}
+
 /* ─── 9. Отправка формы ─── */
 // Без sendData (он закрывает app и работает только из keyboard-кнопки).
 // Логика: собираем заявку → копируем готовый текст → лид открывает личку и вставляет.
@@ -237,6 +259,17 @@ function submitForm(e) {
 
   // Копируем — лид просто вставит и отправит
   copyToClipboard(msg);
+
+  // Зберігаємо заявку в базу Supabase (async, не блокує показ успіху)
+  saveLead({
+    name: name,
+    contact: contact,
+    tier: tierVal || null,
+    message: task || null,
+    tg_user_id: u?.id || null,
+    tg_username: u?.username || null,
+    source: 'mini_app'
+  });
 
   if (tg?.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
 
