@@ -5,6 +5,7 @@
     { "src": "nina/index.html", "use": "@vercel/static" }
   ],
   "routes": [
+    { "src": "/audience", "dest": "/public/audience.html" },
     { "src": "/content-sprint", "dest": "/public/content-sprint.html" },
     { "src": "/content-sprint-2", "dest": "/public/content-sprint-2.html" },
     { "src": "/nina", "dest": "/nina/index.html" }
