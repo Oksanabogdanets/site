@@ -1,0 +1,355 @@
+"""
+Export each carousel slide as an individual PNG.
+Generates slide_01.png … slide_07.png in carousel/slides/
+"""
+import os
+import subprocess
+from weasyprint import HTML
+
+CSS = """
+@page { size: 1080px 1350px; margin: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  background: #fff;
+  width: 1080px;
+  height: 1350px;
+  overflow: hidden;
+}
+.slide {
+  width: 1080px;
+  height: 1350px;
+  background: #fff;
+  padding: 70px 80px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+.num {
+  position: absolute;
+  top: 36px;
+  right: 56px;
+  font-size: 27px;
+  color: #aaa;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.handle {
+  font-size: 26px;
+  color: #bbb;
+  margin-top: auto;
+  padding-top: 20px;
+}
+.title-big {
+  font-size: 96px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #111;
+  letter-spacing: -2px;
+  margin-top: 80px;
+}
+.title-sub {
+  font-size: 38px;
+  color: #888;
+  margin-top: 30px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+.cat { margin-bottom: 40px; }
+.cat-title {
+  font-size: 36px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 18px;
+  line-height: 1.2;
+}
+.cat-list { list-style: none; padding: 0; counter-reset: n; }
+.cat-list li {
+  counter-increment: n;
+  display: flex;
+  gap: 12px;
+  font-size: 25px;
+  color: #333;
+  padding: 4px 0;
+  line-height: 1.4;
+}
+.cat-list li::before {
+  content: counter(n) ".";
+  color: #aaa;
+  font-size: 23px;
+  min-width: 34px;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+.divider { height: 1px; background: #eee; margin: 26px 0; }
+.cta-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding-bottom: 40px;
+}
+.cta-title {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #111;
+  letter-spacing: -1px;
+  margin-bottom: 36px;
+}
+.cta-desc {
+  font-size: 36px;
+  color: #555;
+  line-height: 1.55;
+  margin-bottom: 60px;
+}
+.cta-btn {
+  display: inline-block;
+  background: #111;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 700;
+  padding: 22px 44px;
+  border-radius: 14px;
+  width: fit-content;
+  margin-bottom: 50px;
+}
+.cta-handle { font-size: 28px; color: #aaa; }
+"""
+
+SLIDES = [
+    # Slide 1
+    """
+    <div class="num">1 / 7</div>
+    <div class="title-big">100 ідей<br>для Reels<br>з гачками</div>
+    <div class="title-sub">Збережи і використовуй<br>як банк гачків →</div>
+    <div class="handle">@ksysha_bogdanets</div>
+    """,
+
+    # Slide 2
+    """
+    <div class="num">2 / 7</div>
+    <div class="cat">
+      <div class="cat-title">🎯 1. Спостереження / інсайти</div>
+      <ol class="cat-list">
+        <li>"Я помітила одну дивну річ..."</li>
+        <li>"Ти теж це робиш але не помічаєш"</li>
+        <li>"Ніхто не звертає на це уваги"</li>
+        <li>"Ти точно це бачила але..."</li>
+        <li>"Проблема не в тому що ти думаєш"</li>
+        <li>"Ти не туди дивишся"</li>
+        <li>"Це не очевидно але важливо"</li>
+        <li>"Ти недооцінюєш це"</li>
+        <li>"Ось де правда"</li>
+        <li>"Я теж не помічала"</li>
+      </ol>
+    </div>
+    <div class="divider"></div>
+    <div class="cat">
+      <div class="cat-title">⚡ 2. Особистий досвід</div>
+      <ol class="cat-list">
+        <li>"Я перевірила це на собі"</li>
+        <li>"Я раніше ігнорувала це... даремно"</li>
+        <li>"Я була в шоці коли зрозуміла це"</li>
+        <li>"Я теж робила цю помилку"</li>
+        <li>"Я змінила одну річ — і..."</li>
+        <li>"Я робила це роками неправильно"</li>
+        <li>"Тепер роблю інакше"</li>
+        <li>"Шкодую що не знала це раніше"</li>
+        <li>"Ось як це роблю я"</li>
+        <li>"Тепер по-іншому"</li>
+      </ol>
+    </div>
+    <div class="handle">@ksysha_bogdanets</div>
+    """,
+
+    # Slide 3
+    """
+    <div class="num">3 / 7</div>
+    <div class="cat">
+      <div class="cat-title">🔍 3. Розбір / пояснення</div>
+      <ol class="cat-list">
+        <li>"Ось що реально працює"</li>
+        <li>"Дивись що відбувається коли ти..."</li>
+        <li>"Ось як це виглядає насправді"</li>
+        <li>"Якщо коротко — роби так"</li>
+        <li>"Покажу на прикладі"</li>
+        <li>"Без зайвих слів"</li>
+        <li>"Порівняй це з цим"</li>
+        <li>"Різниця колосальна"</li>
+        <li>"Ось відповідь"</li>
+        <li>"Зараз буде суть"</li>
+      </ol>
+    </div>
+    <div class="divider"></div>
+    <div class="cat">
+      <div class="cat-title">⚠️ 4. Помилки</div>
+      <ol class="cat-list">
+        <li>"Ось де ти втрачаєш результат"</li>
+        <li>"Ось де більшість зупиняється"</li>
+        <li>"Ти ускладнюєш"</li>
+        <li>"Ти упускаєш головне"</li>
+        <li>"Ось чому це не працює у тебе"</li>
+        <li>"Ти витрачаєш час даремно"</li>
+        <li>"Ти відкладаєш це"</li>
+        <li>"Це непомітно гальмує тебе"</li>
+        <li>"Але це заважає"</li>
+        <li>"Ти звикла до цього"</li>
+      </ol>
+    </div>
+    <div class="handle">@ksysha_bogdanets</div>
+    """,
+
+    # Slide 4
+    """
+    <div class="num">4 / 7</div>
+    <div class="cat">
+      <div class="cat-title">🚀 5. Простота / оптимізація</div>
+      <ol class="cat-list">
+        <li>"Це простіше ніж ти думаєш"</li>
+        <li>"Насправді все простіше"</li>
+        <li>"Ось як прискорити процес"</li>
+        <li>"Це економить купу часу"</li>
+        <li>"Зроби це один раз"</li>
+        <li>"Мінімум дій — максимум результату"</li>
+        <li>"Це скорочує шлях"</li>
+        <li>"Ось як прибрати зайве"</li>
+        <li>"Зроби простіше"</li>
+        <li>"Почни з цього"</li>
+      </ol>
+    </div>
+    <div class="divider"></div>
+    <div class="cat">
+      <div class="cat-title">🧠 6. Переосмислення</div>
+      <ol class="cat-list">
+        <li>"Спробуй зробити навпаки"</li>
+        <li>"Це здається логічним але ні"</li>
+        <li>"Тут є підвох"</li>
+        <li>"Це ламає звичний підхід"</li>
+        <li>"Якщо ти це зрозумієш — стане легше"</li>
+        <li>"Це змінить підхід"</li>
+        <li>"Зрозуміють не всі"</li>
+        <li>"Але ти зрозумієш"</li>
+        <li>"Фокус ось тут"</li>
+        <li>"Не розпилюйся"</li>
+      </ol>
+    </div>
+    <div class="handle">@ksysha_bogdanets</div>
+    """,
+
+    # Slide 5
+    """
+    <div class="num">5 / 7</div>
+    <div class="cat">
+      <div class="cat-title">🎯 7. Залучення</div>
+      <ol class="cat-list">
+        <li>"Ось швидкий тест для тебе"</li>
+        <li>"Перевір прямо зараз"</li>
+        <li>"Зроби це разом зі мною"</li>
+        <li>"Зупинись на секунду"</li>
+        <li>"Відповідь собі чесно"</li>
+        <li>"Ти на якому етапі?"</li>
+        <li>"Порівняй себе"</li>
+        <li>"Що б ти обрала?"</li>
+        <li>"1 або 2?"</li>
+        <li>"Вгадай результат"</li>
+      </ol>
+    </div>
+    <div class="divider"></div>
+    <div class="cat">
+      <div class="cat-title">💬 8. Чесна розмова</div>
+      <ol class="cat-list">
+        <li>"Давай чесно"</li>
+        <li>"Ти готова це почути?"</li>
+        <li>"Це не для всіх"</li>
+        <li>"Але якщо ти досмотриш..."</li>
+        <li>"Пора це виправити"</li>
+        <li>"Ти можеш краще"</li>
+        <li>"Ось твоя точка росту"</li>
+        <li>"Серйозно"</li>
+        <li>"Ось де правда"</li>
+        <li>"Пора це змінити"</li>
+      </ol>
+    </div>
+    <div class="handle">@ksysha_bogdanets</div>
+    """,
+
+    # Slide 6
+    """
+    <div class="num">6 / 7</div>
+    <div class="cat">
+      <div class="cat-title">⏳ 9. Утримання уваги</div>
+      <ol class="cat-list">
+        <li>"Дивись уважно"</li>
+        <li>"Дивись до кінця"</li>
+        <li>"Фінал важливий"</li>
+        <li>"Там найголовніше"</li>
+        <li>"Не перемикайся"</li>
+        <li>"Залишилось трохи"</li>
+        <li>"Готова?"</li>
+        <li>"Хвилина — і зрозумієш"</li>
+        <li>"Дивись..."</li>
+        <li>"Ось і все"</li>
+      </ol>
+    </div>
+    <div class="divider"></div>
+    <div class="cat">
+      <div class="cat-title">🔄 10. Заклик до дії</div>
+      <ol class="cat-list">
+        <li>"Спробуй повторити"</li>
+        <li>"Результат здивує"</li>
+        <li>"Зроби це зараз"</li>
+        <li>"Перевір на практиці"</li>
+        <li>"Не відкладай"</li>
+        <li>"Почни прямо сьогодні"</li>
+        <li>"Збережи щоб не загубити"</li>
+        <li>"Повернись до цього пізніше"</li>
+        <li>"Використай це"</li>
+        <li>"Спробуй і напиши результат"</li>
+      </ol>
+    </div>
+    <div class="handle">@ksysha_bogdanets</div>
+    """,
+
+    # Slide 7 — CTA
+    """
+    <div class="num">7 / 7</div>
+    <div class="cta-wrap">
+      <div class="cta-title">Перестань знімати Reels у пустоту.</div>
+      <div class="cta-desc">За 7 днів навчись знімати так,<br>щоб клієнти писали самі.<br>Без реклами. Без мільйона підписників.</div>
+      <div class="cta-btn">Sprint — в описі профілю</div>
+      <div class="cta-handle">@ksysha_bogdanets</div>
+    </div>
+    """,
+]
+
+OUT_DIR = os.path.join(os.path.dirname(__file__), "slides")
+os.makedirs(OUT_DIR, exist_ok=True)
+
+# Remove old files
+for f in os.listdir(OUT_DIR):
+    os.remove(os.path.join(OUT_DIR, f))
+
+for i, content in enumerate(SLIDES, 1):
+    html = f"""<!DOCTYPE html>
+<html lang="uk">
+<head><meta charset="UTF-8"><style>{CSS}</style></head>
+<body><div class="slide">{content}</div></body>
+</html>"""
+
+    pdf_path = os.path.join(OUT_DIR, f"slide_{i:02d}.pdf")
+    png_path = os.path.join(OUT_DIR, f"slide_{i:02d}.png")
+
+    HTML(string=html).write_pdf(pdf_path)
+
+    # pdftoppm: 150 DPI gives ~2500px width from 1080px @96dpi base
+    subprocess.run(
+        ["pdftoppm", "-r", "150", "-png", "-singlefile", pdf_path,
+         png_path.replace(".png", "")],
+        check=True
+    )
+    os.remove(pdf_path)
+    print(f"Slide {i}: {png_path}")
+
+print("Done — 7 slides exported to carousel/slides/")
