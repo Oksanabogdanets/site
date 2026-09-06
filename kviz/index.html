@@ -56,6 +56,19 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,.38);font-weight
 .fin .btn{margin-top:14px}
 .tiny{font-size:12px;color:#6F6A61;margin-top:22px;text-align:center}
 .hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+/* перший екран: велике фото */
+body.intro .top,body.intro .bar{display:none}
+.hero{position:relative;border-radius:18px;overflow:hidden;margin:0 0 22px;aspect-ratio:3/4;max-height:62vh;
+  border:1px solid rgba(246,219,138,.25);box-shadow:0 18px 50px rgba(0,0,0,.55)}
+.hero img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:46%;background:linear-gradient(180deg,rgba(10,10,10,0),rgba(10,10,10,.82))}
+.hero-tag{position:absolute;left:18px;right:18px;bottom:16px;z-index:1}
+.hero-tag b{display:block;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.03em;font-size:20px;color:#fff}
+.hero-tag span{display:block;font-size:13px;color:var(--gold1);margin-top:3px;font-weight:600}
+#p0 h1{font-size:clamp(26px,7vw,34px);margin-bottom:12px}
+#p0 .lead p{font-size:15px;line-height:1.5}
+#p0 .lead p+p{margin-top:9px}
+#p0 .lead{margin-bottom:22px}
 </style>
 </head>
 <body>
@@ -70,11 +83,15 @@ input::placeholder,textarea::placeholder{color:rgba(255,255,255,.38);font-weight
 
   <!-- 0. Вступ -->
   <section class="pane on" id="p0">
-    <div class="step">4 питання · 1 хвилина</div>
-    <h1>Як саме вам <em>просуватись через Reels</em></h1>
+    <div class="hero">
+      <img src="oksana-hero.jpg" alt="Оксана Богданець">
+      <div class="hero-tag"><b>Оксана Богданець</b><span>Reels під ключ · @ksysha.bogdanets</span></div>
+    </div>
+    <h1>Вітаю! <em>Дякую за підписку</em></h1>
     <div class="lead">
-      <p>Дайте відповіді на 4 короткі питання. За ними я подивлюсь вашу нішу і конкурентів в Instagram і напишу вам у Direct, що робити саме у вашому випадку.</p>
-      <p class="muted">Безкоштовно. Ціни й «купіть» тут не буде: тільки розбір під вашу нішу.</p>
+      <p>Ми з командою робимо Reels під ключ, з якими ви будуєте особистий бренд і виходите на новий рівень заявок і клієнтів.</p>
+      <p>Більшість експертів хочуть просуватись через Reels, але пишуть сценарії без аналізу ринку, конкурентів і аудиторії. Ми починаємо з аналізу, і вже на його основі знімаємо Reels, які приводять саме ваших клієнтів.</p>
+      <p class="muted">Дайте відповіді на 4 короткі питання, і я напишу вам у Direct, як саме просуватись у вашій ніші. Безкоштовно, без цін і «купіть».</p>
     </div>
     <div class="spacer"></div>
     <button class="btn" onclick="go(1)">Почати</button>
@@ -164,6 +181,7 @@ function show(n){
   document.getElementById('p'+n).classList.add('on');
   const pct = n === 0 ? 0 : n >= 5 ? 100 : Math.round(((n-1)/TOTAL)*100);
   document.getElementById('bar').style.width = pct + '%';
+  document.body.classList.toggle('intro', n === 0);
   window.scrollTo(0,0);
   cur = n;
 }
