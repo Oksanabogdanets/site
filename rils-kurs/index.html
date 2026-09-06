@@ -1,0 +1,771 @@
+<!doctype html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Рілс, що продають</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Golos+Text:wght@400;500;600;800&family=JetBrains+Mono:wght@400;700&display=swap&subset=cyrillic" rel="stylesheet">
+<style>
+:root{
+  --ink:#0d0b09;
+  --paper:#f4efe6;
+  --paper-dim:#e9e1d2;
+  --rec:#ff3b30;
+  --rec-deep:#d92c22;
+  --lime:#d8f34f;
+  --line:rgba(13,11,9,.16);
+  --line-strong:rgba(13,11,9,.85);
+  --display:'Unbounded', sans-serif;
+  --body:'Golos Text', sans-serif;
+  --mono:'JetBrains Mono', monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:var(--rec);color:var(--paper)}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.mono{font-family:var(--mono)}
+.sec{padding:96px 0;position:relative}
+.sec-dark{background:var(--ink);color:var(--paper)}
+.sec-dark .kicker{color:var(--lime)}
+.kicker{
+  font-family:var(--mono);font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rec-deep);display:flex;align-items:center;gap:10px;margin-bottom:22px;
+}
+.kicker::before{content:'';width:34px;height:2px;background:currentColor;flex:none}
+h2{
+  font-family:var(--display);font-weight:800;line-height:1.06;
+  font-size:clamp(28px,4.6vw,52px);letter-spacing:-.01em;margin-bottom:28px;
+  text-transform:uppercase;
+}
+h2 em{font-style:normal;color:var(--rec)}
+.btn{
+  display:inline-flex;align-items:center;gap:12px;
+  font-family:var(--display);font-weight:600;font-size:15px;text-transform:uppercase;letter-spacing:.03em;
+  background:var(--rec);color:#fff;text-decoration:none;
+  padding:20px 34px;border:2px solid var(--ink);
+  box-shadow:6px 6px 0 var(--ink);
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+.btn--ghost{background:transparent;color:var(--ink)}
+.sec-dark .btn--ghost{color:var(--paper);border-color:var(--paper);box-shadow:6px 6px 0 rgba(244,239,230,.35)}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease, transform .6s ease}
+.reveal.on{opacity:1;transform:none}
+
+/* ---------- топбар ---------- */
+.topbar{
+  position:sticky;top:0;z-index:100;background:var(--paper);
+  border-bottom:2px solid var(--ink);
+}
+.topbar-in{display:flex;align-items:center;justify-content:space-between;height:62px}
+.logo{font-weight:700;font-size:14px;letter-spacing:.06em}
+.logo::first-letter{color:var(--rec)}
+.topnav{display:flex;gap:26px;align-items:center;font-size:14px;font-weight:600}
+.topnav a{text-decoration:none}
+.topnav a:hover{color:var(--rec-deep)}
+.topnav-cta{background:var(--ink);color:var(--paper)!important;padding:9px 18px}
+@media(max-width:760px){.topnav a:not(.topnav-cta){display:none}}
+
+/* ---------- хіро ---------- */
+.hero{border-bottom:2px solid var(--ink);position:relative}
+.hero-marquee{
+  overflow:hidden;white-space:nowrap;border-bottom:2px solid var(--ink);
+  background:var(--lime);padding:9px 0;font-size:12px;letter-spacing:.12em;font-weight:700;
+}
+.hero-marquee span{display:inline-block;animation:marquee 28s linear infinite}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.hero-in{
+  display:grid;grid-template-columns:1.25fr .9fr;gap:56px;align-items:center;
+  padding-top:72px;padding-bottom:80px;
+}
+h1{
+  font-family:var(--display);font-weight:900;text-transform:uppercase;
+  font-size:clamp(40px,7.2vw,92px);line-height:.96;letter-spacing:-.015em;margin-bottom:26px;
+}
+h1 em{
+  font-style:normal;color:var(--rec);
+  text-shadow:4px 4px 0 var(--ink);
+}
+.hero-sub{font-size:19px;max-width:520px;margin-bottom:36px}
+.hero-cta{display:flex;gap:18px;flex-wrap:wrap}
+.viewfinder{
+  border:2px solid var(--ink);background:var(--ink);color:var(--paper);
+  box-shadow:10px 10px 0 var(--rec);transform:rotate(2deg);
+}
+.vf-top{display:flex;align-items:center;gap:8px;padding:12px 16px;font-size:12px;border-bottom:1px dashed rgba(244,239,230,.35)}
+.rec-dot{width:10px;height:10px;border-radius:50%;background:var(--rec);animation:blink 1.1s steps(2) infinite}
+@keyframes blink{50%{opacity:.15}}
+.vf-body{padding:26px 16px;display:grid;gap:20px}
+.vf-stat{display:flex;align-items:baseline;gap:14px}
+.vf-stat b{font-family:var(--display);font-size:44px;font-weight:800;color:var(--lime);min-width:70px}
+.vf-stat span{font-size:14px;opacity:.85}
+.vf-bottom{padding:12px 16px;font-size:11px;border-top:1px dashed rgba(244,239,230,.35);color:var(--lime);opacity:.8}
+@media(max-width:880px){.hero-in{grid-template-columns:1fr;gap:44px}.viewfinder{transform:none;max-width:380px}}
+
+/* ---------- таймер ---------- */
+.hero-timer{background:var(--ink);color:var(--paper)}
+.timer-in{display:flex;align-items:center;justify-content:space-between;gap:22px;padding:16px 24px;flex-wrap:wrap}
+.timer-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.timer{display:flex;gap:22px}
+.timer span{display:flex;flex-direction:column;align-items:center}
+.timer b{font-size:30px;font-weight:700;color:var(--lime);font-variant-numeric:tabular-nums}
+.timer i{font-style:normal;font-size:11px;opacity:.6;text-transform:uppercase}
+
+/* ---------- болі ---------- */
+.pains{display:grid;grid-template-columns:1fr 1fr;gap:0;border:2px solid var(--ink);background:var(--ink);grid-gap:2px}
+.pain{background:var(--paper);padding:30px 28px;position:relative}
+.pain:hover{background:var(--paper-dim)}
+.pain-num{position:absolute;top:22px;right:24px;font-size:13px;color:var(--rec-deep);font-weight:700}
+.pain h3{font-family:var(--display);font-size:19px;font-weight:600;margin-bottom:12px;padding-right:44px}
+.pain p{font-size:15px;opacity:.85}
+.pains-bridge{margin-top:40px;font-size:21px;max-width:640px}
+.pains-bridge b{background:var(--lime);padding:2px 8px}
+@media(max-width:700px){.pains{grid-template-columns:1fr}}
+
+/* ---------- для кого ---------- */
+.who{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.who-card{border:2px solid var(--paper);padding:30px 26px;position:relative;transition:transform .2s ease}
+.who-card:hover{transform:translateY(-6px)}
+.who-card:nth-child(2){border-color:var(--lime)}
+.who-tag{
+  width:44px;height:44px;display:grid;place-items:center;font-weight:700;font-size:18px;
+  background:var(--rec);color:#fff;margin-bottom:22px;
+}
+.who-card:nth-child(2) .who-tag{background:var(--lime);color:var(--ink)}
+.who-card h3{font-family:var(--display);font-size:18px;font-weight:600;margin-bottom:12px}
+.who-card p{font-size:15px;opacity:.88}
+@media(max-width:820px){.who{grid-template-columns:1fr}}
+
+/* ---------- результати ---------- */
+.results{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:960px}
+.results li{
+  border-left:5px solid var(--rec);background:#fff;
+  padding:24px 26px;font-size:16px;box-shadow:5px 5px 0 rgba(13,11,9,.10);
+}
+.results li b{display:block;font-family:var(--display);font-size:17px;font-weight:600;margin-bottom:8px}
+@media(max-width:700px){.results{grid-template-columns:1fr}}
+
+/* ---------- програма ---------- */
+.modules{display:grid;gap:14px;max-width:880px}
+.module{border:2px solid var(--ink);background:#fff}
+.module summary{
+  list-style:none;cursor:pointer;display:flex;align-items:center;gap:20px;
+  padding:20px 24px;user-select:none;
+}
+.module summary::-webkit-details-marker{display:none}
+.module summary::after{content:'+';font-family:var(--display);font-size:22px;margin-left:auto;color:var(--rec)}
+.module[open] summary::after{content:'–'}
+.module[open]{background:var(--ink);color:var(--paper)}
+.module[open] .mod-week{color:var(--lime)}
+.mod-num{
+  flex:none;width:46px;height:46px;display:grid;place-items:center;
+  background:var(--lime);color:var(--ink);font-weight:700;font-size:14px;
+}
+.mod-title{font-family:var(--display);font-weight:600;font-size:16px}
+.mod-week{font-size:12px;color:var(--rec-deep);letter-spacing:.08em;text-transform:uppercase;flex:none}
+.mod-body{padding:0 24px 22px 90px;font-size:15px;opacity:.9}
+@media(max-width:640px){
+  .mod-week{display:none}
+  .mod-body{padding-left:24px}
+}
+
+/* ---------- авторка ---------- */
+.author-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;align-items:center}
+.author-photo{position:relative}
+.photo-slot{
+  aspect-ratio:4/5;border:2px dashed var(--lime);display:grid;place-items:center;
+  text-align:center;font-size:12px;color:var(--lime);line-height:1.8;
+  background:repeating-linear-gradient(45deg,transparent,transparent 12px,rgba(216,243,79,.05) 12px,rgba(216,243,79,.05) 24px);
+  transform:rotate(-2deg);
+}
+.author-lead{font-size:19px;margin-bottom:28px;max-width:520px}
+.author-facts{list-style:none;display:grid;gap:16px;margin-bottom:26px}
+.author-facts li{padding-left:22px;position:relative;font-size:15px;opacity:.92}
+.author-facts li::before{content:'▸';position:absolute;left:0;color:var(--rec)}
+.author-facts b{color:var(--lime)}
+.author-note{font-size:12px;opacity:.55}
+@media(max-width:820px){.author-grid{grid-template-columns:1fr;gap:40px}.photo-slot{max-width:320px}}
+
+/* ---------- кейси ---------- */
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.case{border:2px solid var(--ink);background:#fff;padding:26px 24px;box-shadow:7px 7px 0 var(--lime)}
+.case-niche{font-size:12px;text-transform:uppercase;letter-spacing:.1em;background:var(--ink);color:var(--lime);display:inline-block;padding:5px 10px;margin-bottom:20px}
+.case-row{display:flex;flex-direction:column;gap:2px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.case-row span{font-size:13px;opacity:.65}
+.case-row b{font-family:var(--display);font-size:19px;font-weight:600;color:var(--rec-deep)}
+.case-quote{padding-top:16px;font-size:14px;font-style:italic;opacity:.85}
+@media(max-width:820px){.cases{grid-template-columns:1fr}}
+
+/* ---------- тарифи ---------- */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:stretch}
+.plan{
+  border:2px solid var(--paper);padding:32px 26px;display:flex;flex-direction:column;
+  position:relative;background:rgba(244,239,230,.03);
+}
+.plan--hot{border-color:var(--lime);background:rgba(216,243,79,.07);transform:scale(1.03)}
+.plan-badge{
+  position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:var(--rec);color:#fff;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 14px;white-space:nowrap;
+}
+.plan-name{font-size:13px;letter-spacing:.14em;opacity:.8;margin-bottom:14px}
+.plan-price{font-family:var(--display);font-size:52px;font-weight:800;color:var(--lime);margin-bottom:24px}
+.plan-list{list-style:none;display:grid;gap:11px;margin-bottom:30px;flex:1}
+.plan-list li{padding-left:26px;position:relative;font-size:14px}
+.plan-list .yes::before{content:'✓';position:absolute;left:0;color:var(--lime);font-weight:700}
+.plan-list .no{opacity:.38;text-decoration:line-through}
+.plan-list .no::before{content:'✕';position:absolute;left:0}
+.plan-btn{justify-content:center;text-align:center}
+.plans-note{margin-top:36px;font-size:12px;opacity:.6;text-align:center}
+@media(max-width:880px){.plans{grid-template-columns:1fr}.plan--hot{transform:none}}
+
+/* ---------- заявка + запис ---------- */
+.apply-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:start}
+.apply-form{border:2px solid var(--ink);background:#fff;padding:34px 30px;box-shadow:8px 8px 0 var(--rec);display:grid;gap:18px}
+.apply-form label{display:grid;gap:8px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.apply-form input,.apply-form select,.apply-form textarea{
+  font-family:var(--body);font-size:16px;padding:13px 14px;
+  border:2px solid var(--ink);background:var(--paper);color:var(--ink);width:100%;
+}
+.apply-form input:focus,.apply-form select:focus,.apply-form textarea:focus{outline:3px solid var(--lime)}
+.apply-form input.err{border-color:var(--rec);outline:3px solid rgba(255,59,48,.25)}
+.apply-btn{justify-content:center;width:100%}
+.form-note{font-size:11px;opacity:.6}
+.form-fallback{border-top:2px dashed var(--line);padding-top:16px;font-size:14px}
+.fallback-btns{display:flex;gap:12px;margin-top:14px}
+.fallback-btns .btn{padding:12px 20px;font-size:13px}
+.booking{border:2px solid var(--ink);background:var(--ink);color:var(--paper);padding:34px 30px}
+.booking-head h3{font-family:var(--display);font-size:20px;font-weight:600;margin-bottom:12px}
+.booking-head p{font-size:15px;opacity:.85;margin-bottom:24px}
+.booking-line{font-size:12px;color:var(--lime);margin-bottom:18px;letter-spacing:.06em}
+.booking-btn{border-color:var(--lime);box-shadow:6px 6px 0 var(--lime);justify-content:center;width:100%}
+#calendly-slot{min-height:0}
+#calendly-slot iframe{border:0;width:100%}
+@media(max-width:880px){.apply-grid{grid-template-columns:1fr}}
+
+/* ---------- відгуки ---------- */
+.reviews{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.review{border:2px solid var(--ink);background:#fff;padding:26px;position:relative}
+.review:nth-child(odd){transform:rotate(-.7deg)}
+.review:nth-child(even){transform:rotate(.7deg)}
+.review p{font-size:16px;margin-bottom:14px}
+.review span{font-size:11px;color:var(--rec-deep);letter-spacing:.08em;text-transform:uppercase}
+@media(max-width:700px){.reviews{grid-template-columns:1fr}}
+
+/* ---------- гарантія ---------- */
+.guarantee{display:grid;grid-template-columns:.6fr 1.4fr;gap:56px;align-items:center}
+.guarantee-mark{
+  font-size:clamp(64px,9vw,120px);font-weight:700;color:var(--lime);
+  border:3px solid var(--lime);aspect-ratio:1;display:grid;place-items:center;
+  transform:rotate(-6deg);max-width:280px;
+}
+.guarantee-text{font-size:17px;max-width:560px;opacity:.92}
+@media(max-width:760px){.guarantee{grid-template-columns:1fr;gap:36px}.guarantee-mark{max-width:180px;font-size:44px}}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:12px;max-width:820px}
+.faq-item{border-bottom:2px solid var(--ink);background:transparent}
+.faq-item summary{
+  list-style:none;cursor:pointer;font-family:var(--display);font-weight:600;font-size:17px;
+  padding:20px 40px 20px 0;position:relative;user-select:none;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';position:absolute;right:6px;top:16px;font-size:24px;color:var(--rec)}
+.faq-item[open] summary::after{content:'–'}
+.faq-item p{padding:0 0 22px;font-size:15px;max-width:680px;opacity:.85}
+
+/* ---------- фінал + футер ---------- */
+.final{text-align:center}
+.final .kicker{justify-content:center}
+.final-h{font-size:clamp(24px,3.6vw,42px);max-width:900px;margin:0 auto 24px}
+.final-sub{font-size:17px;opacity:.85;margin-bottom:36px}
+.final-btn{font-size:17px;padding:24px 46px;border-color:var(--lime);box-shadow:6px 6px 0 var(--lime)}
+.footer{background:var(--ink);color:var(--paper);border-top:1px dashed rgba(244,239,230,.3)}
+.footer-in{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:22px 24px;font-size:12px;opacity:.65}
+</style>
+</head><body>
+
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <div class="logo mono">●&nbsp;REC&nbsp;/ РІЛС, ЩО ПРОДАЮТЬ</div>
+    <nav class="topnav">
+      <a href="#program">Програма</a>
+      <a href="#author">Хто веде</a>
+      <a href="#cases">Кейси</a>
+      <a href="#plans" class="topnav-cta">Тарифи</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 1. ХІРО ================= -->
+<section class="hero">
+  <div class="hero-marquee mono" aria-hidden="true">
+    <span>ЗЙОМКА НА ТЕЛЕФОН • СЦЕНАРІЇ І ХУКИ • АЛГОРИТМИ • ВОРОНКА В ДІРЕКТ • ПРОДАЖІ З РІЛС • ЗЙОМКА НА ТЕЛЕФОН • СЦЕНАРІЇ І ХУКИ • АЛГОРИТМИ • ВОРОНКА В ДІРЕКТ • ПРОДАЖІ З РІЛС • </span>
+  </div>
+  <div class="wrap hero-in">
+    <div class="hero-left">
+      <p class="kicker">Практичний курс • старт 15 вересня 2026</p>
+      <h1>Рілс, що<br><em>продають</em></h1>
+      <p class="hero-sub">За 4 тижні навчися знімати рілс, які приводять підписників і <b>заявки в дірект</b> — навіть якщо зараз твої відео набирають 200 переглядів. Телефон + система замість натхнення.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#plans">Обрати тариф ↓</a>
+        <a class="btn btn--ghost" href="#program">Дивитись програму</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="viewfinder">
+        <div class="vf-top mono"><span class="rec-dot"></span>REC&nbsp;&nbsp;00:00:15&nbsp;&nbsp;•&nbsp;&nbsp;9:16</div>
+        <div class="vf-body">
+          <div class="vf-stat"><b data-count="4">0</b><span>тижні практики</span></div>
+          <div class="vf-stat"><b data-count="8">0</b><span>модулів системи</span></div>
+          <div class="vf-stat"><b data-count="30">0</b><span>ідей контенту на місяць</span></div>
+        </div>
+        <div class="vf-bottom mono">[ ЗАМІНИ: сюди твоє фото або кадр зі зйомки ]</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-timer">
+    <div class="wrap timer-in">
+      <span class="timer-label mono">До старту потоку:</span>
+      <div class="timer mono" id="timer">
+        <span><b id="t-d">00</b><i>дн</i></span>
+        <span><b id="t-h">00</b><i>год</i></span>
+        <span><b id="t-m">00</b><i>хв</i></span>
+        <span><b id="t-s">00</b><i>сек</i></span>
+      </div>
+      <span class="timer-label mono">Місць на тарифі з фідбеком — 20</span>
+    </div>
+  </div>
+</section>
+<!-- ================= 2. БОЛІ ================= -->
+<section class="sec">
+  <div class="wrap">
+    <p class="kicker">Знайоме?</p>
+    <h2>Ти знімаєш рілс.<br>А вони — <em>не працюють</em></h2>
+    <div class="pains">
+      <div class="pain reveal"><span class="pain-num mono">01</span><h3>200 переглядів і тиша</h3><p>Витрачаєш пів дня на зйомку, а алгоритм показує відео двадцятьом людям — і серед них твоя мама.</p></div>
+      <div class="pain reveal"><span class="pain-num mono">02</span><h3>Немає ідей</h3><p>Сідаєш писати сценарій — і дивишся в порожній екран. Повторюєш чужі тренди, які «в тебе чомусь не заходять».</p></div>
+      <div class="pain reveal"><span class="pain-num mono">03</span><h3>Перегляди є — грошей нема</h3><p>Один рілс залетів на 50К, підписники прийшли… і нічого не купили. Бо контент не веде до продажу.</p></div>
+      <div class="pain reveal"><span class="pain-num mono">04</span><h3>Зйомка з'їдає день</h3><p>Дублі, світло, монтаж до ночі. Без системи один рілс коштує тобі 4 години життя.</p></div>
+    </div>
+    <p class="pains-bridge reveal">Проблема не в тобі і не в алгоритмах. Проблема в тому, що рілс знімаються <b>без системи</b>. Саме систему ти й отримаєш.</p>
+  </div>
+</section>
+
+<!-- ================= 3. ДЛЯ КОГО ================= -->
+<section class="sec sec-dark">
+  <div class="wrap">
+    <p class="kicker">Для кого це навчання</p>
+    <h2>Три типи людей,<br>яким це <em>потрібно</em></h2>
+    <div class="who">
+      <div class="who-card reveal">
+        <div class="who-tag mono">A</div>
+        <h3>Експертам і фрілансерам</h3>
+        <p>Психологи, б'юті, коучі, юристи, нутриціологи. Продаєш послуги — а клієнти приходять «по сарафану». Рілс стануть твоїм стабільним джерелом заявок.</p>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-tag mono">B</div>
+        <h3>Малому бізнесу</h3>
+        <p>Кафе, салони, магазини, локальні бренди. Замість «постимо, бо треба» — контент, який приводить людей у дірект і в точку.</p>
+      </div>
+      <div class="who-card reveal">
+        <div class="who-tag mono">C</div>
+        <h3>Майбутнім рілс-мейкерам</h3>
+        <p>Хочеш знімати рілс для клієнтів і заробляти на цьому. Отримаєш ремесло + розумітимеш, як продавати цю послугу.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4. РЕЗУЛЬТАТ ================= -->
+<section class="sec">
+  <div class="wrap">
+    <p class="kicker">Що буде через 4 тижні</p>
+    <h2>Ти виходиш<br>з <em>готовою системою</em></h2>
+    <ul class="results">
+      <li class="reveal"><b>Контент-стратегія</b> під твою нішу: позиціонування, рубрики, 30 ідей рілс наперед — більше ніякого «що знімати?»</li>
+      <li class="reveal"><b>Зняті й опубліковані рілс</b> — мінімум 8 за курс, з фідбеком на кожен (на тарифах з перевіркою)</li>
+      <li class="reveal"><b>Швидка зйомка на телефон</b>: світло, кадр, дублі — один рілс за 40 хвилин замість пів дня</li>
+      <li class="reveal"><b>Воронка в дірект</b>: рілс → коментар/дірект → заявка. Контент, що продає, а не просто збирає лайки</li>
+    </ul>
+  </div>
+</section>
+<!-- ================= 5. ПРОГРАМА ================= -->
+<section class="sec" id="program">
+  <div class="wrap">
+    <p class="kicker">Програма • 8 модулів / 4 тижні</p>
+    <h2>Від стратегії<br>до <em>заявок у дірект</em></h2>
+    <div class="modules">
+      <details class="module reveal" open>
+        <summary><span class="mod-num mono">М1</span><span class="mod-title">Стратегія і позиціонування</span><span class="mod-week mono">тиждень 1</span></summary>
+        <div class="mod-body">Хто твій глядач і що він купує. Розпаковка ніші, велика ідея акаунта, рубрикатор. Результат: контент-стратегія на місяць.</div>
+      </details>
+      <details class="module reveal">
+        <summary><span class="mod-num mono">М2</span><span class="mod-title">Сценарії та хуки</span><span class="mod-week mono">тиждень 1</span></summary>
+        <div class="mod-body">Формули перших 3 секунд, структура сценарію, банк із 30 ідей під твою нішу. Як адаптувати тренд, щоб він працював саме на тебе.</div>
+      </details>
+      <details class="module reveal">
+        <summary><span class="mod-num mono">М3</span><span class="mod-title">Зйомка на телефон</span><span class="mod-week mono">тиждень 2</span></summary>
+        <div class="mod-body">Світло, ракурси, звук, як не боятися камери. Чек-лист зйомки: один рілс за 40 хвилин без спецтехніки.</div>
+      </details>
+      <details class="module reveal">
+        <summary><span class="mod-num mono">М4</span><span class="mod-title">Монтаж, що утримує</span><span class="mod-week mono">тиждень 2</span></summary>
+        <div class="mod-body">CapCut / InShot з нуля: ритм, субтитри, переходи, звуки. Шаблони монтажу, які прискорюють роботу вдвічі.</div>
+      </details>
+      <details class="module reveal">
+        <summary><span class="mod-num mono">М5</span><span class="mod-title">Алгоритми та охоплення</span><span class="mod-week mono">тиждень 3</span></summary>
+        <div class="mod-body">Як Instagram вирішує, кому показати твій рілс. Час публікацій, утримання, досмотри, робота з аналітикою.</div>
+      </details>
+      <details class="module reveal">
+        <summary><span class="mod-num mono">М6</span><span class="mod-title">Воронка продажів з рілс</span><span class="mod-week mono">тиждень 3</span></summary>
+        <div class="mod-body">Рілс → шапка профілю → дірект → заявка. Контент-воронка: прогрівні, експертні та продажні рілс у правильній пропорції.</div>
+      </details>
+      <details class="module reveal">
+        <summary><span class="mod-num mono">М7</span><span class="mod-title">Продажі в дірект</span><span class="mod-week mono">тиждень 4</span></summary>
+        <div class="mod-body">Скрипти переписок без «впарювання». Як довести людину від коментаря до оплати.</div>
+      </details>
+      <details class="module reveal">
+        <summary><span class="mod-num mono">М8</span><span class="mod-title">Система на щодень + бонус</span><span class="mod-week mono">тиждень 4</span></summary>
+        <div class="mod-body">Контент-план на 3 місяці вперед, батч-зйомка раз на тиждень. Бонус: як рілс-мейкеру взяти перших клієнтів на «рілс під ключ».</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. ХТО ВЕДЕ ================= -->
+<section class="sec sec-dark" id="author">
+  <div class="wrap author-grid">
+    <div class="author-photo reveal">
+      <div class="photo-slot mono">[ ЗАМІНИ:<br>фото Оксани<br>вертикальне 4:5 ]</div>
+    </div>
+    <div>
+      <p class="kicker">Хто веде</p>
+      <h2>Оксана —<br><em>рілс-продюсерка</em></h2>
+      <p class="author-lead">Я не блогер-теоретик. Я щодня роблю те, чого навчаю: створюю контент-стратегії, знімаю рілс і запускаю проєкти для клієнтів «під ключ».</p>
+      <ul class="author-facts">
+        <li><b>Рілс під ключ</b> — веду клієнтські акаунти: стратегія, зйомка, монтаж, аналітика</li>
+        <li><b>Продюсерка запусків</b> — допомагаю експертам перетворювати аудиторію на продажі</li>
+        <li><b>Практика, не теорія</b> — усе в курсі перевірено на реальних клієнтських проєктах</li>
+      </ul>
+      <p class="mono author-note">[ ЗАМІНИ: 2–3 цифри-регалії — років у ніші, кількість проєктів, сумарні перегляди ]</p>
+    </div>
+  </div>
+</section>
+<!-- ================= 7. КЕЙСИ ================= -->
+<section class="sec" id="cases">
+  <div class="wrap">
+    <p class="kicker">Кейси • [ ЗАМІНИ на реальні цифри та скріни ]</p>
+    <h2>До / <em>після</em></h2>
+    <div class="cases">
+      <div class="case reveal">
+        <div class="case-niche mono">б'юті-майстер</div>
+        <div class="case-row"><span>Перегляди рілс</span><b>800 → 45 000</b></div>
+        <div class="case-row"><span>Заявок у дірект / міс</span><b>2 → 27</b></div>
+        <div class="case-quote">«Записи на місяць вперед — уперше за два роки»</div>
+      </div>
+      <div class="case reveal">
+        <div class="case-niche mono">експерт-нутриціолог</div>
+        <div class="case-row"><span>Підписники за 6 тижнів</span><b>+3 200</b></div>
+        <div class="case-row"><span>Продажі консультацій</span><b>з 0 до 15/міс</b></div>
+        <div class="case-quote">«Перший рілс за системою набрав більше, ніж усі за рік»</div>
+      </div>
+      <div class="case reveal">
+        <div class="case-niche mono">локальна кав'ярня</div>
+        <div class="case-row"><span>Охоплення / міс</span><b>4К → 120К</b></div>
+        <div class="case-row"><span>Нові гості з Instagram</span><b>щодня питають «ви з рілс?»</b></div>
+        <div class="case-quote">«Черга в суботу — з одного відео»</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 8. ТАРИФИ ================= -->
+<section class="sec sec-dark" id="plans">
+  <div class="wrap">
+    <p class="kicker">Тарифи • старт 15 вересня</p>
+    <h2>Обери свій<br><em>формат</em></h2>
+    <div class="plans">
+      <div class="plan reveal">
+        <div class="plan-name mono">САМОСТІЙНИЙ</div>
+        <div class="plan-price">$149</div>
+        <ul class="plan-list">
+          <li class="yes">8 модулів у записі</li>
+          <li class="yes">Робочі шаблони: сценарії, чек-листи зйомки</li>
+          <li class="yes">Банк 30 ідей під нішу</li>
+          <li class="yes">Доступ 6 місяців</li>
+          <li class="no">Перевірка домашніх завдань</li>
+          <li class="no">Розбори твоїх рілс</li>
+          <li class="no">Особиста робота з Оксаною</li>
+        </ul>
+        <a class="btn btn--ghost plan-btn" href="#apply" data-tariff="Самостійний ($149)">Йду сам(а)</a>
+      </div>
+      <div class="plan plan--hot reveal">
+        <div class="plan-badge mono">хіт • 20 місць</div>
+        <div class="plan-name mono">З ФІДБЕКОМ</div>
+        <div class="plan-price">$299</div>
+        <ul class="plan-list">
+          <li class="yes">Все з тарифу «Самостійний»</li>
+          <li class="yes">Перевірка ДЗ після кожного модуля</li>
+          <li class="yes">Розбір кожного твого рілс</li>
+          <li class="yes">2 групові Zoom-розбори на тиждень</li>
+          <li class="yes">Чат потоку з підтримкою</li>
+          <li class="yes">Доступ 12 місяців</li>
+          <li class="no">Особиста робота з Оксаною</li>
+        </ul>
+        <a class="btn plan-btn" href="#apply" data-tariff="З фідбеком ($299)">Хочу з фідбеком</a>
+      </div>
+      <div class="plan reveal">
+        <div class="plan-name mono">VIP • ОСОБИСТО</div>
+        <div class="plan-price">$599</div>
+        <ul class="plan-list">
+          <li class="yes">Все з тарифу «З фідбеком»</li>
+          <li class="yes">3 особисті сесії з Оксаною 1:1</li>
+          <li class="yes">Контент-стратегія, зібрана разом</li>
+          <li class="yes">Місяць супроводу після курсу</li>
+          <li class="yes">Пріоритетний фідбек 24 год</li>
+          <li class="yes">Доступ назавжди</li>
+          <li class="yes">Лише 5 місць</li>
+        </ul>
+        <a class="btn btn--ghost plan-btn" href="#apply" data-tariff="VIP ($599)">Хочу VIP</a>
+      </div>
+    </div>
+    <p class="plans-note mono">[ ЗАМІНИ: ціни — чернетка ] • Можлива оплата двома частинами</p>
+  </div>
+</section>
+
+<!-- ================= 8b. ЗАЯВКА + ОНЛАЙН-ЗАПИС ================= -->
+<section class="sec" id="apply">
+  <div class="wrap">
+    <p class="kicker">Заявка</p>
+    <h2>Залиш заявку —<br>відповім <em>особисто</em></h2>
+    <div class="apply-grid">
+      <form class="apply-form reveal" id="apply-form" novalidate>
+        <label>Як тебе звати *
+          <input type="text" name="name" required placeholder="Ім'я">
+        </label>
+        <label>Telegram або Instagram *
+          <input type="text" name="contact" required placeholder="@нікнейм">
+        </label>
+        <label>Тариф
+          <select name="tariff" id="tariff-select">
+            <option value="Ще думаю">Ще думаю — потрібна консультація</option>
+            <option value="Самостійний ($149)">Самостійний — $149</option>
+            <option value="З фідбеком ($299)" selected>З фідбеком — $299</option>
+            <option value="VIP ($599)">VIP • Особисто — $599</option>
+          </select>
+        </label>
+        <label>Питання чи коментар
+          <textarea name="comment" rows="3" placeholder="Наприклад: чи можна оплату частинами?"></textarea>
+        </label>
+        <button type="submit" class="btn apply-btn">Надіслати заявку</button>
+        <p class="form-note mono" id="form-status">Відповідаю протягом дня. Заявка ні до чого не зобов'язує.</p>
+        <div class="form-fallback" id="form-fallback" hidden>
+          <p>Текст заявки скопійовано 📋 — надішли його мені в дірект:</p>
+          <div class="fallback-btns">
+            <a class="btn btn--ghost" id="fb-tg" href="#" target="_blank" rel="noopener">Telegram</a>
+            <a class="btn btn--ghost" id="fb-ig" href="#" target="_blank" rel="noopener">Instagram</a>
+          </div>
+        </div>
+      </form>
+      <div class="booking reveal">
+        <div class="booking-head">
+          <h3>Онлайн-запис на безкоштовний розбір</h3>
+          <p>15 хвилин у Zoom: подивлюсь твій акаунт, скажу чесно, що не працює і чи допоможе тобі курс.</p>
+        </div>
+        <div id="calendly-slot"></div>
+        <div id="booking-fallback">
+          <div class="booking-line mono">◦ обери зручний час — календар підтягнеться сюди</div>
+          <a class="btn booking-btn" id="booking-dm" href="#apply">Записатись через заявку ↑</a>
+          <p class="form-note mono">[ ЗАМІНИ: встав посилання Calendly у CALENDLY_URL внизу файлу — і тут з'явиться живий календар ]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================= 9. ВІДГУКИ ================= -->
+<section class="sec">
+  <div class="wrap">
+    <p class="kicker">Відгуки • [ ЗАМІНИ на реальні скріни з дірект/телеграм ]</p>
+    <h2>Що кажуть <em>учасниці</em></h2>
+    <div class="reviews">
+      <div class="review reveal"><p>«Оксано, ти не повіриш — рілс, який ми розбирали, набрав 32К! Це мій рекорд за весь час 🥹»</p><span class="mono">— скрін з дірект</span></div>
+      <div class="review reveal"><p>«Нарешті знімаю за годину те, на що йшов цілий день. Батч-зйомка — любов»</p><span class="mono">— скрін з чату потоку</span></div>
+      <div class="review reveal"><p>«3 заявки з одного рілс. Я вже окупила курс, а він ще не закінчився»</p><span class="mono">— скрін з телеграм</span></div>
+      <div class="review reveal"><p>«Найцінніше — фідбек. Ти бачиш свої відео чужими очима і розумієш, ЩО саме виправити»</p><span class="mono">— скрін з дірект</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10. ГАРАНТІЯ ================= -->
+<section class="sec sec-dark guarantee-sec">
+  <div class="wrap guarantee">
+    <div class="guarantee-mark mono reveal">100%</div>
+    <div class="reveal">
+      <p class="kicker">Гарантія</p>
+      <h2>Тиждень, щоб<br><em>передумати</em></h2>
+      <p class="guarantee-text">Пройди перший модуль. Якщо зрозумієш, що це не твоє — напиши протягом 7 днів після старту, і я поверну гроші повністю. Без питань і без «а чому?». Я впевнена в програмі, бо вона зібрана з реальної клієнтської практики.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 11. FAQ ================= -->
+<section class="sec">
+  <div class="wrap">
+    <p class="kicker">Питання, які ставлять усі</p>
+    <h2>FAQ</h2>
+    <div class="faq">
+      <details class="faq-item reveal"><summary>У мене немає айфона. Вийде?</summary><p>Так. Уся зйомка — на будь-який смартфон із нормальною камерою останніх 4–5 років. Важливі світло і сценарій, а не техніка.</p></details>
+      <details class="faq-item reveal"><summary>У мене 100 підписників. Мені зарано?</summary><p>Навпаки — саме вчасно. Рілс показуються не підписникам, а холодній аудиторії. Малий акаунт зростає з рілс найшвидше.</p></details>
+      <details class="faq-item reveal"><summary>Скільки часу треба на тиждень?</summary><p>4–6 годин: 1–1,5 години уроки, решта — практика (зйомка і монтаж твоїх рілс). Усі уроки в записі, дивишся коли зручно.</p></details>
+      <details class="faq-item reveal"><summary>Я соромлюся камери</summary><p>Окремий урок у модулі зйомки. Плюс частина форматів взагалі не потребує обличчя в кадрі — почнеш з них.</p></details>
+      <details class="faq-item reveal"><summary>Чи можна платити частинами?</summary><p>Так, оплата двома частинами доступна на всіх тарифах. Напиши в дірект — підберемо графік.</p></details>
+      <details class="faq-item reveal"><summary>Що, як я не встигатиму?</summary><p>Доступ до матеріалів лишається після потоку (6–12 місяців залежно від тарифу), а чат не зникає наступного дня після фінішу.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 12. ФІНАЛЬНИЙ CTA ================= -->
+<section class="sec sec-dark final">
+  <div class="wrap final-in">
+    <p class="kicker">Останній крок</p>
+    <h2 class="final-h">Через місяць ти або знімаєш рілс, що продають, —<br>або далі <em>дивишся чужі</em></h2>
+    <p class="final-sub">Старт потоку — 15 вересня. Місць на тарифі з фідбеком — 20.</p>
+    <a class="btn final-btn" href="#plans">Обрати тариф ↑</a>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-in mono">
+    <span>© 2026 Оксана • Рілс, що продають</span>
+    <span><a href="https://instagram.com/oksana.bogdanets" target="_blank" rel="noopener">@oksana.bogdanets</a> • <a href="https://t.me/oksana_bogdanets" target="_blank" rel="noopener">t.me/oksana_bogdanets</a> • [ ЗАМІНИ: ФОП і оферта ]</span>
+  </div>
+</footer>
+
+<script>
+// ЗАМІНИ: дата старту потоку (рік, місяць-1, день, година)
+const START_DATE = new Date(2026, 8, 15, 12, 0, 0); // 15 вересня 2026, 12:00
+
+function tick(){
+  let diff = Math.max(0, START_DATE - new Date());
+  const d = Math.floor(diff / 864e5);
+  const h = Math.floor(diff % 864e5 / 36e5);
+  const m = Math.floor(diff % 36e5 / 6e4);
+  const s = Math.floor(diff % 6e4 / 1e3);
+  const pad = n => String(n).padStart(2, '0');
+  document.getElementById('t-d').textContent = pad(d);
+  document.getElementById('t-h').textContent = pad(h);
+  document.getElementById('t-m').textContent = pad(m);
+  document.getElementById('t-s').textContent = pad(s);
+}
+tick();
+setInterval(tick, 1000);
+
+// Скрол-анімації
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+}, { threshold: .15 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Лічильники в хіро
+const cio = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    cio.unobserve(e.target);
+    const target = +e.target.dataset.count;
+    const t0 = performance.now();
+    (function step(t){
+      const p = Math.min(1, (t - t0) / 900);
+      e.target.textContent = Math.round(target * p);
+      if (p < 1) requestAnimationFrame(step);
+    })(t0);
+  });
+}, { threshold: .5 });
+document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+
+// ===== ЗАЯВКА + ОНЛАЙН-ЗАПИС — конфіг (ЗАМІНИ значення) =====
+const FORM_ENDPOINT = '';        // ЗАМІНИ: ендпоінт Formspree, напр. 'https://formspree.io/f/xxxxxxx'
+const TELEGRAM_USERNAME = 'oksana_bogdanets';
+const INSTAGRAM_USERNAME = 'ksysha.bogdanets';
+const CALENDLY_URL = '';         // ЗАМІНИ: посилання Calendly, напр. 'https://calendly.com/oksana/rozbir'
+
+// Клік по тарифу → підставити тариф у форму
+document.querySelectorAll('[data-tariff]').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('tariff-select').value = a.dataset.tariff;
+}));
+
+// Онлайн-запис: якщо є Calendly — вбудувати календар
+if (CALENDLY_URL) {
+  document.getElementById('booking-fallback').hidden = true;
+  const wrap = document.getElementById('calendly-slot');
+  const div = document.createElement('div');
+  div.className = 'calendly-inline-widget';
+  div.dataset.url = CALENDLY_URL + '?hide_gdpr_banner=1';
+  div.style.minWidth = '280px';
+  div.style.height = '620px';
+  wrap.appendChild(div);
+  const s = document.createElement('script');
+  s.src = 'https://assets.calendly.com/assets/external/widget.js';
+  s.async = true;
+  document.body.appendChild(s);
+}
+
+// Форма заявки
+document.getElementById('apply-form').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target;
+  const status = document.getElementById('form-status');
+  let valid = true;
+  form.querySelectorAll('input[required]').forEach(i => {
+    i.classList.toggle('err', !i.value.trim());
+    if (!i.value.trim()) valid = false;
+  });
+  if (!valid) { status.textContent = 'Заповни ім\'я і контакт — інакше я не зможу відповісти.'; return; }
+
+  const data = Object.fromEntries(new FormData(form).entries());
+  const text = `Заявка на курс «Рілс, що продають»\nІм'я: ${data.name}\nКонтакт: ${data.contact}\nТариф: ${data.tariff}\nКоментар: ${data.comment || '—'}`;
+
+  if (FORM_ENDPOINT) {
+    status.textContent = 'Надсилаю…';
+    try {
+      const r = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (!r.ok) throw new Error(r.status);
+      form.querySelectorAll('label, .apply-btn').forEach(el => el.hidden = true);
+      status.textContent = '✓ Заявку отримано! Відповім тобі протягом дня — перевіряй дірект.';
+      return;
+    } catch (err) {
+      status.textContent = 'Не вдалось надіслати автоматично — напиши мені в дірект 👇';
+    }
+  }
+  // Без ендпоінта: копіюємо текст і ведемо в дірект
+  try { await navigator.clipboard.writeText(text); } catch (err) {}
+  status.textContent = 'Майже готово — один клік 👇';
+  const fb = document.getElementById('form-fallback');
+  fb.hidden = false;
+  const tg = document.getElementById('fb-tg'), ig = document.getElementById('fb-ig');
+  if (TELEGRAM_USERNAME) tg.href = 'https://t.me/' + TELEGRAM_USERNAME; else tg.hidden = true;
+  if (INSTAGRAM_USERNAME) ig.href = 'https://ig.me/m/' + INSTAGRAM_USERNAME; else ig.hidden = true;
+  if (!TELEGRAM_USERNAME && !INSTAGRAM_USERNAME)
+    fb.querySelector('p').textContent = 'Текст заявки скопійовано 📋 — надішли його в дірект. [ ЗАМІНИ: додай ніки TG/IG у конфіг — і тут з\'являться кнопки ]';
+});
+</script>
+
+</body></html>
