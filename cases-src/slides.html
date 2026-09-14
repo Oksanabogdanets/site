@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="uk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Слайди Canva — 18 сторінок</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0c0c0c;color:#efe9dd;font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+header{padding:28px 32px 18px;border-bottom:1px solid #1f1c16}
+h1{margin:0 0 6px;font-size:20px;font-weight:600;letter-spacing:.01em}
+header p{margin:0;color:#8d857a;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;padding:24px 32px 60px}
+figure{margin:0;background:#141310;border:1px solid #23201a;border-radius:10px;overflow:hidden;cursor:zoom-in;transition:border-color .15s,transform .15s}
+figure:hover{border-color:#c9a227;transform:translateY(-2px)}
+img{display:block;width:100%;height:auto}
+figcaption{padding:8px 12px;font-size:12px;color:#a89a7d;letter-spacing:.04em;text-transform:uppercase}
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.94);display:none;align-items:center;justify-content:center;z-index:9;cursor:zoom-out}
+#lb img{max-width:96vw;max-height:92vh;width:auto;border-radius:6px}
+#lb.on{display:flex}
+</style></head><body>
+<header><h1>Слайди презентації Canva</h1><p>18 сторінок, експорт 1366px · клік — на весь екран, стрілки ← → перемикають</p></header>
+<div class="grid" id="g"></div>
+<div id="lb"><img alt=""></div>
+<script>
+const pages=["p03","p04","p05","p06","p08","p09","p10","p11","p12","p13","p14","p15","p16","p17","p18","p20","p21","p22"];
+const g=document.getElementById("g"),lb=document.getElementById("lb"),lbi=lb.querySelector("img");
+let cur=0;
+pages.forEach((p,i)=>{
+  const f=document.createElement("figure");
+  f.innerHTML='<img loading="lazy" src="canva/'+p+'.png" alt="'+p+'"><figcaption>сторінка '+p.slice(1)+'</figcaption>';
+  f.onclick=()=>{cur=i;show()};
+  g.appendChild(f);
+});
+function show(){lbi.src="canva/"+pages[cur]+".png";lb.classList.add("on")}
+lb.onclick=()=>lb.classList.remove("on");
+document.onkeydown=e=>{
+  if(!lb.classList.contains("on"))return;
+  if(e.key==="Escape")lb.classList.remove("on");
+  if(e.key==="ArrowRight"){cur=(cur+1)%pages.length;show()}
+  if(e.key==="ArrowLeft"){cur=(cur-1+pages.length)%pages.length;show()}
+};
+</script></body></html>
