@@ -56,6 +56,26 @@ def local_name(idx, f, src):
     h = hashlib.md5(open(src, 'rb').read()).hexdigest()[:8]
     return f'{idx:02d}-{h}.{ext}'
 
+
+# PNG без прозорості важче 100 КБ (fmt1–3, grad, siteshot — по 300–450 КБ) віддаємо як JPEG:
+# у 4–5 разів легше, різниці на око немає. Файли з альфою (лого, аватарки) не чіпаємо.
+def _heavy_png(src):
+    if not src.lower().endswith('.png') or os.path.getsize(src) < 100 * 1024:
+        return False
+    from PIL import Image
+    im = Image.open(src)
+    return not (im.mode in ('RGBA', 'LA', 'P') and 'transparency' in im.info or im.mode in ('RGBA', 'LA'))
+
+
+def _png_to_jpg(idx, src):
+    from PIL import Image
+    import io
+    buf = io.BytesIO()
+    Image.open(src).convert('RGB').save(buf, 'JPEG', quality=84, optimize=True, progressive=True)
+    dst = f'{idx:02d}-{hashlib.md5(buf.getvalue()).hexdigest()[:8]}.jpg'
+    open(os.path.join(OUTIMG, dst), 'wb').write(buf.getvalue())
+    return dst
+
 hashmap = {}
 for idx, f in enumerate(files):
     m = re.match(r'(tild[0-9a-f-]+)_', f)
@@ -66,6 +86,8 @@ for idx, f in enumerate(files):
         t = open(src, encoding='utf-8', errors='ignore').read()
         t = re.sub(r'#(?:cbafff|caaeff|ccafff|dfff5e)', GOLD, t, flags=re.I)
         open(os.path.join(OUTIMG, dst), 'w', encoding='utf-8').write(t)
+    elif _heavy_png(src):
+        dst = _png_to_jpg(idx, src)
     else:
         shutil.copy(src, os.path.join(OUTIMG, dst))
     hashmap[key] = dst
@@ -171,6 +193,33 @@ s = re.sub(r'(<meta property="og:image" content=")[^"]*', r'\1' + SITE + 'og-cas
 s = re.sub(r'(<meta property="og:url" content=")[^"]*', r'\1' + SITE, s)
 s = re.sub(r'(<link rel="canonical" href=")[^"]*', r'\1' + SITE, s)
 s = s.replace('lang="ru"', 'lang="uk"')
+
+# ---------- прелоадер: привітання замість «Загрузка», без штучної паузи ----------
+# Було: «Загрузка» по літерах (80 мс/символ) + пауза 2 с + повільний fadeOut ≈ 3 с чорного екрана.
+# Стало: коротке привітання швидко (28 мс/символ), fadeOut одразу після набору.
+PRE_TXT = 'Вітаю! Зараз покажу, як Reels приводять клієнтів'
+for _a, _b in [
+    ('var text = "Загрузка"; var speed = 80;', 'var text = "%s"; var speed = 28;' % PRE_TXT),
+    ('"preloaderText":"Загрузка","typeSpeed":"80","fadeOutShort":"2000"', '"preloaderText":"%s","typeSpeed":"28","fadeOutShort":"250"' % PRE_TXT),
+    ("if (contentLoaded) { setTimeout(function() { $('#preloader').fadeOut('slow'); }, 2000); } else { setTimeout(function() { $('#preloader').fadeOut('slow'); }, ); }",
+     "setTimeout(function() { $('#preloader').fadeOut(400); }, 250);"),
+    ('#preloader-quote { margin-top: 40px; width: 90%; text-align: center; font-size: 80px; color: #382F4C;',
+     '#preloader-quote { margin-top: 0; width: 90%; text-align: center; font-size: 44px; line-height: 1.25; color: #f6d4aa;'),
+    ('linear-gradient(90deg, #f6d4aa, #382F4C, #f6d4aa)', 'linear-gradient(90deg, #f6d4aa, #8a744f, #f6d4aa)'),
+    ('@media all and (max-width: 480px) { #preloader-quote { font-size: 16px; } }',
+     '@media all and (max-width: 480px) { #preloader-quote { font-size: 24px; } }'),
+]:
+    assert _a in s, 'прелоадер: не знайдено ' + _a[:50]
+    s = s.replace(_a, _b)
+print('прелоадер:', PRE_TXT in s)
+
+# ---------- відео: не тягнути всі ролики при відкритті ----------
+# Tilda ставить preload=metadata кожному з 19 <video> — телефон качає мегабайти ще до
+# першого скролу. Тепер preload=none, а замість першого кадру — обкладинка video/vN-cover.jpg.
+_n = s.count('preload=${(false && isMobile) || false ? "none" : "metadata"}')
+s = s.replace('${\'\' ? "poster=\'\'" : ""}', 'poster="${link.replace(/\\.mp4.*$/, \'-cover.jpg\')}"')
+s = s.replace('preload=${(false && isMobile) || false ? "none" : "metadata"}', 'preload="none"')
+print('відео preload=none:', _n, '| poster:', s.count("'-cover.jpg')"))
 
 # ---------- texts ----------
 T = [
