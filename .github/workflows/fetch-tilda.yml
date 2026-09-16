@@ -1,0 +1,40 @@
+# Скачує CSS/JS Tilda, від яких залежить cases/index.html, у cases/tilda/
+# (запуск вручну: Actions → «Fetch Tilda assets» → Run workflow).
+# Потрібно, щоб сайт можна було переглядати/правити з середовищ без доступу до tildacdn.
+name: Fetch Tilda assets
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download assets referenced by cases/index.html
+        run: |
+          set -e
+          mkdir -p cases/tilda
+          grep -oE 'https?://(static|neo|ws)\.tildacdn\.com/[^"'"'"' )]+' cases/index.html | sort -u > /tmp/urls.txt
+          while read -r u; do
+            path="${u#*://}"; path="${path%%\?*}"          # host/path без query
+            mkdir -p "cases/tilda/$(dirname "$path")"
+            curl -fsSL --retry 3 "$u" -o "cases/tilda/$path" && echo "ok  $path" || echo "FAIL $u"
+          done < /tmp/urls.txt
+          # ресурси, на які посилаються самі CSS (шрифти/іконки з tildacdn)
+          grep -ohE 'url\((["'"'"']?)(https?:)?//static\.tildacdn\.com/[^)"'"'"']+' -r cases/tilda --include='*.css' \
+            | sed -E 's/^url\(["'"'"']?//; s#^//#https://#' | sort -u > /tmp/urls2.txt || true
+          while read -r u; do
+            [ -z "$u" ] && continue
+            path="${u#*://}"; path="${path%%\?*}"
+            mkdir -p "cases/tilda/$(dirname "$path")"
+            curl -fsSL --retry 3 "$u" -o "cases/tilda/$path" && echo "ok  $path" || echo "FAIL $u"
+          done < /tmp/urls2.txt
+          du -sh cases/tilda
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add cases/tilda
+          git commit -m "[agent] chore(cases): локальна копія CSS/JS Tilda у cases/tilda/" || echo "nothing to commit"
+          git push
