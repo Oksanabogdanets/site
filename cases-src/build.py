@@ -162,6 +162,18 @@ caps_css += ('#rec1556224301 .tn-elem[data-elem-id="1763047549777"] .tn-atom,#re
 # фото чужої клієнтки в сітці болей (низ праворуч) — Оксана попросила прибрати
 hide_css = ('#rec1556224301 .tn-elem[data-elem-id="1763394719628"],'
             '#rec1571158361 .tn-elem[data-elem-id="176340044197483570"]{display:none!important}')
+# ---------- мобільні накладання (зі скрінів 16.09) ----------
+MOBILE_FIX = (
+    '@media screen and (max-width:479px){'
+    # «Для кого»: заголовок першої картки був шириною 400px при картці 345 — вилазив за краї
+    # (заголовок лежить у flex-колонці шириною ~298px, а сам був 400px зі зсувом left:-51px —
+    #  тому просто підганяємо його під ширину колонки)
+    '#rec1571158361 .tn-elem[data-elem-id="1763047549768"]{width:100%!important;left:0!important}'
+    '#rec1571158361 .tn-elem[data-elem-id="1763047549768"] .tn-atom{font-size:14px!important;line-height:1.15!important}'
+    # «8 год вашого часу» (70px, три рядки) лягало на підзаголовок «Від стратегічної сесії…»
+    '#rec1575165041 .tn-elem[data-elem-id="1763049679183"] .tn-atom{font-size:46px!important;line-height:.95!important}'
+    '}'
+)
 import packages, niches, team, blocks, form, services
 # старий Tilda-блок форматів роботи (дві копії) міняємо на власний — там не було місця
 # під четвертий пакет, а пункт «Підбір локації…» дублювався
@@ -182,7 +194,7 @@ case_css = ''.join('#rec1558030471 .tn-elem[data-elem-id="%s"]{width:358px!impor
                    % (e, h, e) for e, h in ZV_SHOTS)
 case_css += ','.join('#rec1558030471 .tn-elem[data-elem-id="%s"]' % e for e in ZV_HIDE)
 case_css += '{display:none!important}'
-play_css += hero_css + badge_css + caps_css + hide_css + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + case_css
+play_css += hero_css + badge_css + caps_css + hide_css + MOBILE_FIX + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + case_css
 s = s.replace('</head>', '<style>#rec1698062081,#rec1590641921,#rec1998611892,.t-tildalabel,.t887{display:none!important}' + play_css + '</style>\n</head>')
 
 # ---------- meta ----------
@@ -264,7 +276,7 @@ T = [
  ('4,1 млн.', '2,4 млн'), ('просмотров', 'переглядів'),
  ('ДЕТСКАЯ ПСИХОЛОГИЯ', 'ПСИХОЛОГ'), ('+50 000 ПОДПИСЧИКОВ', '+4 000 ПІДПИСНИКІВ'),
  ('РЕЗУЛЬТАТ С 0 ДО 50 ТЫС. ПОДПИСЧИКОВ', 'РЕЗУЛЬТАТ: З 1 201 ДО 6 210 ПІДПИСНИКІВ'),
- ('5 месяцев.', 'перший місяць.'), ('Самый популярный ролик набрал', 'Найпопулярніший ролик набрав'), ('6,3 млн.', '382 тис.'),
+ ('5 месяцев.', 'перший місяць в Instagram і TikTok.'), ('Самый популярный ролик набрал', 'Найпопулярніший ролик набрав'), ('6,3 млн.', '382 тис.'),
  ('АГЕНТСТВО ПО ИПОТЕКЕ', 'КАР\'ЄРНИЙ КОНСУЛЬТАНТ'), ('20+ ЗАЯВОК В ДЕНЬ', '+700 ЦІЛЬОВИХ ПІДПИСНИКІВ'),
  ('РЕЗУЛЬТАТ 20+ ЛИДОВ В ДЕНЬ С REELS', 'РЕЗУЛЬТАТ: +700 ЦІЛЬОВИХ З 10 REELS'),
  ('Количество просмотров роликов увеличилось', 'Набирає групу на менторство. Аудиторія зросла'), ('в 5 раз', 'у 7 разів'),

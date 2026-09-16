@@ -18,7 +18,7 @@ CSS = """
 #oks-form input{width:100%;box-sizing:border-box;background:#0a0a0a;border:1px solid rgba(255,255,255,.14);
   border-radius:14px;color:#fff;font-size:16px;padding:14px 16px;margin-bottom:14px;outline:none;font-family:inherit}
 #oks-form input:focus{border-color:#f6d4aa}
-#oks-form button{width:100%;border:0;cursor:pointer;background:#f6d4aa;color:#000;font-size:16px;font-weight:600;
+#oks-form button{width:100%;box-sizing:border-box;border:0;cursor:pointer;background:#f6d4aa;color:#000;font-size:16px;font-weight:600;
   border-radius:40px;padding:16px 22px;font-family:inherit;transition:transform .15s ease}
 #oks-form button:hover{transform:translateY(-2px)}
 #oks-form button[disabled]{opacity:.6;cursor:default;transform:none}
@@ -60,5 +60,5 @@ def html():
             '<input class="fm-hp" name="_honey" tabindex="-1" autocomplete="off">'
             '<button type="submit">Записатися</button>'
             '<div class="fm-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.</div>'
-            '</form><div id="oks-form-ok">Дякую! Заявка вже в Оксани — напише вам протягом дня.</div></div>'
+            '</form><div id="oks-form-ok" class="fm-ok">Дякую! Заявка вже в Оксани — напише вам протягом дня.</div></div>'
             '</div></div><script>%s</script>' % JS)
