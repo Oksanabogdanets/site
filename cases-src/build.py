@@ -3,7 +3,7 @@
 import os, re, shutil, sys
 S = os.path.dirname(os.path.abspath(__file__))
 A = os.path.join(S, 'assets'); IMG = os.path.join(S, 'ra-img')
-OUT = '/Users/bogdanets94gmail.com/Desktop/всі проекти /створення сайтів /my-landing/cases'
+OUT = os.environ.get('CASES_OUT') or os.path.join(os.path.dirname(S), 'cases')
 OUTIMG = os.path.join(OUT, 'img')
 if os.path.isdir(OUTIMG): shutil.rmtree(OUTIMG)
 os.makedirs(OUTIMG, exist_ok=True)
