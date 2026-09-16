@@ -1,9 +1,11 @@
 # Скачує CSS/JS Tilda, від яких залежить cases/index.html, у cases/tilda/
-# (запуск вручну: Actions → «Fetch Tilda assets» → Run workflow).
+# Запуск: вручну (Actions → «Fetch Tilda assets» → Run workflow) або пушем цього файла.
 # Потрібно, щоб сайт можна було переглядати/правити з середовищ без доступу до tildacdn.
 name: Fetch Tilda assets
 on:
   workflow_dispatch:
+  push:
+    paths: ['.github/workflows/fetch-tilda.yml']
 permissions:
   contents: write
 jobs:
