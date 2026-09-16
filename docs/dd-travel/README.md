@@ -15,6 +15,7 @@
 | [`05-content-videos.md`](05-content-videos.md) | Сценарії відео з озвучкою + розмовні Reels |
 | [`06-transcript-2026-07-09.md`](06-transcript-2026-07-09.md) | Транскрипт консультації (Zoom, 09.07.2026) |
 | [`07-transcript-2026-09-01.md`](07-transcript-2026-09-01.md) | Транскрипт голосової розмови (01.09.2026) |
+| [`08-carousel-style.md`](08-carousel-style.md) | **Фірмовий стиль каруселей** — композиція, шрифти, затемнення, сліпа зона. Рендер: [`tools/carousel.py`](tools/carousel.py) |
 
 ## Робочий простір
 
