@@ -148,8 +148,10 @@ BADGE = '1763109677657'
 badge_css = ('#rec1558021021 .tn-elem[data-elem-id="%s"]{left:calc(50%% - 640px + 515px)!important;top:170px!important}'
              '@media screen and (max-width:1279px){#rec1558021021 .tn-elem[data-elem-id="%s"]{left:calc(50%% - 480px + 395px)!important;top:170px!important}}'
              '@media screen and (max-width:959px){#rec1558021021 .tn-elem[data-elem-id="%s"]{left:calc(50%% - 320px + 250px)!important;top:150px!important;transform:scale(.85);transform-origin:top left}}'
-             '@media screen and (max-width:639px){#rec1558021021 .tn-elem[data-elem-id="%s"]{display:table!important;left:calc(50%% - 240px + 268px)!important;top:236px!important;transform:scale(.72);transform-origin:top left}}'
-             '@media screen and (max-width:479px){#rec1558021021 .tn-elem[data-elem-id="%s"]{left:calc(50%% - 180px + 208px)!important;top:230px!important;transform:scale(.72);transform-origin:top left}}') % ((BADGE,)*5)
+             # на телефоні бейдж стояв на кнопці «Отримати стратегію» — тепер у вільній зоні
+             # праворуч від підзаголовка, над кнопкою (перевірено на 360/375/390/414/540)
+             '@media screen and (max-width:639px){#rec1558021021 .tn-elem[data-elem-id="%s"]{display:table!important;left:calc(50%% - 240px + 330px)!important;top:190px!important;transform:scale(.72);transform-origin:top left}}'
+             '@media screen and (max-width:479px){#rec1558021021 .tn-elem[data-elem-id="%s"]{left:calc(50%% - 180px + 252px)!important;top:170px!important;transform:scale(.66);transform-origin:top left}}') % ((BADGE,)*5)
 CAPS = ['1763047549777', '1763047549803', '1763047549839', '176312696555815890']
 caps_css = ''.join('#rec1556224301 .tn-elem[data-elem-id="%s"] .tn-atom,#rec1571158361 .tn-elem[data-elem-id="%s"] .tn-atom'
                    '{font-size:11.5px!important;line-height:1.3!important;letter-spacing:.02em!important}' % (c, c) for c in CAPS)
