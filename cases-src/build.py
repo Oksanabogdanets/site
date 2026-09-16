@@ -410,8 +410,8 @@ def _asset_url(fn):
     name = os.path.splitext(fn)[0] + '-' + h + os.path.splitext(fn)[1]
     shutil.copy(os.path.join(A, fn), os.path.join(OUTIMG, name)); return 'img/' + name
 s = s.replace('<div id="rec1558093791"', team.html(_asset_url) + blocks.about(_asset_url('ava_oksana.jpg')) + '<div id="rec1558093791"', 1)
-# абзац суті — після ВСЬОГО першого екрана (hero = текст + рухома мозаїка), перед «Для кого»
-s = s.replace('<div id="rec1556224301"', blocks.essence() + '<div id="rec1556224301"', 1)
+# «Наша місія» — після ВСЬОГО першого екрана (hero = текст + рухома мозаїка), перед «Для кого»
+s = s.replace('<div id="rec1556224301"', blocks.mission() + '<div id="rec1556224301"', 1)
 # результати — перед заголовком «Приклади відео»
 s = s.replace('<div id="rec1558049271"', blocks.results() + '<div id="rec1558049271"', 1)
 # форма — перед фінальним CTA з кнопками Telegram/Direct
@@ -421,7 +421,7 @@ import cases_tall
 s = cases_tall.apply(s, _asset_url)
 print('кейси 03/04: клонів', s.count("data-elem-id='8763049596"), s.count("data-elem-id='9763049596"),
       '| старих елементів:', s.count("data-elem-id='1763049596573'") + s.count("data-elem-id='176345641403933930'"))
-print('нові блоки:', s.count('id="oks-ess"'), s.count('id="oks-res"'), s.count('id="oks-about"'), s.count('id="oks-form"'))
+print('нові блоки:', s.count('id="oks-mission"'), s.count('id="oks-res"'), s.count('id="oks-about"'), s.count('id="oks-form"'))
 print('команда:', s.count('class="tm-card"'), 'карток')
 print('рядок ніш:', s.count('id="oks-niches"'))
 print('блок пакетів:', s.count('id="oks-pk"'), '| карток:', s.count('class="pk-card'))

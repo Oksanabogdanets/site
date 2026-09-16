@@ -1,13 +1,22 @@
 """Три невеликі власні блоки (за аналізом конкурента, 14.09):
 
-- essence()  — абзац суті одразу під hero: «послугу надає команда» + вимірюваний обсяг
+- mission()  — «Наша місія» одразу під hero: теза + три пункти + фінальна фраза (редакція Оксани з КП, 16.09;
+               замінив абзац «Послугу надає команда…», який Оксана попросила прибрати)
 - results()  — «Що ви отримуєте»: результати окремо від процесу (продає саме це)
 - about()    — «Хто веде проєкт»: регалії Оксани замість цифр клієнтів
 """
 
-ESSENCE = ('Послугу надає команда <b>Oksana Bogdanets Production</b>. Робимо під ключ '
-           '<b>15 або 30 вертикальних відео на місяць</b>: стратегія, сценарії, зйомка за один день, '
-           'монтаж і публікація. Можливий формат без зйомки — знімаєте самі за нашими сценаріями.')
+MISSION = 'Ми масштабуємо <b>таланти, бізнеси та професіоналів</b>'
+MISSION_POINTS = [
+    ('Розуміємо болі вашої аудиторії',
+     'Глибоко розуміємо, що болить вашій аудиторії, і транслюємо рішення через контент — '
+     'завдяки цьому ви отримуєте цільові заявки'),
+    ('Розвиваємо бренди',
+     'Через творчий, сучасний і стратегічний контент'),
+    ('Створюємо якісні та продаючі Reels',
+     'Вони працюють на особистий бренд і збільшують потік клієнтів'),
+]
+MISSION_FINAL = 'Ми не закриваємо контент-план — <b>ми закриваємо ваші цілі</b>.'
 
 RESULTS = [
     ('Системний потік заявок', 'Reels ведуть у Direct і на сайт, а не просто збирають перегляди'),
@@ -26,10 +35,19 @@ ABOUT_TEXT = ('Продюсерка. Веде кожен проєкт особи
               'Стратегію і сценарії не делегує: це те, що вирішує результат.')
 
 CSS = """
-#oks-ess,#oks-res,#oks-about{background:#000;font-family:'Inter',Arial,sans-serif}
-#oks-ess{padding:0 20px 70px}
-#oks-ess p{max-width:860px;margin:0 auto;text-align:center;color:#d2d2d2;font-size:19px;line-height:1.45}
-#oks-ess b{color:#f6d4aa;font-weight:600}
+#oks-mission,#oks-res,#oks-about{background:#000;font-family:'Inter',Arial,sans-serif}
+#oks-mission{padding:10px 20px 90px}
+#oks-mission .oks-h2{max-width:820px}
+#oks-mission .ms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+#oks-mission .ms-card{border-radius:24px;padding:26px 24px 28px;
+  background:linear-gradient(160deg,#241a12 0%,#0d0a08 55%,#000 100%);border:1px solid rgba(246,212,170,.18)}
+#oks-mission .ms-n{color:#f6d4aa;font-size:13px;letter-spacing:.08em;margin-bottom:14px}
+#oks-mission .ms-t{color:#fff;font-size:20px;font-weight:600;line-height:1.2;margin-bottom:10px}
+#oks-mission .ms-d{color:#9b9b9b;font-size:15px;line-height:1.4}
+#oks-mission .ms-final{margin:34px auto 0;max-width:720px;text-align:center;color:#d2d2d2;
+  font-size:21px;line-height:1.35;padding:22px 26px;border-radius:18px;
+  border:1px solid rgba(246,212,170,.3);background:rgba(246,212,170,.05)}
+#oks-mission .ms-final b{color:#f6d4aa;font-weight:600}
 #oks-res{padding:0 20px 90px}
 .oks-in{max-width:1180px;margin:0 auto}
 .oks-tag{display:inline-block;border:1px solid rgba(246,212,170,.4);border-radius:40px;
@@ -55,8 +73,10 @@ CSS = """
 #oks-about .ab-num{color:#f6d4aa;font-size:30px;font-weight:600;line-height:1}
 #oks-about .ab-lbl{color:#9b9b9b;font-size:13px;line-height:1.3;margin-top:6px}
 @media screen and (max-width:1000px){#oks-res .rs-grid{grid-template-columns:repeat(2,1fr)}
-  .oks-h2{font-size:32px}#oks-about .ab{grid-template-columns:220px 1fr;gap:28px}}
-@media screen and (max-width:640px){#oks-ess{padding-bottom:46px}#oks-ess p{font-size:16px}
+  .oks-h2{font-size:32px}#oks-about .ab{grid-template-columns:220px 1fr;gap:28px}
+  #oks-mission .ms-grid{grid-template-columns:1fr;gap:14px}}
+@media screen and (max-width:640px){#oks-mission{padding-bottom:60px}
+  #oks-mission .ms-final{font-size:17px;padding:18px 20px;margin-top:24px}
   #oks-res,#oks-about{padding-bottom:60px}.oks-h2{font-size:26px;margin-bottom:24px}
   #oks-res .rs-grid{grid-template-columns:1fr;gap:14px}
   #oks-about .ab{grid-template-columns:1fr;padding:22px;gap:22px}
@@ -64,8 +84,12 @@ CSS = """
 """
 
 
-def essence():
-    return '<div id="oks-ess"><p>%s</p></div>' % ESSENCE
+def mission():
+    cards = ''.join('<div class="ms-card"><div class="ms-n">0%d</div><div class="ms-t">%s</div>'
+                    '<div class="ms-d">%s</div></div>' % (i, t, d) for i, (t, d) in enumerate(MISSION_POINTS, 1))
+    return ('<div id="oks-mission"><div class="oks-in"><span class="oks-tag">Наша місія</span>'
+            '<h2 class="oks-h2">%s</h2><div class="ms-grid">%s</div><p class="ms-final">%s</p></div></div>'
+            % (MISSION, cards, MISSION_FINAL))
 
 
 def results():
