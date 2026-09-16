@@ -8,3 +8,4 @@ out/
 cases-src/*.bak
 cases-src/*.bak2
 cases-src/*.old2
+__pycache__/
