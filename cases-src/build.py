@@ -162,7 +162,7 @@ caps_css += ('#rec1556224301 .tn-elem[data-elem-id="1763047549777"] .tn-atom,#re
 # фото чужої клієнтки в сітці болей (низ праворуч) — Оксана попросила прибрати
 hide_css = ('#rec1556224301 .tn-elem[data-elem-id="1763394719628"],'
             '#rec1571158361 .tn-elem[data-elem-id="176340044197483570"]{display:none!important}')
-import packages, niches, team, blocks, form
+import packages, niches, team, blocks, form, services
 # старий Tilda-блок форматів роботи (дві копії) міняємо на власний — там не було місця
 # під четвертий пакет, а пункт «Підбір локації…» дублювався
 hide_css += '#rec1558101811,#rec1575209271{display:none!important}'
@@ -182,7 +182,7 @@ case_css = ''.join('#rec1558030471 .tn-elem[data-elem-id="%s"]{width:358px!impor
                    % (e, h, e) for e, h in ZV_SHOTS)
 case_css += ','.join('#rec1558030471 .tn-elem[data-elem-id="%s"]' % e for e in ZV_HIDE)
 case_css += '{display:none!important}'
-play_css += hero_css + badge_css + caps_css + hide_css + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + case_css
+play_css += hero_css + badge_css + caps_css + hide_css + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + case_css
 s = s.replace('</head>', '<style>#rec1698062081,#rec1590641921,#rec1998611892,.t-tildalabel,.t887{display:none!important}' + play_css + '</style>\n</head>')
 
 # ---------- meta ----------
@@ -404,6 +404,8 @@ print('FAQ замінено:', len(FAQ))
 s = s.replace("tn_text_176314294699174820'>1 год<", "tn_text_176314294699174820'>5 год<")
 print('5 год у картці Зйомка:', s.count("tn_text_176314294699174820'>5 год<"))
 s = s.replace('<div id="rec1558101811"', packages.html(DIRECT) + '<div id="rec1558101811"', 1)
+# перед заголовком пакетів (rec1564228961 + його css-блок rec1578894761): що вміємо → як ведемо → старт
+s = s.replace('<div id="rec1578894761"', services.skills() + services.process() + services.start() + '<div id="rec1578894761"', 1)
 s = s.replace('<div id="rec1577011231"', niches.html() + '<div id="rec1577011231"', 1)
 def _asset_url(fn):
     h = hashlib.md5(open(os.path.join(A, fn), 'rb').read()).hexdigest()[:8]
@@ -425,6 +427,7 @@ print('нові блоки:', s.count('id="oks-mission"'), s.count('id="oks-res"
 print('команда:', s.count('class="tm-card"'), 'карток')
 print('рядок ніш:', s.count('id="oks-niches"'))
 print('блок пакетів:', s.count('id="oks-pk"'), '| карток:', s.count('class="pk-card'))
+print('послуги/етапи/старт:', s.count('id="oks-skills"'), s.count('id="oks-process"'), s.count('id="oks-start"'))
 
 open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(s)
 left = re.findall(r'[^<>"]{0,40}[ыЫэЭъЪёЁ][^<>"]{0,40}', re.sub(r'<script.*?</script>|<style.*?</style>', '', s, flags=re.S))
