@@ -7,6 +7,10 @@
 підставляємо тексти, скріни й ширини, а стару картку прибираємо з DOM.
 Кейс 03 — Юлія, кар'єрна консультантка (скріни з Canva, стор. 5–6).
 Кейс 04 — Muza Body, клініка естетичної медицини (КП стор. 7, Canva стор. 14).
+
+TikTok у кейсах 01 і 02 (tiktok()): під скріном «після» — стрічка з трьох роликів із цифрами
+(Canva стор. 13 і 10), зібрана в один композит (assets/*_after_tt.jpg); картки стають на 239px
+вищими (210 на телефоні), ряд 2 сітки і артборд зсуваються на стільки ж.
 """
 import re
 from extra_cards import _css_rules
@@ -123,11 +127,65 @@ def apply(s, asset_url):
             rec = rec[:a] + rec[b:]
     a, _ = _frag(rec, BAR)
     rec = rec[:a] + dom_all + rec[a:]
+    rec, tt_css = tiktok(rec, asset_url)
+    css_all += tt_css
     rec, grid_css = regrid(rec)
     css_all += grid_css
 
     s = s[:rec_a] + rec + s[rec_b:]
     return s.replace('</head>', '<style>' + css_all + '</style>\n</head>', 1)
+
+
+# ---------- TikTok-стрічка під «ПІСЛЯ» у кейсах 01 і 02 ----------
+TT = [dict(after='1763049596500', bg='176313527876574120',                       # кейс 01, Звільнимо (Canva 13)
+           below=['1763049596528', '1763049596531', '1763049596532'], img='zvilnymo_after_tt.jpg'),
+      dict(after='1763049596562', bg='1763049596437',                              # кейс 02, Ніна (Canva 10)
+           below=['1763049596563', '1763049596565', '1763049596567'], img='nina_after_tt.jpg')]
+TT_H = {'': 395, '360': 328}    # висота скріна «після» з стрічкою (було 156 / 118)
+TT_D = {'': 239, '360': 210}    # на стільки нижче все під ним і вища картка
+
+
+def _tag(frag):
+    """Відкривальний тег без '>' (щоб _set міг дописати атрибут) і решта фрагмента."""
+    i = frag.index('>')
+    return frag[:i], frag[i:]
+
+
+def _bump(tag, key, res, d):
+    a = 'data-field-%s%s-value' % (key, '-res-%s' % res if res else '')
+    m = re.search(a + r'="(-?[\d.]+)"', tag)
+    return re.sub(a + r'="[^"]*"', '%s="%d"' % (a, int(float(m.group(1))) + d), tag) if m else tag
+
+
+def tiktok(rec, asset_url):
+    css = ''
+    for t in TT:
+        a, b = _frag(rec, t['after'])
+        tag, rest = _tag(rec[a:b])
+        rest = re.sub(r'data-original="[^"]+"', 'data-original="%s"' % asset_url(t['img']), rest, count=1)
+        for res in RES:
+            h = TT_H['360'] if res == '360' else TT_H['']
+            tag = _set(tag, 'height', res, h)
+            r = '#rec1558030471 .tn-elem[data-elem-id="%s"]{height:%dpx!important}' % (t['after'], h)
+            css += (MEDIA[res] + '{' + r + '}') if MEDIA[res] else r
+        rec = rec[:a] + tag + rest + rec[b:]
+        a, b = _frag(rec, t['bg'])
+        tag, rest = _tag(rec[a:b])
+        for res in RES:
+            d = TT_D['360'] if res == '360' else TT_D['']
+            tag = _bump(tag, 'height', res, d)
+            m = re.search(r'data-field-height%s-value="(\d+)"' % ('-res-%s' % res if res else ''), tag)
+            if m:
+                r = '#rec1558030471 .tn-elem[data-elem-id="%s"]{height:%spx!important}' % (t['bg'], m.group(1))
+                css += (MEDIA[res] + '{' + r + '}') if MEDIA[res] else r
+        rec = rec[:a] + tag + rest + rec[b:]
+        for eid in t['below']:
+            a, b = _frag(rec, eid)
+            tag, rest = _tag(rec[a:b])
+            for res in RES:
+                tag = _bump(tag, 'top', res, TT_D['360'] if res == '360' else TT_D[''])
+            rec = rec[:a] + tag + rest + rec[b:]
+    return rec, css
 
 
 # ---------- сітка замість горизонтальної стрічки ----------
@@ -147,12 +205,13 @@ MEDIA = {'': '', '640': '@media screen and (max-width:959px)',
          '480': '@media screen and (max-width:639px)', '360': '@media screen and (max-width:479px)'}
 CUR_LEFT = {'': [30, 440, 850, 1260], '640': [30, 440, 850, 1260], '480': [30, 440, 850, 1260], '360': [15, 360, 705, 1050]}
 NEW_LEFT = {'': [235, 645, 235, 645], '640': [120] * 4, '480': [40] * 4, '360': [15] * 4}
-ROW_TOP = {'': [0, 0, 700, 700], '640': [0, 700, 1400, 2100], '480': [0, 700, 1400, 2100], '360': [0, 570, 1140, 1710]}
-ART_H = {'': 1400, '640': 2800, '480': 2800, '360': 2300}
+# кейси 01 і 02 вищі на TT_D (TikTok-стрічка) — усе, що нижче них, зсунуто на стільки ж
+ROW_TOP = {'': [0, 0, 939, 939], '640': [0, 939, 1878, 2578], '480': [0, 939, 1878, 2578], '360': [0, 780, 1560, 2130]}
+ART_H = {'': 1639, '640': 3278, '480': 3278, '360': 2720}
 CHAIN = {'': [''], '640': ['640', ''], '480': ['480', '640', ''], '360': ['360', '480', '640', '']}
 # скріни кейса 01 (build.py ZV_SHOTS робить їх 358px на всіх екранах) — на 360 як у кейса 02
 OVERRIDE = {'1763049596474': {'360': (31, 130, 295, 116)},   # ДО: left, top, width, height
-            '1763049596500': {'360': (31, 294, 297, 118)}}   # ПІСЛЯ
+            '1763049596500': {'360': (31, 294, 297, 328)}}   # ПІСЛЯ + TikTok-стрічка (TT_H)
 
 
 def _col(left):
