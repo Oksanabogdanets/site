@@ -1,10 +1,12 @@
 # Скачує CSS/JS Tilda, від яких залежить cases/index.html, у cases/tilda/
 # Запуск: вручну (Actions → «Fetch Tilda assets» → Run workflow) або пушем цього файла.
 # Потрібно, щоб сайт можна було переглядати/правити з середовищ без доступу до tildacdn.
+# --compressed: CDN віддає gzip, без цього файли лягають стиснутими і preview.js їх не читає.
 name: Fetch Tilda assets
 on:
   workflow_dispatch:
   push:
+    branches-ignore: ['main']      # у main не запускати: злиття гілки не має перезаписувати cases/tilda
     paths: ['.github/workflows/fetch-tilda.yml']
 permissions:
   contents: write
@@ -21,7 +23,7 @@ jobs:
           while read -r u; do
             path="${u#*://}"; path="${path%%\?*}"          # host/path без query
             mkdir -p "cases/tilda/$(dirname "$path")"
-            curl -fsSL --retry 3 "$u" -o "cases/tilda/$path" && echo "ok  $path" || echo "FAIL $u"
+            curl -fsSL --compressed --retry 3 "$u" -o "cases/tilda/$path" && echo "ok  $path" || echo "FAIL $u"
           done < /tmp/urls.txt
           # ресурси, на які посилаються самі CSS (шрифти/іконки з tildacdn)
           grep -ohE 'url\((["'"'"']?)(https?:)?//static\.tildacdn\.com/[^)"'"'"']+' -r cases/tilda --include='*.css' \
@@ -30,7 +32,7 @@ jobs:
             [ -z "$u" ] && continue
             path="${u#*://}"; path="${path%%\?*}"
             mkdir -p "cases/tilda/$(dirname "$path")"
-            curl -fsSL --retry 3 "$u" -o "cases/tilda/$path" && echo "ok  $path" || echo "FAIL $u"
+            curl -fsSL --compressed --retry 3 "$u" -o "cases/tilda/$path" && echo "ok  $path" || echo "FAIL $u"
           done < /tmp/urls2.txt
           du -sh cases/tilda
       - name: Commit and push
