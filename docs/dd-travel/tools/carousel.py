@@ -15,6 +15,7 @@ _ap.add_argument('--fonts', default=os.environ.get('DD_FONTS', '/mnt/skills/exam
                  help='папка зі шрифтами Lora, Jura (Google Fonts)')
 _ap.add_argument('--sysfonts', default='/usr/share/fonts/truetype/liberation/', help='папка з Liberation Sans')
 _ap.add_argument('--slides', help='JSON зі списком слайдів (замість SLIDES у коді)')
+_ap.add_argument('--logo', default='', help='PNG логотипу (біле на прозорому); без нього лого малюється шрифтами')
 _args = _ap.parse_args()
 F = _args.fonts.rstrip('/') + '/'
 PHOTOS = _args.photos
@@ -102,6 +103,15 @@ def wrap(d, text, fnt, max_w):
     return lines
 
 
+def logo_png(img, width=230, top=52):
+    """Справжнє лого (біле на прозорому PNG), угорі по центру."""
+    lg = Image.open(_args.logo).convert('RGBA')
+    lg = lg.crop(lg.getchannel('A').getbbox())
+    h = int(lg.height * width / lg.width)
+    lg = lg.resize((width, h), Image.LANCZOS)
+    img.paste(lg, ((W - width) // 2, top), lg)
+
+
 def logo(d):
     cx, y = W / 2, 56
     tracked(d, cx, y, 'D&D', font(SERIF, 50), (255, 255, 255), tracking=1)
@@ -156,8 +166,11 @@ def render(idx, photo_name, heading, body='', emphasis='', y_focus=0.5, call=Non
     y = SAFE_BOTTOM - block
 
     img = scrim(img, text_top=y - 30)
+    if _args.logo:
+        logo_png(img)
     d = ImageDraw.Draw(img)
-    logo(d)
+    if not _args.logo:
+        logo(d)
 
     for ln in hl:
         d.text((X, y), ln, font=f_h, fill=(255, 255, 255))
