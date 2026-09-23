@@ -138,9 +138,14 @@ def apply(s, asset_url):
 
 # ---------- TikTok-стрічка під «ПІСЛЯ» у кейсах 01 і 02 ----------
 TT = [dict(after='1763049596500', bg='176313527876574120',                       # кейс 01, Звільнимо (Canva 13)
-           below=['1763049596528', '1763049596531', '1763049596532'], img='zvilnymo_after_tt.jpg'),
+           below=['1763049596528', '1763049596531', '1763049596532'], img='zvilnymo_after_tt.jpg',
+           url='https://www.tiktok.com/@zvilnymo'),
       dict(after='1763049596562', bg='1763049596437',                              # кейс 02, Ніна (Canva 10)
-           below=['1763049596563', '1763049596565', '1763049596567'], img='nina_after_tt.jpg')]
+           below=['1763049596563', '1763049596565', '1763049596567'], img='nina_after_tt.jpg',
+           url='https://www.tiktok.com/@nina_demydenko')]
+# посилання поверх TikTok-стрічки (нижні 60% картинки «після»): Оксана — «має бути клікабельним»
+TT_LINK = ('<a href="%s" target="_blank" rel="noopener" aria-label="TikTok" '
+           'style="position:absolute;left:0;right:0;top:40%%;bottom:0;z-index:5;display:block;cursor:pointer"></a>')
 TT_H = {'': 395, '360': 328}    # висота скріна «після» з стрічкою (було 156 / 118)
 TT_D = {'': 239, '360': 210}    # на стільки нижче все під ним і вища картка
 
@@ -163,6 +168,7 @@ def tiktok(rec, asset_url):
         a, b = _frag(rec, t['after'])
         tag, rest = _tag(rec[a:b])
         rest = re.sub(r'data-original="[^"]+"', 'data-original="%s"' % asset_url(t['img']), rest, count=1)
+        j = rest.rfind('</div>'); rest = rest[:j] + TT_LINK % t['url'] + rest[j:]   # перед закриттям .tn-elem
         for res in RES:
             h = TT_H['360'] if res == '360' else TT_H['']
             tag = _set(tag, 'height', res, h)

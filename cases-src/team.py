@@ -7,10 +7,12 @@
 # (ім'я, роль, файл фото в assets або None)
 PEOPLE = [
     ('Оксана', 'Засновниця, продюсерка', 'ava_oksana.jpg'),
-    ('Олександр', 'Оператор і монтажер', None),
+    ('Олександра', 'Операторка і монтажерка', None),
     ('Анастасія', 'Операторка', None),
     ('Данило', 'Оператор', None),
     ('Валерія', 'SMM-спеціалістка', None),
+    ('Анастасія', 'Методологиня', None),
+    ('Анастасія', 'Таргетологиня', None),
 ]
 
 LEAD = 'Кожен проєкт — від стратегії до фінального монтажу — ведеться під керівництвом Оксани.'
@@ -22,7 +24,7 @@ CSS = """
   padding:7px 16px;color:#f6d4aa;font-size:13px;margin-bottom:22px}
 #oks-team h2{color:#fff;font-size:40px;font-weight:600;line-height:1.1;margin:0 0 40px;max-width:640px}
 #oks-team h2 b{color:#f6d4aa;font-weight:600}
-#oks-team .tm-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:22px}
+#oks-team .tm-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:18px}
 #oks-team .tm-card{text-align:center}
 #oks-team .tm-ph{width:100%;aspect-ratio:1/1;border-radius:24px;overflow:hidden;
   background:linear-gradient(160deg,#241a12,#0d0a08);border:1px solid rgba(246,212,170,.18);
@@ -35,7 +37,7 @@ CSS = """
   font-size:17px;line-height:1.4;padding:22px 26px;border-radius:18px;
   border:1px solid rgba(246,212,170,.3);background:rgba(246,212,170,.05)}
 #oks-team .tm-lead b{color:#f6d4aa;font-weight:600}
-@media screen and (max-width:1000px){#oks-team .tm-grid{grid-template-columns:repeat(3,1fr)}
+@media screen and (max-width:1000px){#oks-team .tm-grid{grid-template-columns:repeat(4,1fr)}
   #oks-team h2{font-size:32px}}
 @media screen and (max-width:640px){#oks-team{padding-bottom:60px}
   #oks-team .tm-grid{grid-template-columns:repeat(2,1fr);gap:14px}
