@@ -463,6 +463,31 @@ print('рядок ніш:', s.count('id="oks-niches"'))
 print('блок пакетів:', s.count('id="oks-pk"'), '| карток:', s.count('class="pk-card'))
 print('послуги/етапи/старт:', s.count('id="oks-skills"'), s.count('id="oks-process"'), s.count('id="oks-start"'))
 
+# ---------- швидкість (23.09, Оксана: «сайт довго прогружається») ----------
+# 1) сховані rec (display:none) — прибираємо з DOM зовсім: менше HTML і роботи для JS Tilda
+_hidden = set(re.findall(r'#(rec\d+)', ''.join(re.findall(r'(#rec\d+(?:,#rec\d+)*\{display:none!important\})', s))))
+_cut = 0
+for _rid in sorted(_hidden):
+    _a = s.find('<div id="%s"' % _rid)
+    if _a < 0: continue
+    _b = s.find('<div id="rec', _a + 10)
+    if _b < 0: continue
+    _cut += _b - _a; s = s[:_a] + s[_b:]
+print('сховані rec прибрано:', len(_hidden), '| −%.2f MB' % (_cut / 1e6))
+# 2) lazy для всіх <img> без loading (Tilda-картинки нижче першого екрана)
+s, _n = re.subn(r'<img(?![^>]*\bloading=)', '<img loading="lazy"', s)
+print('img lazy:', _n)
+# 3) важкі JPEG у cases/img — перестискаємо (q78, progressive); мозаїка hero 609x1095 → 480 завширшки
+from PIL import Image
+_saved = 0
+for _f in os.listdir(OUTIMG):
+    _p = os.path.join(OUTIMG, _f)
+    if not _f.lower().endswith(('.jpg', '.jpeg')) or os.path.getsize(_p) < 60_000: continue
+    _im = Image.open(_p); _w, _h = _im.size; _before = os.path.getsize(_p)
+    if (_w, _h) == (609, 1095): _im = _im.resize((480, 863), Image.LANCZOS)
+    _im.convert('RGB').save(_p, 'JPEG', quality=78, optimize=True, progressive=True)
+    _saved += _before - os.path.getsize(_p)
+print('JPEG перестиснуто: −%.2f MB' % (_saved / 1e6))
 open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(s)
 left = re.findall(r'[^<>"]{0,40}[ыЫэЭъЪёЁ][^<>"]{0,40}', re.sub(r'<script.*?</script>|<style.*?</style>', '', s, flags=re.S))
 print('written', len(s), 'bytes; russian leftovers:', len(left)); print('\n'.join(sorted(set(left))[:40]))
