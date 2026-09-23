@@ -56,6 +56,6 @@ def html(photo_url):
                      % (inner, name, role))
     lead = LEAD.replace('під керівництвом Оксани', '<b>під керівництвом Оксани</b>')
     return ('<div id="oks-team"><div class="tm-in"><span class="tm-tag">Команда</span>'
-            '<h2>Команда з досвідом роботи в <b>15+ нішах</b></h2>'
+            '<h2>Команда з досвідом роботи в <b>20+ нішах</b></h2>'
             '<div class="tm-grid">%s</div><div class="tm-lead">%s</div></div></div>'
             % (''.join(cards), lead))
