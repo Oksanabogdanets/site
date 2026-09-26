@@ -182,6 +182,18 @@ hide_css += '#rec1558101811,#rec1575209271{display:none!important}'
 hide_css += '#rec1558093791{display:none!important}'
 # FAQ Tilda (4 питання + 4 відповіді) — замінено власним акордеоном faq.py
 hide_css += '#rec1558142251,#rec1564257161,#rec1564276761,#rec1564283131,#rec1576385761,#rec1576446841,#rec1576399191,#rec1576480751{display:none!important}'
+# «Для кого»: намальований овал стояв над словом «якщо» (нелогічно) — ховаємо, «Reels Producer» виділяємо золотом (26.09)
+hide_css += '#rec1556224301 .tn-elem[data-elem-id="1763109886449"],#rec1571157661 .tn-elem[data-elem-id="176339664723280750"]{display:none!important}'
+# Лічильники «Про нас»: «+» стояв на місцях під 2–3-значні числа (50/100/20), з «3» і «4» лишався провал —
+# центруємо пари «3+» і «4+» у картках (десктоп / 480 / 360). Елементи: число myClass02/03, плюс — сусідні text-атоми.
+_CN = [('176312788305771850', '176353459005988120'), ('176312788306821010', '176353454422258890')]
+def _cn(num, plus, base, nl, pl):
+    sel = lambda e: '#rec1580372221 .tn-elem[data-elem-id="%s"]' % e
+    return (sel(num) + '{left:calc(50%% - %dpx + %dpx)!important;width:auto!important;text-align:left!important}' % (base, nl)
+            + sel(plus) + '{left:calc(50%% - %dpx + %dpx)!important}' % (base, pl))
+hide_css += ('@media screen and (min-width:1200px){' + ''.join(_cn(n, p, 640, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(575, 640), (869, 934)])) + '}'
+             '@media screen and (max-width:639px) and (min-width:480px){' + ''.join(_cn(n, p, 240, 197, 241) for n, p in _CN) + '}'
+             '@media screen and (max-width:479px){' + ''.join(_cn(n, p, 180, 135, 179) for n, p in _CN) + '}')
 # кейс 01: скріни на місце аватарок (пропорції збігаються зі слотами інших кейсів),
 # а текстові цифри й опис профілю ховаємо — вони дублюють те, що видно на скріні
 ZV_SHOTS = [('1763049596474', 141), ('1763049596500', 395)]   # «після» вище: + TikTok-стрічка (cases_tall.TT_H)
@@ -423,6 +435,14 @@ for _a, _b in FAQ:
 print('FAQ замінено:', len(FAQ))
 # кейс 01, 23.09: «7 000 $» — не кейс, а результат; у результаті — заявки (КП стор. 6) і таких роликів мінімум 50
 s, _n = re.subn(r"(field='tn_text_1763049596532'>).*?(</div>)", r"\1<strong>7 000 $</strong> з одного Reels — і таких роликів на сторінці вже мінімум 50\2", s, flags=re.S)
+# «Для кого»: золоте «Reels Producer» замість овала (обидві копії блоку — десктоп і мобільна)
+_n2 = s.count('>Вам потрібен Reels Producer, якщо<')
+s = s.replace('>Вам потрібен Reels Producer, якщо<', '>Вам потрібен <span style="color: rgb(246, 212, 170);">Reels Producer</span>, якщо<')
+print('Reels Producer gold:', _n2)
+# Заголовок секції кейсів (Оксана 26.09: «Наші роботи набирають мільйони і роблять вас лідером» — переписати)
+CASES_H2 = 'Ролики, які <span style="color: rgb(246, 212, 170);">набирають мільйони</span> переглядів і приводять клієнтів'
+s, _n3 = re.subn(r"(field='tn_text_1763049356702'>).*?(</div>)", r"\1" + CASES_H2 + r"\2", s, count=1, flags=re.S)
+print('cases h2:', _n3)
 print('кейс 01 результат:', _n)
 # картка «Зйомка» у блоці годин: 5 год (обидві копії блоку мають той самий id)
 s = s.replace("tn_text_176314294699174820'>Етап 2<", "tn_text_176314294699174820'>Етап 4<")
