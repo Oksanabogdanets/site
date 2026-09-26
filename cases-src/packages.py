@@ -52,9 +52,10 @@ CSS = """
 #oks-pk .pk-list li:last-child{border-bottom:0;margin-bottom:0}
 #oks-pk .pk-list li::before{position:absolute;left:0;top:0;font-size:15px;line-height:1.3}
 #oks-pk .pk-list li.yes::before{content:"✓";color:#f6d4aa}
-#oks-pk .pk-list li.no{color:#6a6a6a;text-decoration:line-through;
-  text-decoration-color:#e04b4b;text-decoration-thickness:2px}
-#oks-pk .pk-list li.no::before{content:"✕";color:#e04b4b;text-decoration:none}
+/* чого нема — сірим і тонко, без червоного (Оксана 26.09: «слова наче виділені сильно») */
+#oks-pk .pk-list li.no{color:#5e5e5e;text-decoration:line-through;
+  text-decoration-color:rgba(255,255,255,.3);text-decoration-thickness:1px}
+#oks-pk .pk-list li.no::before{content:"✕";color:#5e5e5e;text-decoration:none}
 #oks-pk .pk-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;
   background:#f6d4aa;color:#000;font-size:15px;font-weight:600;text-decoration:none;
   border-radius:40px;padding:14px 22px;transition:transform .15s ease}
@@ -62,7 +63,10 @@ CSS = """
 @media screen and (max-width:1100px){#oks-pk .pk-grid{grid-template-columns:repeat(2,1fr)}}
 @media screen and (max-width:640px){#oks-pk{padding-bottom:60px}
   #oks-pk .pk-grid{grid-template-columns:1fr;gap:16px}
-  #oks-pk .pk-card{padding:24px 20px 20px}}
+  #oks-pk .pk-card{padding:24px 20px 20px}
+  /* на телефоні — лише те, що входить: картки коротші, нічого не «кричить» */
+  #oks-pk .pk-list li.no{display:none}
+  #oks-pk .pk-title,#oks-pk .pk-sub{min-height:0}}
 """
 
 

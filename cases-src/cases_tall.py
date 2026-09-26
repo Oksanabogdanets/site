@@ -143,9 +143,13 @@ TT = [dict(after='1763049596500', bg='176313527876574120',                      
       dict(after='1763049596562', bg='1763049596437',                              # кейс 02, Ніна (Canva 10)
            below=['1763049596563', '1763049596565', '1763049596567'], img='nina_after_tt.jpg',
            url='https://www.tiktok.com/@nina_demydenko')]
-# посилання поверх TikTok-стрічки (нижні 60% картинки «після»): Оксана — «має бути клікабельним»
+# посилання поверх усієї картинки «після + стрічка» (Оксана: «має бути клікабельним», 26.09 з телефону —
+# «не клікабельно») + видима кнопка в кутку, щоб було зрозуміло, куди тиснути
 TT_LINK = ('<a href="%s" target="_blank" rel="noopener" aria-label="TikTok" '
-           'style="position:absolute;left:0;right:0;top:40%%;bottom:0;z-index:5;display:block;cursor:pointer"></a>')
+           'style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:5;display:block;cursor:pointer;'
+           '-webkit-tap-highlight-color:rgba(246,212,170,.25)">'
+           '<span style="position:absolute;right:10px;bottom:10px;background:#f6d4aa;color:#000;border-radius:30px;'
+           'padding:8px 13px;font:600 12px/1 Inter,Arial,sans-serif;white-space:nowrap">Відкрити TikTok ↗</span></a>')
 TT_H = {'': 395, '360': 328}    # висота скріна «після» з стрічкою (було 156 / 118)
 TT_D = {'': 239, '360': 210}    # на стільки нижче все під ним і вища картка
 

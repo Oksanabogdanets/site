@@ -174,7 +174,7 @@ MOBILE_FIX = (
     '#rec1575165041 .tn-elem[data-elem-id="1763049679183"] .tn-atom{font-size:46px!important;line-height:.95!important}'
     '}'
 )
-import packages, niches, team, blocks, form, faq, services
+import packages, niches, team, blocks, form, faq, services, forwhom, reviews_m
 # старий Tilda-блок форматів роботи (дві копії) міняємо на власний — там не було місця
 # під четвертий пакет, а пункт «Підбір локації…» дублювався
 hide_css += '#rec1558101811,#rec1575209271{display:none!important}'
@@ -194,6 +194,15 @@ def _cn(num, plus, base, nl, pl):
 hide_css += ('@media screen and (min-width:1200px){' + ''.join(_cn(n, p, 640, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(575, 640), (851, 952)])) + '}'
              '@media screen and (max-width:639px) and (min-width:480px){' + ''.join(_cn(n, p, 240, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(197, 241), (188, 248)])) + '}'
              '@media screen and (max-width:479px){' + ''.join(_cn(n, p, 180, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(135, 179), (127, 187)])) + '}')
+# Hero на телефоні: кнопка «Отримати стратегію» + кругла стрілка занадто великі (26.09) — 184×55 → 156×46, шрифт 16 → 14
+_HB, _HA = '#rec1558021021 .tn-elem[data-elem-id="1763109208283"]', '#rec1558021021 .tn-elem[data-elem-id="1763369209048"]'
+def _hero_btn(base, bl, al, top):
+    return (_HB + '{width:156px!important;height:46px!important;top:%dpx!important;left:calc(50%% - %dpx + %dpx)!important}' % (top, base, bl)
+            + _HB + ' .tn-atom{font-size:14px!important}'
+            + _HA + '{width:46px!important;height:46px!important;top:%dpx!important;left:calc(50%% - %dpx + %dpx)!important}' % (top, base, al)
+            + _HA + ' .tn-atom .tn-atom__button-icon{width:30px!important;height:30px!important}')
+hide_css += ('@media screen and (max-width:639px) and (min-width:480px){' + _hero_btn(240, 15, 167, 296) + '}'
+             '@media screen and (max-width:479px){' + _hero_btn(180, 14, 166, 264) + '}')
 _L3 = '#rec1580372221 .tn-elem[data-elem-id="176312788307148650"]'
 hide_css += (_L3 + '{left:calc(50% - 640px + 825px)!important;width:220px!important}'
              '@media screen and (max-width:959px){' + _L3 + '{left:calc(50% - 320px + 426px)!important;width:170px!important}}'
@@ -205,7 +214,8 @@ hide_css += ('#rec1558013011 .t396__artboard{height:300px!important}'
 # кейс 01: скріни на місце аватарок (пропорції збігаються зі слотами інших кейсів),
 # а текстові цифри й опис профілю ховаємо — вони дублюють те, що видно на скріні
 ZV_SHOTS = [('1763049596474', 141), ('1763049596500', 395)]   # «після» вище: + TikTok-стрічка (cases_tall.TT_H)
-ZV_HIDE = ['1763049596470', '1763049596498',   # темні плашки-картки під скрінами — «рамка»
+ZV_HIDE = ['1763049596458', '1763049596460',    # бейдж «1 000 заявок на місяць» (плашка + текст) під тегами — прибрати (26.09), результат лишається
+           '1763049596470', '1763049596498',   # темні плашки-картки під скрінами — «рамка»
            '1763049596486', '1763049596490', '1763049596481', '1763049596488',
            '1763049596492', '1763049596483', '1763049596475', '1763049596510',
            '1763049596514', '1763049596524', '1763049596512', '1763049596526',
@@ -217,7 +227,7 @@ case_css = ''.join('#rec1558030471 .tn-elem[data-elem-id="%s"]{width:358px!impor
                    % (e, h, e) for e, h in ZV_SHOTS)
 case_css += ','.join('#rec1558030471 .tn-elem[data-elem-id="%s"]' % e for e in ZV_HIDE)
 case_css += '{display:none!important}'
-play_css += hero_css + badge_css + caps_css + hide_css + MOBILE_FIX + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + faq.CSS + case_css
+play_css += hero_css + badge_css + caps_css + hide_css + MOBILE_FIX + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + faq.CSS + forwhom.CSS + reviews_m.CSS + case_css
 s = s.replace('</head>', '<style>#rec1698062081,#rec1590641921,#rec1998611892,.t-tildalabel,.t887{display:none!important}' + play_css + '</style>\n</head>')
 
 # ---------- meta ----------
@@ -475,7 +485,10 @@ def _asset_url(fn):
     shutil.copy(os.path.join(A, fn), os.path.join(OUTIMG, name)); return 'img/' + name
 s = s.replace('<div id="rec1558093791"', team.html(_asset_url) + blocks.about(_asset_url('ava_oksana.jpg')) + '<div id="rec1558093791"', 1)
 # «Наша місія» — після ВСЬОГО першого екрана (hero = текст + рухома мозаїка), перед «Для кого»
-s = s.replace('<div id="rec1556224301"', blocks.mission() + '<div id="rec1556224301"', 1)
+s = s.replace('<div id="rec1556224301"', blocks.mission() + forwhom.html(s) + '<div id="rec1556224301"', 1)
+# відгук на телефоні — перед Tilda-блоком зі скріном (заголовок «Нам довіряють» стоїть у попередньому rec)
+assert s.count('<div id="rec1558070821"') == 1, 'відгуки: rec1558070821'
+s = s.replace('<div id="rec1558070821"', reviews_m.html(_asset_url) + '<div id="rec1558070821"', 1)
 # результати — перед заголовком «Приклади відео»
 s = s.replace('<div id="rec1558049271"', blocks.results() + '<div id="rec1558049271"', 1)
 # форма — перед фінальним CTA з кнопками Telegram/Direct

@@ -75,7 +75,8 @@ CSS = """
 @media screen and (max-width:1000px){#oks-res .rs-grid{grid-template-columns:repeat(2,1fr)}
   .oks-h2{font-size:32px}#oks-about .ab{grid-template-columns:220px 1fr;gap:28px}
   #oks-mission .ms-grid{grid-template-columns:1fr;gap:14px}}
-@media screen and (max-width:640px){#oks-mission{padding-bottom:60px}
+@media screen and (max-width:640px){#oks-mission{padding:30px 20px 60px;text-align:center}
+  #oks-mission .oks-h2{margin-left:auto;margin-right:auto}#oks-mission .ms-card{text-align:left}
   #oks-mission .ms-final{font-size:17px;padding:18px 20px;margin-top:24px}
   #oks-res,#oks-about{padding-bottom:60px}.oks-h2{font-size:26px;margin-bottom:24px}
   #oks-res .rs-grid{grid-template-columns:1fr;gap:14px}
