@@ -186,14 +186,22 @@ hide_css += '#rec1558142251,#rec1564257161,#rec1564276761,#rec1564283131,#rec157
 hide_css += '#rec1556224301 .tn-elem[data-elem-id="1763109886449"],#rec1571157661 .tn-elem[data-elem-id="176339664723280750"]{display:none!important}'
 # Лічильники «Про нас»: «+» стояв на місцях під 2–3-значні числа (50/100/20), з «3» і «4» лишався провал —
 # центруємо пари «3+» і «4+» у картках (десктоп / 480 / 360). Елементи: число myClass02/03, плюс — сусідні text-атоми.
-_CN = [('176312788305771850', '176353459005988120'), ('176312788306821010', '176353454422258890')]
+_CN = [('176312788305771850', '176353459005988120'), ('176312788306821010', '176353454422258890')]   # «3+», «10+» («1» вузька — плюс теж підтягуємо)
 def _cn(num, plus, base, nl, pl):
     sel = lambda e: '#rec1580372221 .tn-elem[data-elem-id="%s"]' % e
     return (sel(num) + '{left:calc(50%% - %dpx + %dpx)!important;width:auto!important;text-align:left!important}' % (base, nl)
             + sel(plus) + '{left:calc(50%% - %dpx + %dpx)!important}' % (base, pl))
-hide_css += ('@media screen and (min-width:1200px){' + ''.join(_cn(n, p, 640, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(575, 640), (869, 934)])) + '}'
-             '@media screen and (max-width:639px) and (min-width:480px){' + ''.join(_cn(n, p, 240, 197, 241) for n, p in _CN) + '}'
-             '@media screen and (max-width:479px){' + ''.join(_cn(n, p, 180, 135, 179) for n, p in _CN) + '}')
+hide_css += ('@media screen and (min-width:1200px){' + ''.join(_cn(n, p, 640, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(575, 640), (851, 952)])) + '}'
+             '@media screen and (max-width:639px) and (min-width:480px){' + ''.join(_cn(n, p, 240, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(197, 241), (188, 248)])) + '}'
+             '@media screen and (max-width:479px){' + ''.join(_cn(n, p, 180, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(135, 179), (127, 187)])) + '}')
+_L3 = '#rec1580372221 .tn-elem[data-elem-id="176312788307148650"]'
+hide_css += (_L3 + '{left:calc(50% - 640px + 825px)!important;width:220px!important}'
+             '@media screen and (max-width:959px){' + _L3 + '{left:calc(50% - 320px + 426px)!important;width:170px!important}}'
+             '@media screen and (max-width:639px){' + _L3 + '{left:calc(50% - 240px + 132px)!important;width:220px!important}}'
+             '@media screen and (max-width:479px){' + _L3 + '{left:calc(50% - 180px + 70px)!important;width:220px!important}}')
+# 5) заголовок кейсів у 3 рядки (десктоп) / 4 (телефон) не влазив в артборд 220px — «лідером» і «клієнтів» обрізало
+hide_css += ('#rec1558013011 .t396__artboard{height:300px!important}'
+             '@media screen and (max-width:639px){#rec1558013011 .t396__artboard{height:270px!important}}')
 # кейс 01: скріни на місце аватарок (пропорції збігаються зі слотами інших кейсів),
 # а текстові цифри й опис профілю ховаємо — вони дублюють те, що видно на скріні
 ZV_SHOTS = [('1763049596474', 141), ('1763049596500', 395)]   # «після» вище: + TikTok-стрічка (cases_tall.TT_H)
@@ -284,7 +292,7 @@ T = [
  ('Создаём ролики по уникальной стратегии на основе работы с', 'Знімаємо ролики за стратегією під нішу — на основі досвіду з'),
  ('150+ проектами', '20+ нішами'), ('ОПЫТ РАБОТЫ В НИШАХ', 'НІШ У РОБОТІ'),
  ('ГОРОДОВ И СТРАН. РАБОТАЕМ ПО ВСЕЙ РОССИИ И ЗАРУБЕЖОМ', 'РОКИ НА РИНКУ REELS PRODUCTION ТА ІНФОБІЗНЕСУ'),
- ('РОЛИКОВ МИЛЛИОННИКОВ', 'РОЛИКИ-МІЛЬЙОННИКИ'),
+ ('РОЛИКОВ МИЛЛИОННИКОВ', 'МЛН ПЕРЕГЛЯДІВ НА РОЛИКАХ КЛІЄНТІВ'),
  ('Наши работы', 'Наші роботи'), ('набирают миллионы', 'набирають мільйони'), ('и делают вас лидером', 'і роблять вас лідером'),
  ('КЕЙС 01', 'КЕЙС 01'), ('НЕДВИЖИМОСТЬ', 'ЮРИДИЧНА КОМПАНІЯ'), ('+10 000 ПОДПИСЧИКОВ', '1 000 ЗАЯВОК НА МІСЯЦЬ'),
  ('Оксана Никитюк | Недвижимость Краснодар', 'Звільнимо | Банкрутство фізосіб'),
@@ -363,7 +371,7 @@ for ru, uk in T:
         s, n = re.subn(pat, lambda m, uk=uk: uk, s)
     if n == 0: print('MISS', ru[:50])
 # stats numbers inside the 'about' zero block only
-for a, b in [('20', '4'), ('100', '3'), ('50', '20')]:
+for a, b in [('20', '10'), ('100', '3'), ('50', '20')]:
     s, n = re.subn(r'(?<=>)(\s*)' + a + r'(\s*)(?=<)', lambda m, b=b: m.group(1) + b + m.group(2), s); print('num', a, n)
 # inline SVG logos -> wordmark image
 def svg_sub(m):
@@ -390,12 +398,9 @@ for i, kin in enumerate(SLOT_KIN):
     s = s.replace('https://kinescope.io/' + kin, url)
 print('kinescope left:', s.count('kinescope.io/'))
 # counter animation script (custom Tilda snippet): 50/100/20 -> 15/4/10
-s = s.replace('let numberfinish = ["50","100","20"];', 'let numberfinish = ["20","3","4"];')
-s = s.replace('"endDigit":"50"', '"endDigit":"20"').replace('"endDigit":"100"', '"endDigit":"3"').replace('"endDigit":"20"', '"endDigit":"4"')
-print('counter fixed:', 'numberfinish = ["20","3","4"]' in s)
-# drop the '+' atom that follows the middle counter (4 ролики-мільйонники — точна цифра)
-i = s.find('myClass02'); j = s.find(">+</div>", i)
-if 0 < j < i + 6000: s = s[:j] + "></div>" + s[j + len(">+</div>"):]; print('plus dropped')
+s = s.replace('let numberfinish = ["50","100","20"];', 'let numberfinish = ["20","3","10"];')   # 20+ ніш / 3+ роки / 10+ млн переглядів
+s = re.sub(r'"endDigit":"(50|100|20)"', lambda m: '"endDigit":"%s"' % {'50': '20', '100': '3', '20': '10'}[m.group(1)], s)
+print('counter fixed:', 'numberfinish = ["20","3","10"]' in s)
 wm = 'wordmark2-' + hashlib.md5(open(os.path.join(A, 'wordmark2.png'),'rb').read()).hexdigest()[:8] + '.png'
 shutil.copy(os.path.join(A, 'wordmark2.png'), os.path.join(OUTIMG, wm))
 s = s.replace('img/wordmark2.png', 'img/' + wm)
@@ -440,8 +445,12 @@ _n2 = s.count('>Вам потрібен Reels Producer, якщо<')
 s = s.replace('>Вам потрібен Reels Producer, якщо<', '>Вам потрібен <span style="color: rgb(246, 212, 170);">Reels Producer</span>, якщо<')
 print('Reels Producer gold:', _n2)
 # Заголовок секції кейсів (Оксана 26.09: «Наші роботи набирають мільйони і роблять вас лідером» — переписати)
-CASES_H2 = 'Ролики, які <span style="color: rgb(246, 212, 170);">набирають мільйони</span> переглядів і приводять клієнтів'
+CASES_H2 = 'Працюємо не заради переглядів. Робимо так, щоб ви <span style="color: rgb(246, 212, 170);">отримували клієнтів</span>'
 s, _n3 = re.subn(r"(field='tn_text_1763049356702'>).*?(</div>)", r"\1" + CASES_H2 + r"\2", s, count=1, flags=re.S)
+_ab = 'data-artboard-recid="1558013011" data-artboard-screens="360,480,640,960,1280" data-artboard-height="220"'
+assert _ab in s, 'артборд 1558013011'
+s = s.replace(_ab, 'data-artboard-recid="1558013011" data-artboard-screens="360,480,640,960,1280" data-artboard-height="300"', 1)
+s = s.replace('data-artboard-height-res-360="206" data-artboard-height-res-480="207"', 'data-artboard-height-res-360="270" data-artboard-height-res-480="270" data-artboard-height-res-640="300" data-artboard-height-res-960="300"', 1)
 print('cases h2:', _n3)
 print('кейс 01 результат:', _n)
 # картка «Зйомка» у блоці годин: 5 год (обидві копії блоку мають той самий id)
