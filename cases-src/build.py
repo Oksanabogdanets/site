@@ -519,17 +519,52 @@ print('сховані rec прибрано:', len(_hidden), '| −%.2f MB' % (_c
 # 2) lazy для всіх <img> без loading (Tilda-картинки нижче першого екрана)
 s, _n = re.subn(r'<img(?![^>]*\bloading=)', '<img loading="lazy"', s)
 print('img lazy:', _n)
-# 3) важкі JPEG у cases/img — перестискаємо (q78, progressive); мозаїка hero 609x1095 → 480 завширшки
+# 3) картинки у cases/img → WebP (29.09, Оксана: «щоб якість не просіла»): кодуємо з ОРИГІНАЛУ, що лежить
+#    у cases/img одразу після копіювання з assets (до будь-якого перестискання), q86. JPEG лишається як запас.
+#    Мозаїка hero 609x1095 → 480 завширшки (на екрані вона ~180px).
 from PIL import Image
-_saved = 0
-for _f in os.listdir(OUTIMG):
-    _p = os.path.join(OUTIMG, _f)
-    if not _f.lower().endswith(('.jpg', '.jpeg')) or os.path.getsize(_p) < 60_000: continue
+_saved = 0; _webp = {}
+for _f in sorted(os.listdir(OUTIMG)):
+    _p = os.path.join(OUTIMG, _f); _ext = _f.lower().rsplit('.', 1)[-1]
+    if _ext not in ('jpg', 'jpeg', 'png') or os.path.getsize(_p) < 20_000: continue
     _im = Image.open(_p); _w, _h = _im.size; _before = os.path.getsize(_p)
     if (_w, _h) == (609, 1095): _im = _im.resize((480, 863), Image.LANCZOS)
-    _im.convert('RGB').save(_p, 'JPEG', quality=78, optimize=True, progressive=True)
-    _saved += _before - os.path.getsize(_p)
-print('JPEG перестиснуто: −%.2f MB' % (_saved / 1e6))
+    _im = _im.convert('RGBA' if (_ext == 'png' and _im.mode in ('RGBA', 'LA', 'P')) else 'RGB')
+    _wp = _p.rsplit('.', 1)[0] + '.webp'
+    _im.save(_wp, 'WEBP', quality=86, method=6)
+    if _ext != 'png':
+        _im.save(_p, 'JPEG', quality=86, optimize=True, progressive=True)
+    if os.path.getsize(_wp) < _before:
+        _webp['img/' + _f] = 'img/' + os.path.basename(_wp); _saved += _before - os.path.getsize(_wp)
+        os.remove(_p)                                    # на сторінці лишається тільки WebP
+    else:
+        os.remove(_wp)
+for _a, _b in _webp.items(): s = s.replace(_a, _b)
+print('WebP: %d картинок, −%.2f MB' % (len(_webp), _saved / 1e6))
+# 4) обкладинки відео (poster у <video>) — 20 штук ~1 МБ вантажились одразу при відкритті, хоча стрічка внизу.
+#    Тепер: WebP з оригіналу (assets/vcoverN.jpg або video/vN-cover.jpg) і постер ставиться, коли до відео доскролили.
+_VID = os.path.join(OUT, 'video'); _vs = 0
+for _f in sorted(os.listdir(_VID)):
+    m_ = re.match(r'v(\d+)-cover\.jpg$', _f)
+    if not m_: continue
+    _src = os.path.join(A, 'vcover%s.jpg' % m_.group(1))
+    _src = _src if os.path.exists(_src) else os.path.join(_VID, _f)
+    _im = Image.open(_src).convert('RGB')
+    if _im.size != (608, 1094): _im = _im.resize((608, 1094), Image.LANCZOS)
+    _im.save(os.path.join(_VID, 'v%s-cover.webp' % m_.group(1)), 'WEBP', quality=86, method=6); _vs += 1
+_tpl = "poster=\"${link.replace(/\\.mp4.*$/, '-cover.jpg')}\""
+_n = s.count(_tpl)
+s = s.replace(_tpl, "data-poster=\"${link.replace(/\\.mp4.*$/, '-cover.webp')}\"")
+LAZY_POSTER = """<script>(function(){if(!('IntersectionObserver' in window)){var set=function(){document.querySelectorAll('video[data-poster]').forEach(function(v){v.poster=v.getAttribute('data-poster')})};setInterval(set,1500);return}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var v=e.target;v.poster=v.getAttribute('data-poster');io.unobserve(v)}})},{rootMargin:'800px 0px'});
+function scan(){document.querySelectorAll('video[data-poster]').forEach(function(v){if(!v._lp){v._lp=1;io.observe(v)}})}
+new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true});scan()})();</script>"""
+s = s.replace('</body>', LAZY_POSTER + '</body>', 1)
+print('обкладинки відео: webp', _vs, '| постерів відкладено:', _n)
+# 5) раннє з'єднання з серверами шрифтів і Tilda (економить ~0,3 с на телефоні)
+s = s.replace('<link rel="preconnect" href="https://fonts.gstatic.com">',
+              '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+              '<link rel="preconnect" href="https://static.tildacdn.com">', 1)
 open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(s)
 left = re.findall(r'[^<>"]{0,40}[ыЫэЭъЪёЁ][^<>"]{0,40}', re.sub(r'<script.*?</script>|<style.*?</style>', '', s, flags=re.S))
 print('written', len(s), 'bytes; russian leftovers:', len(left)); print('\n'.join(sorted(set(left))[:40]))
