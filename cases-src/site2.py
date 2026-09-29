@@ -275,7 +275,7 @@ FW_CSS = """
 .fw2-star{width:21px;height:21px;margin-bottom:10px}
 .fw2-c{font-size:12.5px;font-weight:600;line-height:1.3;letter-spacing:.25px;text-transform:uppercase;margin-top:auto}
 .fw2-ph{border-radius:20px;overflow:hidden;margin-top:-24px;min-height:309px;background:#333}
-.fw2-ph img{width:100%;height:100%;object-fit:cover;object-position:76% 50%}
+.fw2-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 25%}
 @media (max-width:900px){.fw2-grid{grid-template-columns:repeat(2,1fr)}.fw2-ph{grid-column:1/-1;order:-1;margin-top:0;aspect-ratio:16/9;min-height:0}}
 @media (max-width:640px){.fw2{padding:56px 0 30px}.fw2 .sh{margin-bottom:22px}.fw2 .h2{font-size:28px}
   .fw2-grid{grid-template-columns:1fr;gap:12px}.fw2-ph{aspect-ratio:4/3}
@@ -291,7 +291,7 @@ def forwhom():
                       '<img class="fw2-star" src="%s" alt="" width="21" height="21" loading="lazy"><p class="fw2-c">%s</p></div>'
                       % (img(c[0]), c[1], c[2], star, c[3]))
     photo = ('<div class="fw2-ph"><img src="%s" alt="Оксана Богданець" width="760" height="618" loading="lazy"></div>'
-             % img('oksana_tile.jpg', w=800))
+             % img('oksana_forwhom.jpg', w=800))   # нове фото Оксани (біла сукня-костюм), 29.09
     cards = [card(c) for c in FW_CARDS]
     return ('<section class="fw2" id="for"><div class="wrap"><div class="sh"><span class="tag">Для кого</span>'
             '<h2 class="h2">Вам потрібен <span class="gold">Reels Producer</span>, якщо</h2></div>'
@@ -546,10 +546,20 @@ def reviews():
 
 # ---------------------------------------------------------------- команда + «Хто веде проєкт»
 def team_about():
-    return team.html(lambda f: img(f, w=360)) + blocks.about(img('oksana_about.jpg', w=620))
+    return team.html(lambda f: img(f, w=360)) + blocks.about(img('oksana_about45.jpg', w=720))
 
 
 # ---------------------------------------------------------------- формати співпраці
+# «Хто веде проєкт» (29.09, Оксана: «щоб було на всю лінію, а не збоку»): фото 4:5 на всю висоту картки,
+# на телефоні — на всю ширину картки
+ABOUT2_CSS = """
+#oks-about .ab{grid-template-columns:360px 1fr;align-items:stretch;padding:28px}
+#oks-about .ab-ph{aspect-ratio:4/5;height:100%}
+#oks-about .ab>div:last-child{align-self:center}
+@media (max-width:1000px){#oks-about .ab{grid-template-columns:260px 1fr}}
+@media (max-width:640px){#oks-about .ab{grid-template-columns:1fr;padding:16px}#oks-about .ab-ph{max-width:none;width:100%;height:auto}}
+"""
+
 FMT_CSS = """
 .fmt2{padding:60px 0 50px}
 @media (max-width:640px){.fmt2{padding:40px 0 26px}.fmt2 .h2{font-size:28px}}
@@ -605,7 +615,7 @@ def footer():
 SECTIONS = [hero, blocks.mission, forwhom, about, cases, stages, blocks.results, videos, reviews, team_about, formats, faq.html,
             contact_form, footer]
 CSS_PARTS = [BASE_CSS, HEADER_CSS, HERO_CSS, blocks.CSS, FW_CSS, ABOUT_CSS, niches.CSS, CASES_CSS, STAGES_CSS, VIDEOS_CSS, reviews_m.CSS, REV_CSS,
-             team.CSS, FMT_CSS, packages.CSS, faq.CSS, form.CSS, FOOTER_CSS]
+             team.CSS, ABOUT2_CSS, FMT_CSS, packages.CSS, faq.CSS, form.CSS, FOOTER_CSS]
 
 JS = """
 (function(){
