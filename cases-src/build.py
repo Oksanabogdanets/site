@@ -239,6 +239,24 @@ case_css = ''.join('#rec1558030471 .tn-elem[data-elem-id="%s"]{width:358px!impor
                    % (e, h, e) for e, h in ZV_SHOTS)
 case_css += ','.join('#rec1558030471 .tn-elem[data-elem-id="%s"]' % e for e in ZV_HIDE)
 case_css += '{display:none!important}'
+# 29.09 кейс 01 (п.5, п.7): плашка «ЮРИДИЧНА КОМПАНІЯ» вужча за текст (текст вилазив за рамку) — ширина по тексту
+# (виміряно в браузері: текст 133px на 360, 145px на інших; відступи як у «КЕЙС 01»);
+# на телефоні/планшеті (кейси стовпчиком) — прибрати порожнечу над «ДО», що лишилась від прихованого бейджа:
+# усе нижче рядка міток піднімаємо на D, картку кейсу 01 і весь блок вкорочуємо на D. На десктопі не чіпаємо —
+# там «ДО» стоїть на одному рівні з кейсом 02, у якого є бейдж.
+import cases_tall
+CASE01_PILL = '#rec1558030471 .t396__artboard .tn-elem[data-elem-id="1763049596453"]'
+CASE01_BELOW = ['1763049596437', '1763049596474', '1763049596500', '1763049596501', '1763049596528', '1763049596531', '1763049596532', '1763049596545', '1763049596546', '1763049596547', '1763049596548', '1763049596550', '1763049596551', '1763049596557', '1763049596562', '1763049596563', '1763049596565', '1763049596567', '176311494518411670', '1763115034639', '176311536976010280', '176311536977549140', '176311551914431180', '176311551915748780', '176311566984380520', '176311566985737530', '8763049596437', '8763049596545', '8763049596546', '8763049596547', '8763049596548', '8763049596550', '8763049596551', '8763049596557', '8763049596562', '8763049596563', '8763049596565', '8763049596567', '876311494518411670', '8763115034639', '876311536976010280', '876311536977549140', '9763049596437', '9763049596545', '9763049596546', '9763049596547', '9763049596548', '9763049596550', '9763049596551', '9763049596557', '9763049596562', '9763049596563', '9763049596565', '9763049596567', '976311494518411670', '9763115034639', '976311536976010280', '976311536977549140']
+CASE01_CARD, CASE01_CARD_H = '176313527876574120', {'360': 651, '480': 774, '640': 774}
+CASE01_D = {'360': 37, '480': 45, '640': 45}
+_MQ = {'360': '@media screen and (max-width:479px)', '480': '@media screen and (min-width:480px) and (max-width:639px)',
+       '640': '@media screen and (min-width:640px) and (max-width:959px)'}
+case_css += CASE01_PILL + '{width:180px!important}' + _MQ['360'] + '{' + CASE01_PILL + '{width:166px!important}}'
+for _r, _D in CASE01_D.items():
+    _sel = lambda e: '#rec1558030471 .t396__artboard .tn-elem[data-elem-id="%s"]' % e
+    case_css += (_MQ[_r] + '{' + ','.join(_sel(e) for e in CASE01_BELOW) + '{transform:translateY(-%dpx)!important}' % _D
+                 + _sel(CASE01_CARD) + '{height:%dpx!important}}' % (CASE01_CARD_H[_r] - _D))
+# висоту блоку Tilda рахує сама з data-artboard-height-res-* (× масштаб екрана) — правимо атрибути після cases_tall
 play_css += hero_css + badge_css + caps_css + hide_css + MOBILE_FIX + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + faq.CSS + forwhom.CSS + reviews_m.CSS + case_css
 s = s.replace('</head>', '<style>#rec1698062081,#rec1590641921,#rec1998611892,.t-tildalabel,.t887{display:none!important}' + play_css + '</style>\n</head>')
 
@@ -509,6 +527,13 @@ s = s.replace('<div id="rec1580410031"', form.html() + '<div id="rec1580410031"'
 # кейси 03 і 04 — високі картки з «до/після», клони колонки кейса 02
 import cases_tall
 s = cases_tall.apply(s, _asset_url)
+_ab = re.search(r'<div class="t396__artboard" data-artboard-recid="1558030471"[^>]*>', s).group(0)
+_ab2 = _ab
+for _r, _D in CASE01_D.items():
+    _ab2, _n = re.subn(r'(data-artboard-height-res-%s=")(\d+)"' % _r, lambda m: '%s%d"' % (m.group(1), int(m.group(2)) - _D), _ab2)
+    assert _n == 1, 'artboard res-%s' % _r
+s = s.replace(_ab, _ab2, 1)
+print('кейси: висота блоку на телефоні/планшеті −D:', re.findall(r'data-artboard-height-res-\d+="\d+"', _ab2))
 print('кейси 03/04: клонів', s.count("data-elem-id='8763049596"), s.count("data-elem-id='9763049596"),
       '| старих елементів:', s.count("data-elem-id='1763049596573'") + s.count("data-elem-id='176345641403933930'"))
 print('нові блоки:', s.count('id="oks-mission"'), s.count('id="oks-res"'), s.count('id="oks-about"'), s.count('id="oks-form"'))

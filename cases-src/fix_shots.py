@@ -43,7 +43,7 @@ def zv_after_tt():
     """Композит «ПІСЛЯ + TikTok-стрічка» (assets/zvilnymo_after_tt.jpg, 1432×1580): міняємо лише верхній скрін."""
     p = os.path.join(A, 'zvilnymo_after_tt.jpg')
     comp = Image.open(p).convert('RGB')
-    ImageDraw.Draw(comp).rectangle((0, 0, comp.width, 600), fill=(0, 0, 0))
+    ImageDraw.Draw(comp).rectangle((0, 0, comp.width, 650), fill=(0, 0, 0))   # до 650: біла лінія старого скріна на 608–616
     shot = rounded(Image.open(os.path.join(KP, 'zv_after.png')).convert('RGB').crop((14, 9, 416, 146)), 16)
     W = 1250; H = int(round(W * shot.height / shot.width))
     shot = shot.resize((W, H), Image.LANCZOS).filter(ImageFilter.UnsharpMask(1.2, 60, 3))
@@ -53,7 +53,7 @@ def zv_after_tt():
 
 if __name__ == '__main__':
     # у джерелах чорна (Звільнимо, 12/7px) або оливкова (Muza Body, 6/3px) рамка — зрізаємо crop-ом
-    card('zv_before.png', 'zvilnymo_before.jpg', 1432 / 564, (255, 255, 255), crop=(14, 9, 390, 146), r=16)
+    card('zv_before.png', 'zvilnymo_before.jpg', 1432 / 564, (255, 255, 255), crop=(14, 8, 390, 147), r=36)   # r більший за радіус кутів оригіналу, інакше чорно-сірі дуги
     zv_after_tt()
     card('mb_before.png', 'mbody_before.jpg', 1440 / 567, (12, 12, 12), crop=(7, 4, 256, 118), r=10)
     card('mb_after.png', 'mbody_after.jpg', 1440 / 627, (255, 255, 255), crop=(7, 4, 288, 110), r=10)
