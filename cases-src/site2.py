@@ -552,7 +552,7 @@ def reviews():
 
 # ---------------------------------------------------------------- команда + «Хто веде проєкт»
 def team_about():
-    return team.html(lambda f: img(f, w=360)) + blocks.about(img('oksana_about45.jpg', w=720))
+    return team.html(lambda f: img(f, w=360)) + blocks.about(img('oksana_about_suit.jpg', w=720))   # фото в білому костюмі (Оксана 29.09)
 
 
 # ---------------------------------------------------------------- формати співпраці
