@@ -128,7 +128,7 @@ def apply(s, asset_url):
     a, _ = _frag(rec, BAR)
     rec = rec[:a] + dom_all + rec[a:]
     rec, tt_css = tiktok(rec, asset_url)
-    css_all += tt_css
+    css_all += tt_css + TT_CSS
     rec, grid_css = regrid(rec)
     css_all += grid_css
 
@@ -148,8 +148,11 @@ TT = [dict(after='1763049596500', bg='176313527876574120',                      
 TT_LINK = ('<a href="%s" target="_blank" rel="noopener" aria-label="TikTok" '
            'style="position:absolute;left:0;right:0;top:0;bottom:0;z-index:5;display:block;cursor:pointer;'
            '-webkit-tap-highlight-color:rgba(246,212,170,.25)">'
-           '<span style="position:absolute;right:10px;bottom:10px;background:#f6d4aa;color:#000;border-radius:30px;'
-           'padding:8px 13px;font:600 12px/1 Inter,Arial,sans-serif;white-space:nowrap">Відкрити TikTok ↗</span></a>')
+           '<span style="position:absolute;right:6px;top:44.1%%;transform:translateY(-50%%);background:#f6d4aa;color:#000;border-radius:30px;'   # у рядку «TikTok · @нік», не на обкладинках (29.09)
+           'padding:8px 13px;font:600 12px/1 Inter,Arial,sans-serif;white-space:nowrap"><span class="tt-l">Відкрити TikTok ↗</span><span class="tt-s">Дивитись ↗</span></span></a>')
+# на телефоні довгий нік (@nina_demydenko) заходив під кнопку — короткий напис
+TT_CSS = ('#rec1558030471 .tt-s{display:none}'
+          '@media screen and (max-width:479px){#rec1558030471 .tt-l{display:none}#rec1558030471 .tt-s{display:inline}}')
 TT_H = {'': 395, '360': 328}    # висота скріна «після» з стрічкою (було 156 / 118)
 TT_D = {'': 239, '360': 210}    # на стільки нижче все під ним і вища картка
 

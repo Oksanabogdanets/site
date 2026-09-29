@@ -51,9 +51,28 @@ def zv_after_tt():
     comp.save(p, quality=90); print('zvilnymo_after_tt.jpg', comp.size, 'скрін', shot.size)
 
 
+def zv_tt_middle():
+    """Середня плитка TikTok-стрічки кейсу 01 — дрібний скрін профілю, нічого не читалось (Оксана 29.09).
+    Ставимо обкладинку ролика Звільнимо з переглядами (assets/k02.jpg, 2.4M) у ту саму рамку 456×812, радіус 28."""
+    p = os.path.join(A, 'zvilnymo_after_tt.jpg')
+    comp = Image.open(p).convert('RGB')
+    x0, y0, x1, y1 = 488, 768, 944, 1580
+    tile = Image.open(os.path.join(A, 'k02.jpg')).convert('RGB').resize((x1 - x0, y1 - y0), Image.LANCZOS)
+    ImageDraw.Draw(comp).rectangle((x0, y0, x1 - 1, y1 - 1), fill=(0, 0, 0))
+    comp.paste(tile, (x0, y0), rounded_mask(tile.size, 28))
+    comp.save(p, quality=90); print('zvilnymo_after_tt.jpg: середня плитка = k02')
+
+
+def rounded_mask(size, r):
+    m = Image.new('L', (size[0] * 4, size[1] * 4), 0)
+    ImageDraw.Draw(m).rounded_rectangle((0, 0, size[0] * 4 - 1, size[1] * 4 - 1), r * 4, fill=255)
+    return m.resize(size, Image.LANCZOS)
+
+
 if __name__ == '__main__':
     # у джерелах чорна (Звільнимо, 12/7px) або оливкова (Muza Body, 6/3px) рамка — зрізаємо crop-ом
     card('zv_before.png', 'zvilnymo_before.jpg', 1432 / 564, (255, 255, 255), crop=(14, 8, 390, 147), r=36)   # r більший за радіус кутів оригіналу, інакше чорно-сірі дуги
     zv_after_tt()
+    zv_tt_middle()
     card('mb_before.png', 'mbody_before.jpg', 1440 / 567, (4, 4, 6), crop=(9, 11, 254, 133), r=10)   # фон = колір країв скріна, щоб не було видно прямокутника; всередині оливкової рамки телефона, з рядком «Здоров'я/Краса»
     card('mb_after.png', 'mbody_after.jpg', 1440 / 627, (255, 255, 250), crop=(8, 5, 284, 102), r=10)    # всередині кремової рамки; низ — по проміжку перед біо (було посеред рядка)
