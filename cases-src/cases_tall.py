@@ -139,7 +139,7 @@ def apply(s, asset_url):
 # ---------- TikTok-стрічка під «ПІСЛЯ» у кейсах 01 і 02 ----------
 TT = [dict(after='1763049596500', bg='176313527876574120',                       # кейс 01, Звільнимо (Canva 13)
            below=['1763049596528', '1763049596531', '1763049596532'], img='zvilnymo_after_tt.jpg',
-           url='https://www.tiktok.com/@zvilnymo'),
+           url='https://www.tiktok.com/@zvilnymo.com.ua'),   # справжній акаунт (Оксана 29.09: @zvilnymo — не той)
       dict(after='1763049596562', bg='1763049596437',                              # кейс 02, Ніна (Canva 10)
            below=['1763049596563', '1763049596565', '1763049596567'], img='nina_after_tt.jpg',
            url='https://www.tiktok.com/@nina_demydenko')]

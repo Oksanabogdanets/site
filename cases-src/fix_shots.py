@@ -63,6 +63,17 @@ def zv_tt_middle():
     comp.save(p, quality=90); print('zvilnymo_after_tt.jpg: середня плитка = k02')
 
 
+def zv_tt_label():
+    """Підпис над стрічкою: «TikTok · @zvilnymo» → «@zvilnymo.com.ua» (справжній акаунт, 29.09).
+    «TikTok ·» лишаємо як є; нік перемальовуємо Verdana Bold 50.5 тим самим кольором, по тій самій базовій лінії."""
+    from PIL import ImageFont
+    p = os.path.join(A, 'zvilnymo_after_tt.jpg'); im = Image.open(p).convert('RGB'); d = ImageDraw.Draw(im)
+    f = ImageFont.truetype('/System/Library/Fonts/Supplemental/Verdana Bold.ttf', 50.5)
+    d.rectangle((284, 655, im.width, 745), fill=(0, 0, 0))
+    d.text((290, 712), '@zvilnymo.com.ua', font=f, fill=(240, 212, 180), anchor='ls')
+    im.save(p, quality=90); print('zvilnymo_after_tt.jpg: підпис @zvilnymo.com.ua')
+
+
 def rounded_mask(size, r):
     m = Image.new('L', (size[0] * 4, size[1] * 4), 0)
     ImageDraw.Draw(m).rounded_rectangle((0, 0, size[0] * 4 - 1, size[1] * 4 - 1), r * 4, fill=255)
@@ -74,5 +85,6 @@ if __name__ == '__main__':
     card('zv_before.png', 'zvilnymo_before.jpg', 1432 / 564, (255, 255, 255), crop=(14, 8, 390, 147), r=36)   # r більший за радіус кутів оригіналу, інакше чорно-сірі дуги
     zv_after_tt()
     zv_tt_middle()
+    zv_tt_label()
     card('mb_before.png', 'mbody_before.jpg', 1440 / 567, (4, 4, 6), crop=(9, 11, 254, 133), r=10)   # фон = колір країв скріна, щоб не було видно прямокутника; всередині оливкової рамки телефона, з рядком «Здоров'я/Краса»
     card('mb_after.png', 'mbody_after.jpg', 1440 / 627, (255, 255, 250), crop=(8, 5, 284, 102), r=10)    # всередині кремової рамки; низ — по проміжку перед біо (було посеред рядка)
