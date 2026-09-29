@@ -552,7 +552,7 @@ def _asset_url(fn):
     h = hashlib.md5(open(os.path.join(A, fn), 'rb').read()).hexdigest()[:8]
     name = os.path.splitext(fn)[0] + '-' + h + os.path.splitext(fn)[1]
     shutil.copy(os.path.join(A, fn), os.path.join(OUTIMG, name)); return 'img/' + name
-s = s.replace('<div id="rec1558093791"', team.html(_asset_url) + blocks.about(_asset_url('ava_oksana.jpg')) + '<div id="rec1558093791"', 1)
+s = s.replace('<div id="rec1558093791"', team.html(_asset_url) + blocks.about(_asset_url('oksana_about.jpg')) + '<div id="rec1558093791"', 1)   # нове фото Оксани в «Хто веде проєкт» (29.09)
 # «Наша місія» — після ВСЬОГО першого екрана (hero = текст + рухома мозаїка), перед «Для кого»
 s = s.replace('<div id="rec1556224301"', blocks.mission() + forwhom.html(s) + '<div id="rec1556224301"', 1)
 # відгук на телефоні — перед Tilda-блоком зі скріном (заголовок «Нам довіряють» стоїть у попередньому rec)
