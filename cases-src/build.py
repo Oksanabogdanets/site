@@ -206,6 +206,15 @@ def _hero_btn(base, bl, al, top):
             + _HI + '{width:%dpx!important;top:%dpx!important;left:calc(50%% - %dpx + %dpx)!important}' % (al + 46 - bl, top, base, bl))
 hide_css += ('@media screen and (max-width:639px) and (min-width:480px){' + _hero_btn(240, 15, 167, 296) + '}'
              '@media screen and (max-width:479px){' + _hero_btn(180, 14, 166, 264) + '}')
+# 29.09 п.3: на телефоні між «Для кого» і «Про нас» — порожня розпірка rec1571157671 (108px, лише ≤480) — прибираємо
+hide_css += '@media screen and (max-width:639px){#rec1571157671.t-rec{display:none!important}}'
+# 29.09 п.4: мітки-плашки («Для кого», «Про нас», «Кейси», «Етапи роботи», «Відгуки», «Прийшов час обирати»):
+# зліва порожня іконка забирала місце, і слово стояло правіше центру — ховаємо іконку, текст по центру
+TAGS = ['1763110184877', '176339664723652490', '176311286124257350', '176311353212393640',
+        '176313665563142130', '176314352626139530', '176314409441434120']
+hide_css += (','.join('.tn-elem[data-elem-id="%s"] .tn-atom__button-icon' % e for e in TAGS) + '{display:none!important}'
+             + ','.join('.tn-elem[data-elem-id="%s"] .tn-atom__button-content' % e for e in TAGS)
+             + '{justify-content:center!important;column-gap:0!important;padding:0!important;width:100%!important}')
 _L3 = '#rec1580372221 .tn-elem[data-elem-id="176312788307148650"]'
 hide_css += (_L3 + '{left:calc(50% - 640px + 825px)!important;width:220px!important}'
              '@media screen and (max-width:959px){' + _L3 + '{left:calc(50% - 320px + 426px)!important;width:170px!important}}'
