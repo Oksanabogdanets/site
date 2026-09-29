@@ -223,6 +223,17 @@ hide_css += ('#rec1558035631 .tn-elem[data-elem-id="176314294699589770"]{width:1
 hide_css += ('#rec1558059361 .tn-elem.tn-elem__15580593611763050065965{opacity:1!important;pointer-events:auto!important}')
 # 29.09 п.15: відступи навколо «Приклади відео» — порожня розпірка rec1573773851 між заголовком і стрічкою прибрана
 hide_css += '#rec1573773851.t-rec{display:none!important}'
+# 29.09 п.20: «Обговоримо проєкт!» + «Запишіться на безкоштовну консультацію» дублювали форму над ними — ховаємо
+# цю частину Tilda-блоку rec1580410031, футер піднімаємо (розкладки блоку: 360 / 480 / 1280), висоту — атрибутами нижче
+FT_HIDE = ['1763053419451', '1763053419458', '1763053419464', '1763053419469', '1763053419472', '1763053419477', '176339361408349870', '176339392082124920', '176339393446267650', '176339399739376770', '176339399740143150', '176339399740792890']
+FT_SHIFT = ['1763053419499', '1763053419501', '1763053419503', '1763053419515', '1763053419516', '1763053419527', '1763053419528', '1763178726385', '1763398453146', '176339851816128070', '1763398823433', '1763447338821', '1763451079579', '176345119951893150', '176345123474070970', '176345126516292750', '176345127669678700', '1763452688339', '176345274664977170', '176345276333867820']
+FT_D = {'360': 488, '480': 558, '': 441}
+_ftmq = {'360': '@media screen and (max-width:479px)', '480': '@media screen and (min-width:480px) and (max-width:1279px)',
+         '': '@media screen and (min-width:1280px)'}
+_fs = lambda e: '#rec1580410031 .t396__artboard .tn-elem[data-elem-id="%s"]' % e
+hide_css += ','.join(_fs(e) for e in FT_HIDE) + '{display:none!important}'
+for _r, _D in FT_D.items():
+    hide_css += _ftmq[_r] + '{' + ','.join(_fs(e) for e in FT_SHIFT) + '{transform:translateY(-%dpx)!important}}' % _D
 _L3 = '#rec1580372221 .tn-elem[data-elem-id="176312788307148650"]'
 hide_css += (_L3 + '{left:calc(50% - 640px + 825px)!important;width:220px!important}'
              '@media screen and (max-width:959px){' + _L3 + '{left:calc(50% - 320px + 426px)!important;width:170px!important}}'
@@ -554,6 +565,12 @@ s = s.replace('<div id="rec1558049271"', blocks.results() + '<div id="rec1558049
 # форма — перед фінальним CTA з кнопками Telegram/Direct
 s = s.replace('<div id="rec1558142251"', faq.html() + '<div id="rec1558142251"', 1)
 s = s.replace('<div id="rec1580410031"', form.html() + '<div id="rec1580410031"', 1)
+_ab = re.search(r'<div class="t396__artboard" data-artboard-recid="1580410031"[^>]*>', s).group(0); _ab2 = _ab
+for _r, _D in FT_D.items():
+    _k = 'data-artboard-height' + ('-res-%s' % _r if _r else '')
+    _ab2, _n = re.subn(r'(%s=")(\d+)"' % _k, lambda m: '%s%d"' % (m.group(1), int(m.group(2)) - _D), _ab2); assert _n == 1, _k
+s = s.replace(_ab, _ab2, 1)
+print('футер: висота блоку', re.findall(r'data-artboard-height(?:-res-\d+)?="\d+"', _ab2))
 # кейси 03 і 04 — високі картки з «до/після», клони колонки кейса 02
 import cases_tall
 s = cases_tall.apply(s, _asset_url)

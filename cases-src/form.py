@@ -25,6 +25,12 @@ CSS = """
 #oks-form .fm-note{color:#6a6a6a;font-size:12px;line-height:1.35;margin-top:10px}
 #oks-form .fm-ok{display:none;color:#f6d4aa;font-size:18px;line-height:1.4;padding:22px 0}
 #oks-form .fm-hp{position:absolute;left:-9999px;opacity:0}
+/* 29.09 п.20: замість окремого блоку «Обговоримо проєкт» з кнопками — месенджери під формою */
+#oks-form .fm-alt{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.1)}
+#oks-form .fm-alt span{color:#9b9b9b;font-size:13px;margin-right:4px}
+#oks-form .fm-alt a{color:#f6d4aa;font-size:14px;font-weight:600;text-decoration:none;border:1px solid rgba(246,212,170,.45);
+  border-radius:40px;padding:9px 16px;transition:background .15s ease}
+#oks-form .fm-alt a:hover{background:rgba(246,212,170,.1)}
 @media screen and (max-width:900px){#oks-form .fm{grid-template-columns:1fr;gap:26px;padding:26px}
   #oks-form h2{font-size:28px}}
 @media screen and (max-width:640px){#oks-form{padding-bottom:60px}}
@@ -50,7 +56,7 @@ JS = """
 
 
 def html():
-    return ('<div id="oks-form"><div class="fm"><div><h2>Записатися на <b>розбір</b></h2>'
+    return ('<div id="oks-form"><div class="fm"><div><h2>Обговоримо ваш <b>проєкт</b></h2>'
             '<p class="fm-sub">Подивимось ваш профіль і нішу до дзвінка, щоб на розборі говорити '
             'предметно: формат, обсяг, з чого починати. 20 хвилин у Zoom, безкоштовно.</p></div>'
             '<div><form id="oks-form-el" autocomplete="on">'
@@ -60,5 +66,8 @@ def html():
             '<input class="fm-hp" name="_honey" tabindex="-1" autocomplete="off">'
             '<button type="submit">Записатися</button>'
             '<div class="fm-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.</div>'
-            '</form><div id="oks-form-ok" class="fm-ok">Дякую! Заявка вже в Оксани — напише вам протягом дня.</div></div>'
+            '</form><div id="oks-form-ok" class="fm-ok">Дякую! Заявка вже в Оксани — напише вам протягом дня.</div>'
+            '<div class="fm-alt"><span>або напишіть нам:</span>'
+            '<a href="https://t.me/ksysha_bogdanets" target="_blank" rel="noopener">Telegram</a>'
+            '<a href="https://ig.me/m/ksysha.bogdanets" target="_blank" rel="noopener">Instagram Direct</a></div></div>'
             '</div></div><script>%s</script>' % JS)
