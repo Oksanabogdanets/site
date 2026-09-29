@@ -218,6 +218,11 @@ hide_css += (','.join('.tn-elem[data-elem-id="%s"] .tn-atom__button-icon' % e fo
 # 29.09 п.14 (десктоп): підпис «Організація і зйомка» в картці «Етап 4» виходив за край картки — у два рядки, як сусідні
 hide_css += ('#rec1558035631 .tn-elem[data-elem-id="176314294699589770"]{width:105px!important}'
              '#rec1558035631 .tn-elem[data-elem-id="176314294699589770"] .tn-atom{white-space:normal!important}')
+# 29.09 п.16: «чорна діра» у стрічці «Приклади відео» — у плеєра ANNEXX другого відео в shape-pause-click вказане
+# саме відео (1763050065965) + його превʼю, і віджет ставить їм opacity:0 !important назавжди. Повертаємо видимість.
+hide_css += ('#rec1558059361 .tn-elem.tn-elem__15580593611763050065965{opacity:1!important;pointer-events:auto!important}')
+# 29.09 п.15: відступи навколо «Приклади відео» — порожня розпірка rec1573773851 між заголовком і стрічкою прибрана
+hide_css += '#rec1573773851.t-rec{display:none!important}'
 _L3 = '#rec1580372221 .tn-elem[data-elem-id="176312788307148650"]'
 hide_css += (_L3 + '{left:calc(50% - 640px + 825px)!important;width:220px!important}'
              '@media screen and (max-width:959px){' + _L3 + '{left:calc(50% - 320px + 426px)!important;width:170px!important}}'

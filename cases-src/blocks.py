@@ -48,7 +48,7 @@ CSS = """
   font-size:21px;line-height:1.35;padding:22px 26px;border-radius:18px;
   border:1px solid rgba(246,212,170,.3);background:rgba(246,212,170,.05)}
 #oks-mission .ms-final b{color:#f6d4aa;font-weight:600}
-#oks-res{padding:0 20px 90px}
+#oks-res{padding:0 20px 40px}   /* 29.09: менший відступ перед «Приклади відео» */
 .oks-in{max-width:1180px;margin:0 auto}
 .oks-tag{display:inline-block;border:1px solid rgba(246,212,170,.4);border-radius:40px;
   padding:7px 16px;color:#f6d4aa;font-size:13px;margin-bottom:22px}
@@ -78,7 +78,7 @@ CSS = """
 @media screen and (max-width:640px){#oks-mission{padding:30px 20px 60px;text-align:center}
   #oks-mission .oks-h2{margin-left:auto;margin-right:auto}#oks-mission .ms-card{text-align:left}
   #oks-mission .ms-final{font-size:17px;padding:18px 20px;margin-top:24px}
-  #oks-res,#oks-about{padding-bottom:60px}.oks-h2{font-size:26px;margin-bottom:24px}
+  #oks-about{padding-bottom:60px}#oks-res{padding-bottom:24px}.oks-h2{font-size:26px;margin-bottom:24px}
   #oks-res .rs-grid{grid-template-columns:1fr;gap:14px}
   #oks-about .ab{grid-template-columns:1fr;padding:22px;gap:22px}
   #oks-about .ab-ph{max-width:220px}#oks-about .ab-grid{grid-template-columns:repeat(2,1fr)}}
