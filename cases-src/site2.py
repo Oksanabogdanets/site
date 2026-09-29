@@ -342,9 +342,10 @@ def about():
 # ---------------------------------------------------------------- кейси
 CASES = [
     dict(n='01', niche='Юридична компанія', badge=None,
-         before='zvilnymo_before.jpg', after='zvilnymo_after_tt.jpg',
-         tt=('https://www.tiktok.com/@zvilnymo.com.ua', 44.1),
-         head='Результат: з 23 до 225 тис. підписників',
+         # «ПІСЛЯ» — свіжий скрін профілю TikTok від Оксани (29.09): 238,4 тис. підписників, нік @zvilnymo.ua
+         before='zvilnymo_before.jpg', after='zvilnymo_after_new.jpg',
+         tt=('https://www.tiktok.com/@zvilnymo.ua', 'bottom'),
+         head='Результат: з 23 до 238 тис. підписників',
          text='Десятки роликів у TikTok приносять заявки постійно. <strong>7 000 $</strong> з одного Reels, і такі ролики виходять часто'),
     dict(n='02', niche='Психолог', badge='+4 000 підписників',
          before='nina_before.jpg', after='nina_after_tt.jpg',
@@ -383,6 +384,10 @@ CASES_CSS = """
 .cs-tt span{position:absolute;right:6px;transform:translateY(-50%);background:var(--gold);color:#000;border-radius:30px;
   padding:8px 13px;font-size:12px;font-weight:600;line-height:1;white-space:nowrap}
 .cs-tt .s{display:none}
+/* кнопка під скріном, а не поверх (щоб не закривала перегляди на плитках) */
+.cs-tt.below{display:flex;flex-direction:column;align-items:flex-end;overflow:visible;border-radius:0}
+.cs-tt.below img{border-radius:14px}
+.cs-tt.below span{position:static;transform:none;margin-top:10px}
 .cs-res{background:#000;border:1px solid var(--line);border-radius:15px;padding:20px 20px 22px;text-align:center}
 .cs-res h3{font-size:16px;font-weight:700;text-transform:uppercase;line-height:1.2}
 .cs-res p{margin-top:12px;font-size:13px;font-weight:500;line-height:16px}
@@ -407,9 +412,10 @@ def cases():
         w, h = img_size(c['after'])
         after_img = '<img src="%s" alt="Після: профіль і ролики" width="%d" height="%d" loading="lazy">' % (img(c['after'], w=760), w, h)
         if c['tt']:
-            after = ('<a class="cs-tt" href="%s" target="_blank" rel="noopener" aria-label="Відкрити TikTok">%s'
-                     '<span style="top:%s%%"><b class="l">Відкрити TikTok ↗</b><b class="s">Дивитись ↗</b></span></a>'
-                     % (c['tt'][0], after_img, c['tt'][1]))
+            after = ('<a class="cs-tt%s" href="%s" target="_blank" rel="noopener" aria-label="Відкрити TikTok">%s'
+                     '<span style="%s"><b class="l">Відкрити TikTok ↗</b><b class="s">Дивитись ↗</b></span></a>'
+                     % (' below' if c['tt'][1] == 'bottom' else '', c['tt'][0], after_img,
+                        '' if c['tt'][1] == 'bottom' else 'top:%s%%' % c['tt'][1]))
         else:
             after = '<div class="cs-img">%s</div>' % after_img
         bw, bh = img_size(c['before'])

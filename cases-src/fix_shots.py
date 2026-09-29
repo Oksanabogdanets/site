@@ -74,6 +74,16 @@ def zv_tt_label():
     im.save(p, quality=90); print('zvilnymo_after_tt.jpg: підпис @zvilnymo.com.ua')
 
 
+def zv_after_new():
+    """Кейс 01, «ПІСЛЯ» для нової версії сайту (Оксана 29.09: «Замени после»): свіжий скрін профілю TikTok
+    @zvilnymo.ua — шапка (238,4 тис. підписників, 1,4 млн вподобань) + перший ряд роликів з переглядами.
+    Без статус-бару телефона і рядків з малими переглядами. 2× для чіткості на телефонах."""
+    im = Image.open(os.path.join(S, 'covers-src', 'zvilnymo_tiktok_profile_2909.jpg')).convert('RGB')
+    c = im.crop((0, 145, im.width, 838))
+    c = c.resize((c.width * 2, c.height * 2), Image.LANCZOS).filter(ImageFilter.UnsharpMask(1.2, 50, 2))
+    c.save(os.path.join(A, 'zvilnymo_after_new.jpg'), quality=90); print('zvilnymo_after_new.jpg', c.size)
+
+
 def rounded_mask(size, r):
     m = Image.new('L', (size[0] * 4, size[1] * 4), 0)
     ImageDraw.Draw(m).rounded_rectangle((0, 0, size[0] * 4 - 1, size[1] * 4 - 1), r * 4, fill=255)
