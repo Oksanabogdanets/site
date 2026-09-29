@@ -174,7 +174,7 @@ MOBILE_FIX = (
     '#rec1575165041 .tn-elem[data-elem-id="1763049679183"] .tn-atom{font-size:46px!important;line-height:.95!important}'
     '}'
 )
-import packages, niches, team, blocks, form, faq, services, forwhom, reviews_m
+import packages, niches, team, blocks, form, faq, services, forwhom, reviews_m, stages_m
 # старий Tilda-блок форматів роботи (дві копії) міняємо на власний — там не було місця
 # під четвертий пакет, а пункт «Підбір локації…» дублювався
 hide_css += '#rec1558101811,#rec1575209271{display:none!important}'
@@ -215,6 +215,9 @@ TAGS = ['1763110184877', '176339664723652490', '176311286124257350', '1763113532
 hide_css += (','.join('.tn-elem[data-elem-id="%s"] .tn-atom__button-icon' % e for e in TAGS) + '{display:none!important}'
              + ','.join('.tn-elem[data-elem-id="%s"] .tn-atom__button-content' % e for e in TAGS)
              + '{justify-content:center!important;column-gap:0!important;padding:0!important;width:100%!important}')
+# 29.09 п.14 (десктоп): підпис «Організація і зйомка» в картці «Етап 4» виходив за край картки — у два рядки, як сусідні
+hide_css += ('#rec1558035631 .tn-elem[data-elem-id="176314294699589770"]{width:105px!important}'
+             '#rec1558035631 .tn-elem[data-elem-id="176314294699589770"] .tn-atom{white-space:normal!important}')
 _L3 = '#rec1580372221 .tn-elem[data-elem-id="176312788307148650"]'
 hide_css += (_L3 + '{left:calc(50% - 640px + 825px)!important;width:220px!important}'
              '@media screen and (max-width:959px){' + _L3 + '{left:calc(50% - 320px + 426px)!important;width:170px!important}}'
@@ -273,7 +276,7 @@ for _r, _D in CASE01_D.items():
                  + _sel(RES2) + '{height:%dpx!important}}' % (RES_H[_r] + _d2))
     CASE_SHIFT[_r] = -_D + _d1 + _d2
 # висоту блоку Tilda рахує сама з data-artboard-height-res-* (× масштаб екрана) — правимо атрибути після cases_tall
-play_css += hero_css + badge_css + caps_css + hide_css + MOBILE_FIX + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + faq.CSS + forwhom.CSS + reviews_m.CSS + case_css
+play_css += hero_css + badge_css + caps_css + hide_css + MOBILE_FIX + packages.CSS + niches.CSS + team.CSS + blocks.CSS + form.CSS + services.CSS + faq.CSS + forwhom.CSS + reviews_m.CSS + stages_m.CSS + case_css
 s = s.replace('</head>', '<style>#rec1698062081,#rec1590641921,#rec1998611892,.t-tildalabel,.t887{display:none!important}' + play_css + '</style>\n</head>')
 
 # ---------- meta ----------
@@ -539,6 +542,8 @@ s = s.replace('<div id="rec1556224301"', blocks.mission() + forwhom.html(s) + '<
 # відгук на телефоні — перед Tilda-блоком зі скріном (заголовок «Нам довіряють» стоїть у попередньому rec)
 assert s.count('<div id="rec1558070821"') == 1, 'відгуки: rec1558070821'
 s = s.replace('<div id="rec1558070821"', reviews_m.html(_asset_url) + '<div id="rec1558070821"', 1)
+assert s.count('<div id="rec1575166851"') == 1, 'етапи: rec1575166851'
+s = s.replace('<div id="rec1575166851"', stages_m.html(s) + '<div id="rec1575166851"', 1)
 # результати — перед заголовком «Приклади відео»
 s = s.replace('<div id="rec1558049271"', blocks.results() + '<div id="rec1558049271"', 1)
 # форма — перед фінальним CTA з кнопками Telegram/Direct
