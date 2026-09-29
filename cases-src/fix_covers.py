@@ -69,9 +69,40 @@ def caption_from_source(im, src_small, box, feather=10):
     return im
 
 
+def tiktok_tile(src, x0, x1, label, name, y0=15, top_src=40, extend=False):
+    """Плитка з сітки TikTok (скрін Оксани) → обкладинка для стрічки з переглядами.
+    Прибираємо рожеву мітку «Закріплено» (label = x0,y0,x1,y1 у координатах плитки), низ з «▷ 290,4 тис.» не чіпаємо.
+    За замовчуванням лишаємо рідну пропорцію плитки 3:4 (у новій версії сайту картки стрічки однакової висоти, ширина —
+    за картинкою): добудова верху до 9:16 давала розмиту «шапку» над головою (29.09). extend=True — старий варіант."""
+    import numpy as np, cv2
+    im = Image.open(os.path.join(S, 'covers-src', src)).convert('RGB')
+    t = np.asarray(im.crop((x0, y0, x1, im.height))).copy()
+    m = np.zeros(t.shape[:2], np.uint8); lx0, ly0, lx1, ly1 = label; m[ly0 - 8:ly1 + 9, lx0 - 8:lx1 + 9] = 255
+    t = cv2.inpaint(t, m, 25, cv2.INPAINT_NS)
+    tile = Image.fromarray(t); mk = Image.fromarray(m).filter(ImageFilter.GaussianBlur(4))
+    tile = Image.composite(tile.filter(ImageFilter.GaussianBlur(3)), tile, mk)
+    if not extend:
+        w, h = tile.size
+        out = tile.resize((720, round(h * 720 / w)), Image.LANCZOS).filter(ImageFilter.UnsharpMask(1.0, 40, 2))
+        out.save(os.path.join(A, name), quality=90, optimize=True, progressive=True); print(name, out.size)
+        return
+    w, h = tile.size; th = round(w * H / W); add = th - h
+    top = tile.crop((0, 0, w, top_src)).resize((w, add), Image.BICUBIC).filter(ImageFilter.GaussianBlur(30))
+    top = ImageEnhance.Brightness(top).enhance(0.8)
+    canvas = Image.new('RGB', (w, th)); canvas.paste(top, (0, 0)); canvas.paste(tile, (0, add))
+    feather = 60
+    band = canvas.crop((0, add - feather, w, add + feather)).filter(ImageFilter.GaussianBlur(8))
+    bm = Image.eval(Image.linear_gradient('L').resize((w, 2 * feather)), lambda v: 255 - abs(255 - 2 * v))
+    canvas.paste(band, (0, add - feather), bm)
+    save(canvas, name)
+
+
 if __name__ == '__main__':
     k01 = caption_from_source(load('cov_1_9m.jpg'), 'cov_1_9m_src.png', (214, 604, 618, 744))
     save(crop916_im(k01, 8), 'k01.jpg')                 # неон, підпис і «1.9M» — усе в кадрі
     save(extend_top('cov_2_4m.jpg', 24), 'k02.jpg')     # «КОЛЕКТОР ЗМУШУЄ ПРОДАТИ НИРКУ?» цілим
     save(crop916('cov_257k.jpg', 56), 'k03.jpg')
     save(crop916('cov_354k.jpg', 50), 'k04.jpg')        # «354 тис.» лишаємо, де його ставить Instagram
+    # Ніна, TikTok (скрін Оксани 29.09): 290,4 тис. і 289,5 тис.
+    tiktok_tile('nina_tiktok_290k_289k.jpg', 0, 438, (18, 18, 243, 64), 'k26.jpg')
+    tiktok_tile('nina_tiktok_290k_289k.jpg', 440, 877, (19, 18, 244, 65), 'k27.jpg')

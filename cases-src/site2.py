@@ -300,7 +300,8 @@ def forwhom():
 
 # ---------------------------------------------------------------- «Про нас»: лічильники + обкладинки з переглядами + ніші
 COUNTERS = [(20, 'ніш у роботі'), (3, 'роки на ринку Reels Production та інфобізнесу'), (10, 'млн переглядів на роликах клієнтів')]
-COVERS = ['k07.jpg', 'k03.jpg', 'k01.jpg', 'k25.jpg', 'k04.jpg', 'k02.jpg', 'k05.jpg', 'k11.jpg', 'k13.jpg', 'k08.jpg']
+COVERS = ['k07.jpg', 'k03.jpg', 'k26.jpg', 'k01.jpg', 'k25.jpg', 'k04.jpg', 'k27.jpg', 'k02.jpg', 'k05.jpg', 'k11.jpg', 'k13.jpg', 'k08.jpg']
+# k26/k27 — Ніна, TikTok 290,4 тис. і 289,5 тис. (скрін Оксани 29.09), пропорція 3:4 — картки стрічки однакової висоти
 
 ABOUT_CSS = """
 .ab2{padding:120px 0 0}
@@ -315,13 +316,13 @@ ABOUT_CSS = """
 .cnt-l{margin-top:auto;font-size:16px;font-weight:600;line-height:1;letter-spacing:-1px;text-transform:uppercase;text-align:center;color:#d6d6d6;max-width:240px}
 .cov{display:flex;gap:15px;overflow-x:auto;scroll-snap-type:x mandatory;padding:28px 30px 4px;scroll-padding:0 30px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .cov::-webkit-scrollbar{display:none}
-.cov img{flex:0 0 203px;width:203px;height:365px;object-fit:cover;border-radius:12px;scroll-snap-align:start;background:#1b1b1b}
+.cov img{flex:0 0 auto;width:auto;height:365px;object-fit:cover;border-radius:12px;scroll-snap-align:start;background:#1b1b1b}
 @media (min-width:1300px){.cov{padding-left:calc((100vw - 1220px)/2);scroll-padding-left:calc((100vw - 1220px)/2)}}
 @media (max-width:640px){.ab2{padding-top:56px}.ab2 .sh{margin-bottom:24px}.ab2 .h2{font-size:28px}
   .ab2-band{padding:0 0 30px}
   .cnt{flex-direction:column;padding:0 0}.cnt-c,.cnt-c:nth-child(2){flex:none;min-height:147px;padding:18px 16px 16px}
   .cnt-n{font-size:70px}.cnt-l{font-size:15px;margin-top:10px}.cnt-pin{width:24px;height:24px}
-  .cov{gap:10px;padding:22px 16px 4px;scroll-padding:0 16px}.cov img{flex-basis:159px;width:159px;height:286px}}
+  .cov{gap:10px;padding:22px 16px 4px;scroll-padding:0 16px}.cov img{height:286px}}
 """
 
 
@@ -330,8 +331,8 @@ def about():
     cnt = ''.join('<div class="cnt-c"><img class="cnt-pin" src="%s" alt="" width="28" height="28" loading="lazy">'
                   '<div class="cnt-n"><span data-count="%d">%d</span>+</div><div class="cnt-l">%s</div></div>'
                   % (pin, n, n, l) for n, l in COUNTERS)
-    covers = ''.join('<img src="%s" alt="Обкладинка ролика з переглядами" width="203" height="365" loading="lazy">'
-                     % img(f, w=420) for f in COVERS)
+    covers = ''.join('<img src="%s" alt="Обкладинка ролика з переглядами" width="%d" height="365" loading="lazy">'
+                     % (img(f, w=560), round(365 * img_size(f)[0] / img_size(f)[1])) for f in COVERS)
     return ('<section class="ab2" id="about"><div class="wrap"><div class="sh"><span class="tag">Про нас</span>'
             '<h2 class="h2">Знімаємо ролики за стратегією під нішу — <br>на основі досвіду з&nbsp;<span class="gold">20+ нішами</span></h2></div></div>'
             '<div class="ab2-band"><div class="wrap"><div class="cnt">%s</div></div><div class="cov">%s</div></div>'
