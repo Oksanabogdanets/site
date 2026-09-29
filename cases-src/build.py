@@ -555,10 +555,8 @@ for _f in sorted(os.listdir(_VID)):
 _tpl = "poster=\"${link.replace(/\\.mp4.*$/, '-cover.jpg')}\""
 _n = s.count(_tpl)
 s = s.replace(_tpl, "data-poster=\"${link.replace(/\\.mp4.*$/, '-cover.webp')}\"")
-LAZY_POSTER = """<script>(function(){if(!('IntersectionObserver' in window)){var set=function(){document.querySelectorAll('video[data-poster]').forEach(function(v){v.poster=v.getAttribute('data-poster')})};setInterval(set,1500);return}
-var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var v=e.target;v.poster=v.getAttribute('data-poster');io.unobserve(v)}})},{rootMargin:'800px 0px'});
-function scan(){document.querySelectorAll('video[data-poster]').forEach(function(v){if(!v._lp){v._lp=1;io.observe(v)}})}
-new MutationObserver(scan).observe(document.documentElement,{childList:true,subtree:true});scan()})();</script>"""
+LAZY_POSTER = """<script>(function(){function chk(){var H=innerHeight;document.querySelectorAll('video[data-poster]:not([poster])').forEach(function(v){var r=v.getBoundingClientRect();if((r.width||r.height)&&r.bottom>-800&&r.top<H+800)v.setAttribute('poster',v.getAttribute('data-poster'))})}
+addEventListener('scroll',chk,{passive:true});addEventListener('resize',chk);document.addEventListener('touchmove',chk,{passive:true});setInterval(chk,800);chk()})();</script>"""
 s = s.replace('</body>', LAZY_POSTER + '</body>', 1)
 print('обкладинки відео: webp', _vs, '| постерів відкладено:', _n)
 # 5) раннє з'єднання з серверами шрифтів і Tilda (економить ~0,3 с на телефоні)
