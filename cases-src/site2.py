@@ -344,7 +344,7 @@ CASES = [
     dict(n='01', niche='Юридична компанія', badge=None,
          # «ПІСЛЯ» — свіжий скрін профілю TikTok від Оксани (29.09): 238,4 тис. підписників, нік @zvilnymo.ua
          before='zvilnymo_before.jpg', after='zvilnymo_after_new.jpg',
-         tt=('https://www.tiktok.com/@zvilnymo.ua', 'bottom'),
+         tt=('https://www.tiktok.com/@zvilnymo.ua', 42.4),   # «ПІСЛЯ» — біла картка як ДО + рядок TikTok (fix_shots.zv_after_card)
          head='Результат: з 23 до 238 тис. підписників',
          text='Десятки роликів у TikTok приносять заявки постійно. <strong>7 000 $</strong> з одного Reels, і такі ролики виходять часто'),
     dict(n='02', niche='Психолог', badge='+4 000 підписників',

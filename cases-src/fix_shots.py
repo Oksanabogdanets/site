@@ -84,6 +84,33 @@ def zv_after_new():
     c.save(os.path.join(A, 'zvilnymo_after_new.jpg'), quality=90); print('zvilnymo_after_new.jpg', c.size)
 
 
+def zv_after_card():
+    """Кейс 01, «ПІСЛЯ» для нової версії (Оксана 29.09: «той скрін має бути оформлений так само, як ДО»):
+    біла картка того ж розміру, що й ДО (1432×564), з шапкою свіжого профілю @zvilnymo.ua (238,4 тис.),
+    під нею — рядок «TikTok · @zvilnymo.ua» і три ролики з мільйонами (з попереднього композиту)."""
+    from PIL import ImageFont
+    src = Image.open(os.path.join(S, 'covers-src', 'zvilnymo_tiktok_profile_2909.jpg')).convert('RGB')
+    head = src.crop((10, 140, 579, 460))
+    ratio = 1432 / 564; w, h = head.size; pad = 0.05
+    tw = w * (1 + 2 * pad); th = tw / ratio
+    if th < h * (1 + 2 * pad):
+        th = h * (1 + 2 * pad); tw = th * ratio
+    card = Image.new('RGB', (round(tw), round(th)), (255, 255, 255))
+    card.paste(head, (round((tw - w) / 2), round((th - h) / 2)))
+    card = card.resize((1432, 564), Image.LANCZOS).filter(ImageFilter.UnsharpMask(1.2, 50, 2))
+    tt = Image.open(os.path.join(A, 'zvilnymo_after_tt.jpg')).convert('RGB').crop((0, 650, 1432, 1580))
+    gap = 40
+    comp = Image.new('RGB', (1432, 564 + gap + tt.height), (0, 0, 0))
+    comp.paste(card, (0, 0), rounded_mask(card.size, 56))
+    comp.paste(tt, (0, 564 + gap))
+    d = ImageDraw.Draw(comp); f = ImageFont.truetype('/System/Library/Fonts/Supplemental/Verdana Bold.ttf', 50.5)
+    y0 = 564 + gap
+    d.rectangle((284, y0 + 5, comp.width, y0 + 95), fill=(0, 0, 0))
+    d.text((290, y0 + 62), '@zvilnymo.ua', font=f, fill=(240, 212, 180), anchor='ls')
+    comp.save(os.path.join(A, 'zvilnymo_after_new.jpg'), quality=90)
+    print('zvilnymo_after_new.jpg', comp.size, 'label center %.1f%%' % ((y0 + 46) / comp.height * 100))
+
+
 def rounded_mask(size, r):
     m = Image.new('L', (size[0] * 4, size[1] * 4), 0)
     ImageDraw.Draw(m).rounded_rectangle((0, 0, size[0] * 4 - 1, size[1] * 4 - 1), r * 4, fill=255)
