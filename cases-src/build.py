@@ -142,7 +142,7 @@ HERO_TXT = '1768889182141000001'
 hero_css = ('#rec1558021021 .tn-elem[data-elem-id="%s"]{top:196px!important;width:300px!important}'
             '#rec1558021021 .tn-elem[data-elem-id="%s"] .tn-atom{font-size:17px!important;line-height:1.25!important;letter-spacing:0!important}'
             '@media screen and (max-width:959px){#rec1558021021 .tn-elem[data-elem-id="%s"] .tn-atom{font-size:15px!important}}'
-            '@media screen and (max-width:479px){#rec1558021021 .tn-elem[data-elem-id="%s"]{top:186px!important;width:250px!important}'
+            '@media screen and (max-width:479px){#rec1558021021 .tn-elem[data-elem-id="%s"]{top:186px!important;width:232px!important}'
             '#rec1558021021 .tn-elem[data-elem-id="%s"] .tn-atom{font-size:13.5px!important}}') % ((HERO_TXT,)*5)
 BADGE = '1763109677657'
 badge_css = ('#rec1558021021 .tn-elem[data-elem-id="%s"]{left:calc(50%% - 640px + 515px)!important;top:170px!important}'
@@ -196,11 +196,14 @@ hide_css += ('@media screen and (min-width:1200px){' + ''.join(_cn(n, p, 640, nl
              '@media screen and (max-width:479px){' + ''.join(_cn(n, p, 180, nl, pl) for (n, p), (nl, pl) in zip(_CN, [(135, 179), (127, 187)])) + '}')
 # Hero на телефоні: кнопка «Отримати стратегію» + кругла стрілка занадто великі (26.09) — 184×55 → 156×46, шрифт 16 → 14
 _HB, _HA = '#rec1558021021 .tn-elem[data-elem-id="1763109208283"]', '#rec1558021021 .tn-elem[data-elem-id="1763369209048"]'
+_HI = '#rec1558021021 .tn-elem[data-elem-id="1763369181393"]'
 def _hero_btn(base, bl, al, top):
     return (_HB + '{width:156px!important;height:46px!important;top:%dpx!important;left:calc(50%% - %dpx + %dpx)!important}' % (top, base, bl)
             + _HB + ' .tn-atom{font-size:14px!important}'
             + _HA + '{width:46px!important;height:46px!important;top:%dpx!important;left:calc(50%% - %dpx + %dpx)!important}' % (top, base, al)
-            + _HA + ' .tn-atom .tn-atom__button-icon{width:30px!important;height:30px!important}')
+            + _HA + ' .tn-atom .tn-atom__button-icon{width:30px!important;height:30px!important}'
+            # золота підкладка «кнопка + круг» (svg 233×55) лишалась великою і вилазила горбом праворуч (29.09)
+            + _HI + '{width:%dpx!important;top:%dpx!important;left:calc(50%% - %dpx + %dpx)!important}' % (al + 46 - bl, top, base, bl))
 hide_css += ('@media screen and (max-width:639px) and (min-width:480px){' + _hero_btn(240, 15, 167, 296) + '}'
              '@media screen and (max-width:479px){' + _hero_btn(180, 14, 166, 264) + '}')
 _L3 = '#rec1580372221 .tn-elem[data-elem-id="176312788307148650"]'
