@@ -618,7 +618,7 @@ def footer():
             '<a href="%s" target="_blank" rel="noopener" aria-label="Instagram Direct">%s</a></div>'
             '<p>ФОП Богданець Оксана<br>Київ, Україна</p></div></div>'
             '<div class="ft-bottom"><span>©2026 Усі права захищені</span><a href="#">Згода на обробку персональних даних</a>'
-            '<a href="#">Політика конфіденційності</a></div></div></footer>') % (links, img('wordmark2.png', w=600), TG, TGI, DIRECT, IG)
+            '<a href="../privacy-policy.html">Політика конфіденційності</a></div></div></footer>')   # сторінка з 02.06 (для Meta), Оксана 01.10 % (links, img('wordmark2.png', w=600), TG, TGI, DIRECT, IG)
 
 
 # ---------------------------------------------------------------- збірка сторінки
