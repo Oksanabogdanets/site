@@ -621,9 +621,10 @@ def footer():
 
 
 # ---------------------------------------------------------------- збірка сторінки
-SECTIONS = [hero, blocks.mission, forwhom, about, cases, stages, blocks.results, videos, reviews, team_about, formats, faq.html,
+# reviews — блок «Відгуки» прибрано за рішенням Оксани 01.10 (поки немає нормальних відгуків); код лишається, щоб повернути
+SECTIONS = [hero, blocks.mission, forwhom, about, cases, stages, blocks.results, videos, team_about, formats, faq.html,
             contact_form, footer]
-CSS_PARTS = [BASE_CSS, HEADER_CSS, HERO_CSS, blocks.CSS, FW_CSS, ABOUT_CSS, niches.CSS, CASES_CSS, STAGES_CSS, VIDEOS_CSS, reviews_m.CSS, REV_CSS,
+CSS_PARTS = [BASE_CSS, HEADER_CSS, HERO_CSS, blocks.CSS, FW_CSS, ABOUT_CSS, niches.CSS, CASES_CSS, STAGES_CSS, VIDEOS_CSS,
              team.CSS, ABOUT2_CSS, FMT_CSS, packages.CSS, faq.CSS, form.CSS, FOOTER_CSS]
 
 JS = """
