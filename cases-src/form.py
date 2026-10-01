@@ -6,6 +6,13 @@
 
 ENDPOINT = 'https://formsubmit.co/ajax/5c554157cf1eeb4492b86d791350d154'
 
+from urllib.parse import quote  # noqa: E402
+# Оксана 01.10: у Telegram і Direct одразу підставляється вітання (Telegram — офіційно через ?text=;
+# Instagram підтримує це не завжди, тому на сайті текст ще й копіюється в буфер — див. site2.JS)
+MSG = 'Вітаю! Хочу забронювати стратегічну сесію для розвитку особистого бренду через Reels'
+TG = 'https://t.me/ksysha_bogdanets?text=' + quote(MSG)
+DIRECT = 'https://ig.me/m/ksysha.bogdanets?text=' + quote(MSG)
+
 CSS = """
 #oks-form{background:#000;padding:0 20px 90px;font-family:'Inter',Arial,sans-serif}
 #oks-form .fm{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:40px;
@@ -68,6 +75,6 @@ def html():
             '<div class="fm-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.</div>'
             '</form><div id="oks-form-ok" class="fm-ok">Дякую! Заявка вже в Оксани — напише вам протягом дня.</div>'
             '<div class="fm-alt"><span>або напишіть нам:</span>'
-            '<a href="https://t.me/ksysha_bogdanets" target="_blank" rel="noopener">Telegram</a>'
-            '<a href="https://ig.me/m/ksysha.bogdanets" target="_blank" rel="noopener">Instagram Direct</a></div></div>'
-            '</div></div><script>%s</script>' % JS)
+            '<a href="%s" target="_blank" rel="noopener">Telegram</a>'
+            '<a href="%s" target="_blank" rel="noopener">Instagram Direct</a></div></div>'
+            '</div></div><script>%s</script>' % (TG, DIRECT, JS))

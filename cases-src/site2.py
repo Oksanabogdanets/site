@@ -12,7 +12,7 @@
 Тексти й порядок блоків — у цьому файлі (секції нижче) і в модулях, які вже були без Tilda:
 blocks.py (місія, «Що ви отримуєте», «Хто веде проєкт»), niches.py, team.py, packages.py, faq.py, form.py.
 """
-import hashlib, io, os, re, sys
+import hashlib, io, json, os, re, sys
 from PIL import Image
 
 S = os.path.dirname(os.path.abspath(__file__))
@@ -25,12 +25,11 @@ PAGE = 'index.html' if LIVE else 'new.html'
 
 GOLD = '#f6d4aa'
 SITE = 'https://oksanabogdanets.github.io/site/cases/'
-DIRECT = 'https://ig.me/m/ksysha.bogdanets'
-TG = 'https://t.me/ksysha_bogdanets'
 KVIZ = 'https://oksanabogdanets.github.io/site/kviz-strategy/'
 
 sys.path.insert(0, S)
 import blocks, niches, team, packages, faq, form  # noqa: E402  (модулі без Tilda — перевикористовуємо)
+DIRECT, TG = form.DIRECT, form.TG   # з готовим вітанням «Вітаю! Хочу забронювати стратегічну сесію…»
 
 # ---------------------------------------------------------------- картинки
 os.makedirs(IMGDIR, exist_ok=True)
@@ -143,14 +142,15 @@ h1,h2,h3,p{margin:0}
 NAV = [('Про нас', '#about'), ('Кейси', '#cases'), ('Послуги', '#services'), ('Контакти', '#contacts')]
 
 HEADER_CSS = """
-/* шапка закріплена зверху, як у старій версії; напівпрозоре тло, щоб меню читалось поверх фото */
+/* шапка закріплена зверху, як у старій версії */
 .hdr{position:fixed;top:0;left:0;right:0;z-index:40;padding-top:7px;pointer-events:none}
 .hdr .wrap{pointer-events:auto}
 [id]{scroll-margin-top:84px}
 .hdr-bar{position:relative;height:66px;border:1px solid var(--line);border-radius:32px;display:flex;align-items:center;
-  background:rgba(0,0,0,.55);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-  justify-content:space-between;padding:0 10px 0 20px}
-.hdr-logo img{width:66px;height:auto}
+  background:#000;justify-content:space-between;padding:0 10px 0 20px}
+/* Оксана 01.10: без розмиття під шапкою (суцільне чорне тло) і логотип одним рядком «на весь ряд» */
+.hdr-logo{display:block;line-height:0}
+.hdr-logo img{width:auto;height:18px}   /* на десктопі ~180px — не наїжджає на меню по центру навіть на 901px */
 .hdr-nav{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:14px}
 .hdr-nav a{display:block;padding:16px 16px;color:var(--gold);text-decoration:none;font-size:14px;font-weight:500;
   text-transform:uppercase;letter-spacing:-.2px}
@@ -170,16 +170,19 @@ HEADER_CSS = """
 .mnav p{color:#9b9b9b;font-size:14px;line-height:1.4;margin-bottom:14px}
 .mnav-btns{display:flex;gap:10px;flex-wrap:wrap}
 .mnav-btns a{flex:1;min-width:140px;text-align:center;text-decoration:none;background:var(--gold);color:#000;font-weight:600;border-radius:30px;padding:14px 16px}
-@media (max-width:900px){.hdr-nav,.hdr-ic{display:none}.hdr-burger{display:grid}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:60;background:var(--gold);color:#000;font-size:14px;font-weight:600;
+  padding:12px 18px;border-radius:30px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (max-width:900px){.hdr-nav,.hdr-ic{display:none}.hdr-burger{display:grid}.hdr-logo{flex:1;min-width:0;margin-right:14px}.hdr-logo img{width:100%;height:auto;max-height:34px;object-fit:contain;object-position:left center}}
 @media (max-width:640px){.hdr-bar{height:56px;padding:0 6px 0 16px}.hdr-burger{width:44px;height:44px}}
 """
 
 
 def header():
     links = ''.join('<a href="%s">%s</a>' % (h, t) for t, h in NAV)
-    logo = img('wordmark2.png', w=200)
+    logo = img('wordmark_line.png', w=900)
     return ('<header class="hdr"><div class="wrap"><div class="hdr-bar">'
-            '<a class="hdr-logo" href="#top" aria-label="На початок"><img src="%s" alt="Oksana Bogdanets" width="66" height="28"></a>'
+            '<a class="hdr-logo" href="#top" aria-label="На початок"><img src="%s" alt="Oksana Bogdanets" width="180" height="18"></a>'
             '<nav class="hdr-nav" aria-label="Меню">%s</nav>'
             '<div class="hdr-ic"><a href="%s" target="_blank" rel="noopener" aria-label="Instagram Direct">%s</a>'
             '<a href="%s" target="_blank" rel="noopener" aria-label="Telegram">%s</a></div>'
@@ -655,7 +658,18 @@ JS = """
     if(!els.length)removeEventListener('scroll',chk)}
   addEventListener('scroll',chk,{passive:true});chk();
 })();
-"""
+// Direct: Instagram не завжди підставляє текст із ?text=, тож копіюємо вітання в буфер і кажемо про це
+(function(){
+  var t;
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="https://ig.me/"]'); if(!a||!navigator.clipboard) return;
+    navigator.clipboard.writeText(MSG).then(function(){
+      if(!t){t=document.createElement('div');t.className='toast';t.setAttribute('role','status');document.body.appendChild(t)}
+      t.textContent='Текст скопійовано — вставте його в Direct';t.classList.add('on');setTimeout(function(){t.classList.remove('on')},4000);
+    }).catch(function(){});
+  });
+})();
+""".replace('MSG', json.dumps(form.MSG, ensure_ascii=False), 1)
 
 HEAD = """<!DOCTYPE html>
 <html lang="uk">
