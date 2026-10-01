@@ -305,6 +305,7 @@ def forwhom():
 COUNTERS = [(20, 'ніш у роботі'), (3, 'роки на ринку Reels Production та інфобізнесу'), (10, 'млн переглядів на роликах клієнтів')]
 COVERS = ['k07.jpg', 'k03.jpg', 'k26.jpg', 'k01.jpg', 'k25.jpg', 'k04.jpg', 'k27.jpg', 'k02.jpg', 'k05.jpg', 'k11.jpg', 'k13.jpg', 'k08.jpg']
 # k26/k27 — Ніна, TikTok 290,4 тис. і 289,5 тис. (скрін Оксани 29.09), пропорція 3:4 — картки стрічки однакової висоти
+SHOW_COVERS = False   # Оксана 01.10: «прибрати скріни» — стрічку з переглядами прибрано; True — повернути
 
 ABOUT_CSS = """
 .ab2{padding:120px 0 0}
@@ -335,11 +336,11 @@ def about():
                   '<div class="cnt-n"><span data-count="%d">%d</span>+</div><div class="cnt-l">%s</div></div>'
                   % (pin, n, n, l) for n, l in COUNTERS)
     covers = ''.join('<img src="%s" alt="Обкладинка ролика з переглядами" width="%d" height="365" loading="lazy">'
-                     % (img(f, w=560), round(365 * img_size(f)[0] / img_size(f)[1])) for f in COVERS)
+                     % (img(f, w=560), round(365 * img_size(f)[0] / img_size(f)[1])) for f in COVERS) if SHOW_COVERS else ''
     return ('<section class="ab2" id="about"><div class="wrap"><div class="sh"><span class="tag">Про нас</span>'
             '<h2 class="h2">Знімаємо ролики за стратегією під нішу — <br>на основі досвіду з&nbsp;<span class="gold">20+ нішами</span></h2></div></div>'
-            '<div class="ab2-band"><div class="wrap"><div class="cnt">%s</div></div><div class="cov">%s</div></div>'
-            '%s</section>') % (cnt, covers, niches.html())
+            '<div class="ab2-band"><div class="wrap"><div class="cnt">%s</div></div>%s</div>'
+            '%s</section>') % (cnt, '<div class="cov">%s</div>' % covers if covers else '', niches.html())
 
 
 # ---------------------------------------------------------------- кейси
