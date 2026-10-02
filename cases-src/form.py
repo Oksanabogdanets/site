@@ -63,15 +63,15 @@ JS = """
 
 
 def html():
-    return ('<div id="oks-form"><div class="fm"><div><h2>Обговоримо ваш <b>проєкт</b></h2>'
-            '<p class="fm-sub">Подивимось ваш профіль і нішу до дзвінка, щоб на розборі говорити '
+    return ('<div id="oks-form"><div class="fm"><div><h2>Безкоштовна <b>стратегічна сесія</b></h2>'
+            '<p class="fm-sub">Подивимось ваш профіль і нішу до дзвінка, щоб на сесії говорити '
             'предметно: формат, обсяг, з чого починати. 20 хвилин у Zoom, безкоштовно.</p></div>'
             '<div><form id="oks-form-el" autocomplete="on">'
             '<label>Ім’я</label><input name="name" type="text" required maxlength="80">'
             '<label>Нік в Instagram</label><input name="instagram" type="text" required maxlength="80" placeholder="@">'
             '<label>Телефон</label><input name="phone" type="tel" required maxlength="40" placeholder="+380">'
             '<input class="fm-hp" name="_honey" tabindex="-1" autocomplete="off">'
-            '<button type="submit">Записатися</button>'
+            '<button type="submit">Записатися на сесію</button>'
             '<div class="fm-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.</div>'
             '</form><div id="oks-form-ok" class="fm-ok">Дякую! Заявка вже в Оксани — напише вам протягом дня.</div>'
             '<div class="fm-alt"><span>або напишіть нам:</span>'

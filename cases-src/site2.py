@@ -191,7 +191,7 @@ def header():
             '<div class="mnav" id="mnav" role="dialog" aria-modal="true" aria-label="Меню">'
             '<div class="mnav-top"><img src="%s" alt="Oksana Bogdanets"><button class="mnav-x" type="button" aria-label="Закрити меню" data-menu-close>×</button></div>'
             '<nav>%s</nav>'
-            '<p>*Записатись на безкоштовну консультацію — напишіть нам зручним способом</p>'
+            '<p>*Записатись на безкоштовну стратегічну сесію — напишіть нам зручним способом</p>'
             '<div class="mnav-btns"><a href="%s" target="_blank" rel="noopener">Telegram</a><a href="%s" target="_blank" rel="noopener">Instagram Direct</a></div>'
             '</div>') % (logo, links, DIRECT, IG, TG, TGI, logo, links, TG, DIRECT)
 
@@ -244,10 +244,10 @@ def hero():
         cols += '<div class="mos-col" aria-hidden="true">%s</div>' % tiles
     return ('<section class="hero" id="top">%s<div class="wrap"><div class="hero-in">'
             '<div><h1>Reels-просування <br><span class="gold">для експертів та бізнесу</span></h1>'
-            '<p class="hero-sub">Повний супровід: від сценарію до зйомки в студії, монтажу і публікації</p></div>'
+            '<p class="hero-sub">Повний супровід: від сценарію до зйомки в студії і монтажу</p></div>'
             '<img class="hero-badge" src="%s" alt="У роботі 20+ ніш" width="200" height="180">'
             '<div class="hero-r"><p class="hero-txt">Отримайте індивідуальну стратегію, яка побудує ваш особистий бренд та збільшить потік клієнтів</p>'
-            '<a class="cta" href="%s"><span class="cta-t">Отримати стратегію</span><span class="cta-i">%s</span></a></div>'
+            '<a class="cta" href="%s"><span class="cta-t">Записатись на стратегічну сесію</span><span class="cta-i">%s</span></a></div>'
             '</div></div></section>'
             '<div class="mos"><div class="mos-cols">%s</div></div>') % (header(), img('badge2.png', w=400), KVIZ, ARROW, cols)
 
@@ -458,7 +458,7 @@ def cases():
             '<div class="cs-grid">%s</div></div></section>') % items
 
 
-# ---------------------------------------------------------------- етапи роботи (+ спливне вікно «Обговорити проєкт»)
+# ---------------------------------------------------------------- етапи роботи (+ спливне вікно запису на стратегічну сесію)
 STAGES = [('Етап 1', 'Підготовка', 'Бриф і стратегічна сесія в Zoom, договір і оплата. Аналізуємо конкурентів, ринок і продукт, формуємо УТП.',
            'Команда має все, щоб за 2 тижні зібрати стратегію і написати сценарії.'),
           ('Етап 2', 'Створення стратегії', 'Підбираємо теми й референси, пишемо сценарії, коригуємо і репетируємо їх у Zoom, затверджуємо.',
@@ -516,11 +516,11 @@ def stages():
     return ('<section class="st2" id="stages"><div class="wrap"><div class="st2-top">'
             '<h2><span class="gold">4 етапи </span><br>роботи</h2>'
             '<div class="st2-side"><span class="tag">Етапи роботи</span><p class="st2-sub">Від стратегічної сесії до готових відео — місяць.</p>'
-            '<button class="cta" type="button" data-modal-open><span class="cta-t">Обговорити проєкт</span><span class="cta-i">%s</span></button></div>'
+            '<button class="cta" type="button" data-modal-open><span class="cta-t">Записатись на стратегічну сесію</span><span class="cta-i">%s</span></button></div>'
             '</div><div class="st2-cards">%s</div></div></section>'
-            '<div class="mdl" id="mdl" role="dialog" aria-modal="true" aria-label="Запис на консультацію"><div class="mdl-box">'
+            '<div class="mdl" id="mdl" role="dialog" aria-modal="true" aria-label="Запис на стратегічну сесію"><div class="mdl-box">'
             '<button class="mdl-x" type="button" aria-label="Закрити" data-modal-close>×</button>'
-            '<h3>Запишіться на безкоштовну консультацію</h3>'
+            '<h3>Запишіться на безкоштовну стратегічну сесію</h3>'
             '<p>Розберемо вашу нішу, підберемо формат зйомки і дамо поради з підготовки</p>'
             '<p class="note">*Напишіть нам зручним способом</p>'
             '<div class="mdl-btns"><a href="%s" target="_blank" rel="noopener">Telegram</a><a href="%s" target="_blank" rel="noopener">Instagram Direct</a></div>'
@@ -660,7 +660,7 @@ JS = """
   document.querySelectorAll('[data-menu-open]').forEach(function(b){b.addEventListener('click',function(){m.classList.add('open')})});
   m.querySelectorAll('[data-menu-close],nav a').forEach(function(b){b.addEventListener('click',function(){m.classList.remove('open')})});
 })();
-// спливне вікно «Обговорити проєкт»
+// спливне вікно «Записатись на стратегічну сесію»
 (function(){
   var m=document.getElementById('mdl'); if(!m) return;
   document.querySelectorAll('[data-modal-open]').forEach(function(b){b.addEventListener('click',function(){m.classList.add('open')})});
@@ -705,10 +705,10 @@ HEAD = """<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reels-просування для експертів і бізнесу · Оксана Богданець</title>
-<meta name="description" content="Reels під ключ: від сценарію до зйомки в студії, монтажу й публікації. Кейси з результатами до/після.">
+<meta name="description" content="Reels під ключ: від сценарію до зйомки в студії і монтажу. Кейси з результатами до/після.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reels-просування для експертів і бізнесу">
-<meta property="og:description" content="Повний супровід: сценарій, студія, монтаж, публікація. 7 000 $ з одного Reels.">
+<meta property="og:description" content="Повний супровід: сценарій, студія, монтаж. 7 000 $ з одного Reels.">
 <meta property="og:image" content="%(site)sog-cases.jpg">
 <meta property="og:url" content="%(site)s">
 <meta name="twitter:card" content="summary_large_image">

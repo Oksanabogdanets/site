@@ -78,7 +78,7 @@ def html(link):
             '<div class="pk-card%s"><h3 class="pk-title">%s</h3><p class="pk-sub">%s</p>'
             '<span class="pk-vol">%s</span>'
             '<ul class="pk-list">%s</ul><a class="pk-btn" href="%s" target="_blank" '
-            'rel="noopener">Обговорити проєкт →</a></div>'
+            'rel="noopener">Записатись на стратегічну сесію →</a></div>'
             % (' is-full' if i == len(PACKAGES) - 1 else '', name, sub, vol, lis, link))
     return ('<div id="oks-pk"><div class="pk-grid">%s</div></div>'
             % ''.join(cards))
