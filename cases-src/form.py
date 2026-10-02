@@ -56,6 +56,7 @@ JS = """
       var r=await fetch('%s',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
       if(!r.ok) throw new Error(r.status);
       f.style.display='none'; document.getElementById('oks-form-ok').style.display='block';
+      if(window.fbq) fbq('track','Lead');   // Meta Pixel: успішна заявка з форми
     }catch(err){ b.disabled=false; b.textContent='Спробувати ще раз'; }
   });
 })();

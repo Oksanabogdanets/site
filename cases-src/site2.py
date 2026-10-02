@@ -24,8 +24,8 @@ LIVE = '--live' in sys.argv
 PAGE = 'index.html' if LIVE else 'new.html'
 
 GOLD = '#f6d4aa'
-SITE = 'https://oksanabogdanets.github.io/site/cases/'
-KVIZ = 'https://oksanabogdanets.github.io/site/kviz-strategy/'
+SITE = 'https://oksanabogdanets.com.ua/cases/'          # власний домен з 02.10
+KVIZ = 'https://oksanabogdanets.com.ua/kviz-strategy/'
 
 sys.path.insert(0, S)
 import blocks, niches, team, packages, faq, form  # noqa: E402  (модулі без Tilda — перевикористовуємо)
@@ -686,6 +686,11 @@ JS = """
     if(!els.length)removeEventListener('scroll',chk)}
   addEventListener('scroll',chk,{passive:true});chk();
 })();
+// Meta Pixel: натискання на Direct або Telegram = подія Contact (заявка з форми = Lead, див. form.JS)
+document.addEventListener('click',function(e){
+  var a=e.target.closest&&e.target.closest('a[href^="https://ig.me/"],a[href^="https://t.me/"]');
+  if(a&&window.fbq) fbq('track','Contact',{content_name:a.href.indexOf('ig.me')>0?'Instagram Direct':'Telegram'});
+});
 // Direct: Instagram не завжди підставляє текст із ?text=, тож копіюємо вітання в буфер і кажемо про це
 (function(){
   var t;
@@ -716,8 +721,11 @@ HEAD = """<!DOCTYPE html>
 <link rel="icon" type="image/png" href="%(favicon)s">
 %(fontpre)s
 <style>%(css)s</style>
+<!-- Meta Pixel: набір даних «Оксана Богданець | Особистий бренд» (Events Manager), Оксана 02.10 -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1478624944307903');fbq('track','PageView');</script>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1478624944307903&amp;ev=PageView&amp;noscript=1"></noscript>
 <a class="skip" href="#main">До основного змісту</a>
 """
 
