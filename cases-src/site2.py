@@ -733,6 +733,8 @@ HEAD = """<!DOCTYPE html>
 <meta property="og:url" content="%(site)s">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="%(site)s">
+<!-- SEO (02.10): картка послуги для Google -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ProfessionalService", "name": "Оксана Богданець — Reels під ключ", "url": "https://oksanabogdanets.com.ua/", "image": "https://oksanabogdanets.com.ua/cases/og-cases.jpg", "description": "Reels під ключ для експертів і бізнесу: стратегія, сценарії, зйомка і монтаж.", "founder": {"@type": "Person", "name": "Оксана Богданець"}, "address": {"@type": "PostalAddress", "addressLocality": "Київ", "addressCountry": "UA"}, "areaServed": "UA", "sameAs": ["https://www.instagram.com/ksysha.bogdanets/", "https://t.me/ksysha_bogdanets"]}</script>
 <link rel="icon" type="image/png" href="%(favicon)s">
 %(fontpre)s
 <style>%(css)s</style>

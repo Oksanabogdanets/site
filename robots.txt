@@ -1,0 +1,13 @@
+# SEO, Оксана 02.10: у пошук — головна (сайт Reels-продакшну) і /reels/ (навчання).
+# Чернетки, старі й тестові версії від Google сховані.
+User-agent: *
+Disallow: /old/
+Disallow: /rils-kurs/
+Disallow: /reels-red/
+Disallow: /diagnostyka/
+Disallow: /tg-app/
+Disallow: /public/
+Disallow: /cases-src/
+Disallow: /cases/new.html
+
+Sitemap: https://oksanabogdanets.com.ua/sitemap.xml
