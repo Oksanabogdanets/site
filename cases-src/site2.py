@@ -368,6 +368,7 @@ CASES = [
     # Ілона — засновниця Slovak Education Company (НЕ Ілона з медцентру). Оксана 02.10: «додай Ілону»; скрінів До/Після нема — фото
     dict(n='05', niche='Освіта в ЄС', badge='10 000 € за 2 місяці',
          photo='ilona_case.jpg', before=None, after=None, tt=None,
+         shot='ilona_profile.jpg',   # скрін Instagram @slovakeducation_company від Оксани 02.10: 929 читачів
          head='Результат: 10 000 € виручки з нуля',
          text='Старт без аудиторії. Сформулювали цінність і ціну послуги, побудували Reels-воронку, яка продає. '
               'Середній чек — <strong>800 €</strong>'),
@@ -423,10 +424,15 @@ def cases():
                  else '<div class="cs-badge ph" aria-hidden="true"><span class="pill pill-g">&nbsp;</span></div>')
         if c.get('photo'):   # кейс без скрінів До/Після — одне фото клієнтки
             pw, ph = img_size(c['photo'])
+            shot = ''
+            if c.get('shot'):
+                sw, sh = img_size(c['shot'])
+                shot = ('<span class="pill-s after">Сторінка компанії</span><div class="cs-img"><img src="%s" alt="Профіль компанії в Instagram" '
+                        'width="%d" height="%d" loading="lazy"></div>' % (img(c['shot'], w=760), sw, sh))
             items += ('<article class="cs-card"><div class="cs-pills"><span class="pill pill-w">Кейс %s</span><span class="pill pill-o">%s</span></div>'
-                      '%s<div class="cs-img cs-ph"><img src="%s" alt="Клієнтка" width="%d" height="%d" loading="lazy"></div></article>'
+                      '%s<div class="cs-img cs-ph"><img src="%s" alt="Клієнтка" width="%d" height="%d" loading="lazy"></div>%s</article>'
                       '<div class="cs-res"><h3>%s</h3><p>%s</p></div>'
-                      % (c['n'], c['niche'], badge, img(c['photo'], w=760), pw, ph, c['head'], c['text']))
+                      % (c['n'], c['niche'], badge, img(c['photo'], w=760), pw, ph, shot, c['head'], c['text']))
             continue
         w, h = img_size(c['after'])
         after_img = '<img src="%s" alt="Після: профіль і ролики" width="%d" height="%d" loading="lazy">' % (img(c['after'], w=760), w, h)
