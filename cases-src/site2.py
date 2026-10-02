@@ -21,10 +21,15 @@ RA = os.path.join(S, 'ra-img')
 OUT = os.path.join(os.path.dirname(S), 'cases')
 IMGDIR = os.path.join(OUT, 'v2')
 LIVE = '--live' in sys.argv
+# --live: сайт стоїть на головній адресі домену (Оксана 02.10: «не подобається, що сайт називається кейс»).
+# Сторінка пишеться в корінь репо (index.html), шляхи до картинок і відео отримують префікс cases/,
+# а cases/index.html стає переадресацією на головну — старі посилання …/cases/ не ламаються.
 PAGE = 'index.html' if LIVE else 'new.html'
+ROOT = os.path.dirname(S)
 
 GOLD = '#f6d4aa'
-SITE = 'https://oksanabogdanets.com.ua/cases/'          # власний домен з 02.10
+SITE = 'https://oksanabogdanets.com.ua/'                # власний домен з 02.10, сайт на головній
+OGIMG = 'https://oksanabogdanets.com.ua/cases/og-cases.jpg'
 KVIZ = 'https://oksanabogdanets.com.ua/kviz-strategy/'
 
 sys.path.insert(0, S)
@@ -704,6 +709,16 @@ document.addEventListener('click',function(e){
 })();
 """.replace('MSG', json.dumps(form.MSG, ensure_ascii=False), 1)
 
+REDIRECT = """<!DOCTYPE html>
+<html lang="uk"><head><meta charset="utf-8">
+<!-- Сайт переїхав на головну адресу домену (02.10). Тут лише переадресація для старих посилань …/cases/ -->
+<meta http-equiv="refresh" content="0; url=../">
+<link rel="canonical" href="https://oksanabogdanets.com.ua/">
+<script>location.replace('../' + location.search + location.hash)</script>
+<title>Оксана Богданець</title></head>
+<body style="background:#000"><a href="../" style="color:#f6d4aa">Перейти на сайт</a></body></html>
+"""
+
 HEAD = """<!DOCTYPE html>
 <html lang="uk">
 <head>
@@ -714,7 +729,7 @@ HEAD = """<!DOCTYPE html>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reels-просування для експертів і бізнесу">
 <meta property="og:description" content="Повний супровід: сценарій, студія, монтаж. 7 000 $ з одного Reels.">
-<meta property="og:image" content="%(site)sog-cases.jpg">
+<meta property="og:image" content="%(ogimg)s">
 <meta property="og:url" content="%(site)s">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="%(site)s">
@@ -734,9 +749,16 @@ def build():
     body = ''.join(f() for f in SECTIONS)
     fcss, fpre = fonts()
     css = fcss + re.sub(r'\n\s*', '\n', ''.join(CSS_PARTS)).strip()
-    html = (HEAD % {'site': SITE, 'favicon': favicon(), 'css': css, 'fontpre': fpre}
+    html = (HEAD % {'site': SITE, 'ogimg': OGIMG, 'favicon': favicon(), 'css': css, 'fontpre': fpre}
             + '<main id="main">' + body + '</main>\n<script>' + JS + '</script>\n</body>\n</html>\n')
-    open(os.path.join(OUT, PAGE), 'w', encoding='utf-8').write(html)
+    if LIVE:   # головна домену: ресурси лежать у cases/
+        # усі відносні v2/… і video/… (атрибути, srcset, url(), рядки в JS) → cases/…; абсолютні URL не чіпаємо
+        page = re.sub(r'(?<![/\w.-])(v2/|video/)', r'cases/\1', html)
+        page = page.replace('href="../privacy-policy.html"', 'href="privacy-policy.html"')
+        open(os.path.join(ROOT, 'index.html'), 'w', encoding='utf-8').write(page)
+        open(os.path.join(OUT, 'index.html'), 'w', encoding='utf-8').write(REDIRECT)
+    else:
+        open(os.path.join(OUT, PAGE), 'w', encoding='utf-8').write(html)
     used = set(re.findall(r'v2/[\w.-]+', html))
     for f in os.listdir(IMGDIR):                       # прибрати старі версії картинок
         if 'v2/' + f not in used:
