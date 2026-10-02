@@ -365,6 +365,12 @@ CASES = [
          before='mbody_before.jpg', after='mbody_after.jpg', tt=None,
          head='Результат: сторінка з 0 за 30 днів',
          text='З порожньої сторінки — до перших заявок <strong>через 2 тижні</strong>. <em>100% органіка</em>, без витрат на таргет'),
+    # Ілона — засновниця Slovak Education Company (НЕ Ілона з медцентру). Оксана 02.10: «додай Ілону»; скрінів До/Після нема — фото
+    dict(n='05', niche='Освіта в ЄС', badge='10 000 € за 2 місяці',
+         photo='ilona_case.jpg', before=None, after=None, tt=None,
+         head='Результат: 10 000 € виручки з нуля',
+         text='Старт без аудиторії. Сформулювали цінність і ціну послуги, побудували Reels-воронку, яка продає. '
+              'Середній чек — <strong>800 €</strong>'),
 ]
 
 CASES_CSS = """
@@ -399,7 +405,9 @@ CASES_CSS = """
 @media (min-width:960px){
   .cs-grid>:nth-child(1){grid-area:1/1}.cs-grid>:nth-child(2){grid-area:2/1}.cs-grid>:nth-child(3){grid-area:1/2}.cs-grid>:nth-child(4){grid-area:2/2}
   .cs-grid>:nth-child(5){grid-area:3/1}.cs-grid>:nth-child(6){grid-area:4/1}.cs-grid>:nth-child(7){grid-area:3/2}.cs-grid>:nth-child(8){grid-area:4/2}
-  .cs-grid>:nth-child(4n+3),.cs-grid>:nth-child(4n+1){margin-top:0}}
+  .cs-grid>:nth-child(4n+3),.cs-grid>:nth-child(4n+1){margin-top:0}
+  .cs-grid>:nth-child(9){grid-area:5/1/6/3;justify-self:center;width:400px}.cs-grid>:nth-child(10){grid-area:6/1/7/3;justify-self:center;width:400px}}
+.cs-ph{margin-top:20px;background:#000}
 @media (max-width:959px){.cs-grid{grid-template-columns:minmax(0,400px)}.cs-badge.ph{display:none}.cs-card+.cs-res{margin-top:-8px}}
 @media (max-width:640px){.cs{padding:56px 0 50px}.cs .sh{margin-bottom:26px}.cs .h2{font-size:28px}
   .cs-grid{grid-template-columns:1fr}.cs-card{padding:16px 16px 10px}.pill{height:32px;padding:0 16px;font-size:11px}
@@ -413,6 +421,13 @@ def cases():
     for c in CASES:
         badge = ('<div class="cs-badge"><span class="pill pill-g">%s</span></div>' % c['badge'] if c['badge']
                  else '<div class="cs-badge ph" aria-hidden="true"><span class="pill pill-g">&nbsp;</span></div>')
+        if c.get('photo'):   # кейс без скрінів До/Після — одне фото клієнтки
+            pw, ph = img_size(c['photo'])
+            items += ('<article class="cs-card"><div class="cs-pills"><span class="pill pill-w">Кейс %s</span><span class="pill pill-o">%s</span></div>'
+                      '%s<div class="cs-img cs-ph"><img src="%s" alt="Клієнтка" width="%d" height="%d" loading="lazy"></div></article>'
+                      '<div class="cs-res"><h3>%s</h3><p>%s</p></div>'
+                      % (c['n'], c['niche'], badge, img(c['photo'], w=760), pw, ph, c['head'], c['text']))
+            continue
         w, h = img_size(c['after'])
         after_img = '<img src="%s" alt="Після: профіль і ролики" width="%d" height="%d" loading="lazy">' % (img(c['after'], w=760), w, h)
         if c['tt']:
