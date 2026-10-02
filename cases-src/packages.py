@@ -1,4 +1,4 @@
-"""Блок форматів роботи — чотири пакети з наростанням.
+"""Блок форматів роботи — три пакети з наростанням (до 02.10 було чотири).
 
 Замінює дві Tilda-копії блоку (rec1558101811 і rec1575209271): у них було три картки
 по 376px, четверта в ряд не влазила, а пункт «Підбір локації…» дублювався.
@@ -22,10 +22,9 @@ ITEMS = [
 # (назва, для кого / що, номери пунктів ITEMS, які входять (з 1), обсяг)
 PACKAGES = [
     ('Сценарії', 'Стратегія і сценарії — знімаєте та монтуєте самі', {1, 2}, '15, 30 або 60 сценаріїв'),
+    # Оксана 02.10: пакети «Сценарії + супровід + монтаж» і «Reels без зйомки» повторювались → один пакет (пункти 1–5)
     ('Сценарії + супровід + монтаж',
-     'Знімаєте себе самі або маєте оператора, але ролики не дають заявок', {1, 2, 3, 4}, '15, 30 або 60 відео'),
-    ('Reels без зйомки',
-     'Продаючі сценарії, стратегія бренду і монтаж — знімаєте самі або з оператором', {1, 2, 4, 5}, '15, 30 або 60 відео'),
+     'Знімаєте себе самі або маєте оператора, але ролики не дають заявок', {1, 2, 3, 4, 5}, '15, 30 або 60 відео'),
     ('Reels під ключ зі зйомкою',
      'Повний цикл: стратегія, сценарії, супровід і зйомка з оператором, монтаж, аналітика', {1, 2, 3, 4, 5, 6, 7, 8}, '15, 30 або 60 відео'),
 ]
@@ -33,7 +32,7 @@ PACKAGES = [
 CSS = """
 #oks-pk{background:#000;padding:0 20px 90px;font-family:'Inter',Arial,sans-serif}
 #oks-pk .pk-grid{max-width:1280px;margin:0 auto;display:grid;gap:20px;
-  grid-template-columns:repeat(4,1fr)}
+  grid-template-columns:repeat(3,1fr)}
 #oks-pk .pk-card{display:flex;flex-direction:column;border-radius:24px;padding:28px 24px 24px;
   background:linear-gradient(160deg,#241a12 0%,#0d0a08 55%,#000 100%);
   border:1px solid rgba(246,212,170,.18)}
@@ -60,7 +59,7 @@ CSS = """
   background:#f6d4aa;color:#000;font-size:15px;font-weight:600;text-decoration:none;
   border-radius:40px;padding:14px 22px;transition:transform .15s ease}
 #oks-pk .pk-btn:hover{transform:translateY(-2px)}
-@media screen and (max-width:1100px){#oks-pk .pk-grid{grid-template-columns:repeat(2,1fr)}}
+@media screen and (max-width:1000px){#oks-pk .pk-grid{grid-template-columns:1fr;max-width:520px}}
 @media screen and (max-width:640px){#oks-pk{padding-bottom:60px}
   #oks-pk .pk-grid{grid-template-columns:1fr;gap:16px}
   #oks-pk .pk-card{padding:24px 20px 20px}
