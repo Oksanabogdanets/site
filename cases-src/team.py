@@ -13,12 +13,11 @@ PEOPLE = [
     ('Анастасія', 'Відеографка, фотографка', 'tm_anastasia.jpg', 'Контент для бізнесу, експертів і особистих брендів'),
     ('Данило', 'Кінорежисер, оператор', 'tm_danylo.jpg', 'Знімає, пише й монтує: кіно, репортажі, кліпи'),
     ('Валерія', 'SMM-спеціалістка', None, None),
-    ('Анастасія', 'Таргетологиня', None, None),
 ]
 
 # Партнери — окремий розділ (Оксана 03.10: методологиня «не хоче бути просто в команді»). Instagram НЕ показуємо.
 PARTNERS = [
-    ('Анастасія', 'Методологиня', None, 'Методологиня експертних курсів, 2500+ учнів'),
+    ('Анастасія', 'Методологиня, таргетологиня', None, 'Методологиня експертних курсів, 2500+ учнів. Налаштовує таргетовану рекламу'),   # 03.10: «таргетолог вона ще»
 ]
 
 LEAD = 'Кожен проєкт — від стратегії до фінального монтажу — ведеться під керівництвом Оксани.'
@@ -30,7 +29,7 @@ CSS = """
   padding:7px 16px;color:#f6d4aa;font-size:13px;margin-bottom:22px}
 #oks-team h2{color:#fff;font-size:40px;font-weight:600;line-height:1.1;margin:0 0 40px;max-width:640px}
 #oks-team h2 b{color:#f6d4aa;font-weight:600}
-#oks-team .tm-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
+#oks-team .tm-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:18px}
 #oks-team .tm-card{text-align:center}
 #oks-team .tm-ph{width:100%;aspect-ratio:1/1;border-radius:24px;overflow:hidden;
   background:linear-gradient(160deg,#241a12,#0d0a08);border:1px solid rgba(246,212,170,.18);
