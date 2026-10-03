@@ -13,8 +13,12 @@ PEOPLE = [
     ('Анастасія', 'Відеографка, фотографка', 'tm_anastasia.jpg', 'Контент для бізнесу, експертів і особистих брендів'),
     ('Данило', 'Кінорежисер, оператор', 'tm_danylo.jpg', 'Знімає, пише й монтує: кіно, репортажі, кліпи'),
     ('Валерія', 'SMM-спеціалістка', None, None),
-    ('Анастасія', 'Методологиня', None, 'Методологиня експертних курсів, 2500+ учнів'),   # 29.09, без прізвища й компанії
     ('Анастасія', 'Таргетологиня', None, None),
+]
+
+# Партнери — окремий розділ (Оксана 03.10: методологиня «не хоче бути просто в команді»). Instagram НЕ показуємо.
+PARTNERS = [
+    ('Анастасія', 'Методологиня', None, 'Методологиня експертних курсів, 2500+ учнів'),
 ]
 
 LEAD = 'Кожен проєкт — від стратегії до фінального монтажу — ведеться під керівництвом Оксани.'
@@ -26,7 +30,7 @@ CSS = """
   padding:7px 16px;color:#f6d4aa;font-size:13px;margin-bottom:22px}
 #oks-team h2{color:#fff;font-size:40px;font-weight:600;line-height:1.1;margin:0 0 40px;max-width:640px}
 #oks-team h2 b{color:#f6d4aa;font-weight:600}
-#oks-team .tm-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:18px}
+#oks-team .tm-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px}
 #oks-team .tm-card{text-align:center}
 #oks-team .tm-ph{width:100%;aspect-ratio:1/1;border-radius:24px;overflow:hidden;
   background:linear-gradient(160deg,#241a12,#0d0a08);border:1px solid rgba(246,212,170,.18);
@@ -51,6 +55,25 @@ CSS = """
   #oks-team h2{font-size:26px;margin-bottom:26px}
   #oks-team .tm-ph span{font-size:40px}
   #oks-team .tm-lead{font-size:15px;padding:18px}}
+#oks-partners{background:#000;padding:0 20px 90px;font-family:'Inter',Arial,sans-serif}
+#oks-partners .pt-in{max-width:1180px;margin:0 auto}
+#oks-partners .pt-tag{display:inline-block;border:1px solid rgba(246,212,170,.4);border-radius:40px;
+  padding:7px 16px;color:#f6d4aa;font-size:13px;margin-bottom:22px}
+#oks-partners h2{color:#fff;font-size:40px;font-weight:600;line-height:1.1;margin:0 0 40px}
+#oks-partners h2 b{color:#f6d4aa;font-weight:600}
+#oks-partners .pt-grid{display:flex;flex-wrap:wrap;gap:18px}
+#oks-partners .pt-card{display:flex;align-items:center;gap:22px;flex:0 1 520px;padding:22px;border-radius:24px;
+  background:linear-gradient(160deg,#241a12 0%,#0d0a08 55%,#000 100%);border:1px solid rgba(246,212,170,.3)}
+#oks-partners .pt-ph{flex:0 0 120px;height:120px;border-radius:20px;overflow:hidden;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(160deg,#241a12,#0d0a08);border:1px solid rgba(246,212,170,.18)}
+#oks-partners .pt-ph img{width:100%;height:100%;object-fit:cover;display:block}
+#oks-partners .pt-ph span{color:#f6d4aa;font-size:48px;font-weight:600}
+#oks-partners .pt-name{color:#fff;font-size:22px;font-weight:600}
+#oks-partners .pt-role{color:#f6d4aa;font-size:14px;margin-top:4px}
+#oks-partners .pt-desc{color:#b5b5b5;font-size:15px;line-height:1.4;margin-top:10px}
+@media screen and (max-width:640px){#oks-partners{padding-bottom:60px}#oks-partners h2{font-size:26px;margin-bottom:26px}
+  #oks-partners .pt-card{gap:16px;padding:16px}#oks-partners .pt-ph{flex-basis:88px;height:88px}#oks-partners .pt-ph span{font-size:36px}
+  #oks-partners .pt-name{font-size:19px}#oks-partners .pt-desc{font-size:14px}}
 """
 
 
@@ -68,3 +91,16 @@ def html(photo_url):
             '<h2>Команда з досвідом роботи в <b>20+ нішах</b></h2>'
             '<div class="tm-grid">%s</div><div class="tm-lead">%s</div></div></div>'
             % (''.join(cards), lead))
+
+
+def partners_html(photo_url):
+    """Розділ «Партнери» (id="partners" — пункт меню)."""
+    cards = []
+    for name, role, photo, desc in PARTNERS:
+        inner = ('<img src="%s" alt="%s" loading="lazy">' % (photo_url(photo), name) if photo
+                 else '<span>%s</span>' % name[0])
+        cards.append('<div class="pt-card"><div class="pt-ph">%s</div><div><div class="pt-name">%s</div>'
+                     '<div class="pt-role">%s</div>%s</div></div>'
+                     % (inner, name, role, '<div class="pt-desc">%s</div>' % desc if desc else ''))
+    return ('<section id="partners"><div id="oks-partners"><div class="pt-in"><span class="pt-tag">Партнери</span>'
+            '<h2>Наші <b>партнери</b></h2><div class="pt-grid">%s</div></div></div></section>' % ''.join(cards))

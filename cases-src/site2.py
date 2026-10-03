@@ -144,7 +144,7 @@ h1,h2,h3,p{margin:0}
 """
 
 # ---------------------------------------------------------------- шапка + меню
-NAV = [('Про нас', '#about'), ('Кейси', '#cases'), ('Послуги', '#services'), ('Контакти', '#contacts')]
+NAV = [('Про нас', '#about'), ('Кейси', '#cases'), ('Партнери', '#partners'), ('Послуги', '#services'), ('Контакти', '#contacts')]
 
 HEADER_CSS = """
 /* шапка закріплена зверху, як у старій версії */
@@ -178,7 +178,7 @@ HEADER_CSS = """
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:60;background:var(--gold);color:#000;font-size:14px;font-weight:600;
   padding:12px 18px;border-radius:30px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100% - 32px);text-align:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:900px){.hdr-nav,.hdr-ic{display:none}.hdr-burger{display:grid}.hdr-logo{flex:1;min-width:0;margin-right:14px}.hdr-logo img{width:100%;height:auto;max-height:34px;object-fit:contain;object-position:left center}}
+@media (max-width:1060px){.hdr-nav,.hdr-ic{display:none}.hdr-burger{display:grid}.hdr-logo{flex:1;min-width:0;margin-right:14px}.hdr-logo img{width:100%;height:auto;max-height:34px;object-fit:contain;object-position:left center}}
 @media (max-width:640px){.hdr-bar{height:56px;padding:0 6px 0 16px}.hdr-burger{width:44px;height:44px}}
 """
 
@@ -654,7 +654,11 @@ def footer():
 
 # ---------------------------------------------------------------- збірка сторінки
 # reviews — блок «Відгуки» прибрано за рішенням Оксани 01.10 (поки немає нормальних відгуків); код лишається, щоб повернути
-SECTIONS = [hero, blocks.mission, forwhom, about, cases, stages, blocks.results, videos, team_about, formats, faq.html,
+def partners():
+    return team.partners_html(lambda f: img(f, w=360))
+
+
+SECTIONS = [hero, blocks.mission, forwhom, about, cases, stages, blocks.results, videos, team_about, partners, formats, faq.html,
             contact_form, footer]
 CSS_PARTS = [BASE_CSS, HEADER_CSS, HERO_CSS, blocks.CSS, FW_CSS, ABOUT_CSS, niches.CSS, CASES_CSS, STAGES_CSS, VIDEOS_CSS,
              team.CSS, ABOUT2_CSS, FMT_CSS, packages.CSS, faq.CSS, form.CSS, FOOTER_CSS]
