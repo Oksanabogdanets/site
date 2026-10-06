@@ -33,7 +33,7 @@ OGIMG = 'https://oksanabogdanets.com.ua/cases/og-cases.jpg'
 KVIZ = 'https://oksanabogdanets.com.ua/kviz-strategy/'
 
 sys.path.insert(0, S)
-import blocks, niches, team, packages, faq, form  # noqa: E402  (модулі без Tilda — перевикористовуємо)
+import blocks, niches, team, packages, faq, form, consent  # noqa: E402  (модулі без Tilda — перевикористовуємо)
 DIRECT, TG = form.DIRECT, form.TG   # з готовим вітанням «Вітаю! Хочу забронювати стратегічну сесію…»
 
 # ---------------------------------------------------------------- картинки
@@ -144,7 +144,7 @@ h1,h2,h3,p{margin:0}
 """
 
 # ---------------------------------------------------------------- шапка + меню
-NAV = [('Про нас', '#about'), ('Кейси', '#cases'), ('Партнери', '#partners'), ('Послуги', '#services'), ('Контакти', '#contacts')]
+NAV = [('Про нас', '#about'), ('Кейси', '#cases'), ('Послуги', '#services'), ('Контакти', '#contacts')]
 
 HEADER_CSS = """
 /* шапка закріплена зверху, як у старій версії */
@@ -178,7 +178,7 @@ HEADER_CSS = """
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);z-index:60;background:var(--gold);color:#000;font-size:14px;font-weight:600;
   padding:12px 18px;border-radius:30px;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:calc(100% - 32px);text-align:center}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:1060px){.hdr-nav,.hdr-ic{display:none}.hdr-burger{display:grid}.hdr-logo{flex:1;min-width:0;margin-right:14px}.hdr-logo img{width:100%;height:auto;max-height:34px;object-fit:contain;object-position:left center}}
+@media (max-width:900px){.hdr-nav,.hdr-ic{display:none}.hdr-burger{display:grid}.hdr-logo{flex:1;min-width:0;margin-right:14px}.hdr-logo img{width:100%;height:auto;max-height:34px;object-fit:contain;object-position:left center}}
 @media (max-width:640px){.hdr-bar{height:56px;padding:0 6px 0 16px}.hdr-burger{width:44px;height:44px}}
 """
 
@@ -647,8 +647,8 @@ def footer():
             '<div class="ft-c"><h4>Контакти</h4><div class="ft-ic"><a href="%s" target="_blank" rel="noopener" aria-label="Telegram">%s</a>'
             '<a href="%s" target="_blank" rel="noopener" aria-label="Instagram Direct">%s</a></div>'
             '<p>ФОП Богданець Оксана<br>Київ, Україна</p></div></div>'
-            '<div class="ft-bottom"><span>©2026 Усі права захищені</span><a href="#">Згода на обробку персональних даних</a>'
-            '<a href="../privacy-policy.html">Політика конфіденційності</a></div></div></footer>') % (links, img('wordmark2.png', w=600), TG, TGI, DIRECT, IG)
+            '<div class="ft-bottom"><span>©2026 Усі права захищені</span><a href="/consent.html">Згода на обробку персональних даних</a>'
+            '<a href="/privacy-policy.html">Політика конфіденційності</a>' + consent.SETTINGS_LINK + '</div></div></footer>') % (links, img('wordmark2.png', w=600), TG, TGI, DIRECT, IG)
     # «Політика конфіденційності» — сторінка privacy-policy.html з 02.06 (для Meta), Оксана 01.10
 
 
@@ -658,7 +658,7 @@ def partners():
     return team.partners_html(lambda f: img(f, w=360))
 
 
-SECTIONS = [hero, blocks.mission, forwhom, about, cases, stages, blocks.results, videos, team_about, partners, formats, faq.html,
+SECTIONS = [hero, blocks.mission, forwhom, about, cases, stages, blocks.results, videos, team_about, formats, faq.html,
             contact_form, footer]
 CSS_PARTS = [BASE_CSS, HEADER_CSS, HERO_CSS, blocks.CSS, FW_CSS, ABOUT_CSS, niches.CSS, CASES_CSS, STAGES_CSS, VIDEOS_CSS,
              team.CSS, ABOUT2_CSS, FMT_CSS, packages.CSS, faq.CSS, form.CSS, FOOTER_CSS]
@@ -742,11 +742,9 @@ HEAD = """<!DOCTYPE html>
 <link rel="icon" type="image/png" href="%(favicon)s">
 %(fontpre)s
 <style>%(css)s</style>
-<!-- Meta Pixel: набір даних «Оксана Богданець | Особистий бренд» (Events Manager), Оксана 02.10 -->
-<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','1478624944307903');fbq('track','PageView');</script>
+%(pixel)s
 </head>
 <body>
-<noscript><img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=1478624944307903&amp;ev=PageView&amp;noscript=1"></noscript>
 <a class="skip" href="#main">До основного змісту</a>
 """
 
@@ -755,8 +753,8 @@ def build():
     body = ''.join(f() for f in SECTIONS)
     fcss, fpre = fonts()
     css = fcss + re.sub(r'\n\s*', '\n', ''.join(CSS_PARTS)).strip()
-    html = (HEAD % {'site': SITE, 'ogimg': OGIMG, 'favicon': favicon(), 'css': css, 'fontpre': fpre}
-            + '<main id="main">' + body + '</main>\n<script>' + JS + '</script>\n</body>\n</html>\n')
+    html = (HEAD % {'site': SITE, 'ogimg': OGIMG, 'favicon': favicon(), 'css': css, 'fontpre': fpre, 'pixel': consent.HEAD}
+            + '<main id="main">' + body + '</main>\n<script>' + JS + '</script>\n' + consent.BANNER + '\n</body>\n</html>\n')
     if LIVE:   # головна домену: ресурси лежать у cases/
         # усі відносні v2/… і video/… (атрибути, srcset, url(), рядки в JS) → cases/…; абсолютні URL не чіпаємо
         page = re.sub(r'(?<![/\w.-])(v2/|video/)', r'cases/\1', html)

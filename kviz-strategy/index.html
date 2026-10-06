@@ -54,6 +54,9 @@ label{display:block;font-size:13px;font-weight:600;color:var(--muted);margin:0 0
 input[type=text],textarea{width:100%;background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.28);border-radius:14px;color:#fff;
   font-family:inherit;font-weight:600;font-size:16px;padding:16px 18px;margin-bottom:18px;-webkit-appearance:none}
 textarea{min-height:110px;resize:vertical}
+.ck-line{display:flex;gap:10px;align-items:flex-start;margin:14px 0 0;color:rgba(255,255,255,.75);font-size:13px;line-height:1.45;cursor:pointer}
+.ck-line input{width:18px;height:18px;flex:0 0 18px;margin:1px 0 0;accent-color:#F6DB8A}
+.ck-line a{color:var(--gold1)}
 input:focus,textarea:focus{outline:none;border-color:var(--gold2)}
 input::placeholder,textarea::placeholder{color:rgba(255,255,255,.38);font-weight:500}
 .opts{display:flex;flex-direction:column;gap:10px;margin-bottom:22px}
@@ -159,6 +162,9 @@ body.intro .top,body.intro .bar{display:none}
     <h2>Ваша точка Б: до якого результату хочете прийти через 3 місяці роботи?</h2>
     <textarea id="meta" placeholder="Наприклад: стабільні заявки, збільшити дохід, відкрити другу філію"></textarea>
     <div class="err" id="e4">Напишіть, чого хочете. Без цього нема від чого рахувати.</div>
+    <!-- 06.10: згода на обробку даних (юр-аналіз) -->
+    <label class="ck-line"><input type="checkbox" id="agree"> <span>Я ознайомився(-лася) з <a href="/privacy-policy.html" target="_blank">Політикою конфіденційності</a> і даю <a href="/consent.html" target="_blank">Згоду на обробку персональних даних</a></span></label>
+    <div class="err" id="e5">Поставте позначку згоди, щоб надіслати відповіді.</div>
     <div class="spacer"></div>
     <button class="btn" id="send" onclick="submitQuiz()">Надіслати</button>
   </section>
@@ -218,6 +224,8 @@ function pick(btn){
 async function submitQuiz(){
   if (!v('meta')) return err('e4', true);
   err('e4', false);
+  if (!document.getElementById('agree').checked) return err('e5', true);
+  err('e5', false);
   if (v('website')) return show(5); // бот у пастку — тихо «дякуємо»
   const btn = document.getElementById('send');
   btn.disabled = true; btn.textContent = 'Надсилаю…';
@@ -230,6 +238,7 @@ async function submitQuiz(){
     'Просування зараз і результат за місяць': v('blog'),
     'Дохід з соцмереж': income,
     'Точка Б (3 місяці)': v('meta'),
+    'Згода на обробку даних': 'так (галочка в квізі)',
     'Час': new Date().toLocaleString('uk-UA')
   };
   try { localStorage.setItem('kviz-draft', JSON.stringify(data)); } catch(e){}

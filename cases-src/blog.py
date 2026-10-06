@@ -42,6 +42,17 @@ BLOG = dict(path='/blog/', date='2026-10-02', priority='0.6',
             h1='Блог про Reels',
             lead='Статті Оксани Богданець про Reels для експертів і бізнесу.')
 
+# Юридичні сторінки (06.10, після юр-аналізу): джерело — cases-src/legal/*.md; у sitemap не додаємо
+LEGAL = [
+    dict(src='privacy-policy.md', path='/privacy-policy.html', crumb='Політика конфіденційності',
+         title='Політика конфіденційності · Оксана Богданець',
+         description='Які персональні дані обробляє сайт oksanabogdanets.com.ua, навіщо, кому передає і як довго зберігає.'),
+    dict(src='consent.md', path='/consent.html', crumb='Згода на обробку персональних даних',
+         title='Згода на обробку персональних даних · Оксана Богданець',
+         description='Згода на обробку персональних даних для заявок із сайту oksanabogdanets.com.ua.'),
+]
+LEGAL_SRC = Path(__file__).resolve().parent / 'legal'
+
 FORBIDDEN = ('ПИТАННЯ ОКСАНІ', 'Нотатки для верстальника', 'ГОТОВО ДО ПОКАЗУ', '[Кнопка')
 QUESTION_LINE = re.compile(r'^\s*\[ПИТАННЯ ОКСАНІ:.*\]\s*$')
 QUESTION_INLINE = re.compile(r'\s*\[ПИТАННЯ ОКСАНІ:[^\]]*\]')
@@ -58,14 +69,10 @@ ICON_IG = ('<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><
            'fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" '
            'stroke-width="2"/><circle cx="17.4" cy="6.6" r="1.3" fill="currentColor"/></svg>')
 
-# Meta Pixel — той самий блок, що в кореневому index.html (набір «Оксана Богданець | Особистий бренд»)
-PIXEL = ("<!-- Meta Pixel: набір даних «Оксана Богданець | Особистий бренд» (Events Manager), Оксана 02.10 -->\n"
-         "<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):"
-         "n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);"
-         "t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',"
-         "'https://connect.facebook.net/en_US/fbevents.js');fbq('init','1478624944307903');fbq('track','PageView');</script>")
-PIXEL_NOSCRIPT = ('<noscript><img height="1" width="1" style="display:none" alt="" '
-                  'src="https://www.facebook.com/tr?id=1478624944307903&amp;ev=PageView&amp;noscript=1"></noscript>')
+# Meta Pixel — лише після «Прийняти» в банері cookie (спільний модуль consent.py, як на головній; 06.10)
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import consent  # noqa: E402
+PIXEL = consent.HEAD
 # як на головній: натискання на Direct або Telegram = подія Contact
 CONTACT_JS = """<script>
 document.addEventListener('click',function(e){
@@ -321,7 +328,8 @@ def footer():
             f'<a href="{IG}" target="_blank" rel="noopener" aria-label="Instagram Direct">{ICON_IG}</a></div>'
             '<p>ФОП Богданець Оксана<br>Київ, Україна</p></div></div>'
             '<div class="ft-bottom"><span>©2026 Усі права захищені</span>'
-            '<a href="/privacy-policy.html">Політика конфіденційності</a></div></div></footer>')
+            '<a href="/consent.html">Згода на обробку персональних даних</a>'
+            '<a href="/privacy-policy.html">Політика конфіденційності</a>' + consent.SETTINGS_LINK + '</div></div></footer>')
 
 
 def document(*, title, description, path, og_type, jsonld, crumbs, main, extra_head=''):
@@ -352,7 +360,6 @@ def document(*, title, description, path, og_type, jsonld, crumbs, main, extra_h
 {PIXEL}
 </head>
 <body>
-{PIXEL_NOSCRIPT}
 <a class="skip" href="#main">До основного змісту</a>
 {header(path)}
 <main id="main"><div class="col">
@@ -361,6 +368,7 @@ def document(*, title, description, path, og_type, jsonld, crumbs, main, extra_h
 </div></main>
 {footer()}
 {CONTACT_JS}
+{consent.BANNER}
 </body>
 </html>
 """
@@ -402,6 +410,17 @@ def build_page(page):
     return doc, dict(h1=h1, description=meta['description'], minutes=reading_minutes(text))
 
 
+def build_legal(page):
+    text = (LEGAL_SRC / page['src']).read_text(encoding='utf-8')
+    h1, body, _ = md_to_html(text)
+    crumbs = [('Головна', '/'), (page['crumb'], page['path'])]
+    jsonld = {'@context': 'https://schema.org', '@graph': [
+        {'@type': 'WebPage', 'name': h1, 'url': SITE + page['path'], 'inLanguage': 'uk'}, crumbs_ld(crumbs)]}
+    main = f'<article><h1>{inline(h1)}</h1>\n<div class="prose">\n{body}\n</div></article>'
+    return document(title=page['title'], description=page['description'], path=page['path'], og_type='website',
+                    jsonld=jsonld, crumbs=crumbs, main=main)
+
+
 def build_blog_index(articles):
     person = {'@type': 'Person', 'name': AUTHOR, 'url': SITE + '/'}
     cards = ''.join(
@@ -425,6 +444,8 @@ def build_blog_index(articles):
 # ---------- перевірки, sitemap ----------
 
 def out_file(path):
+    if path.endswith('.html'):          # юридичні сторінки: /privacy-policy.html, /consent.html
+        return ROOT / path.lstrip('/')
     return ROOT / path.strip('/') / 'index.html'
 
 
@@ -446,7 +467,7 @@ def check(path, doc, built):
         if ref.endswith('/'):
             if ref not in built and not (f / 'index.html').exists():
                 errs.append(f'бите посилання {ref}')
-        elif ref != '/' and not f.exists():
+        elif ref != '/' and ref not in built and not f.exists():
             errs.append(f'немає файлу {ref}')
     if errs:
         raise SystemExit(f'{path}: ' + '; '.join(errs))
@@ -469,7 +490,7 @@ def main():
     for p in PAGES:
         if not p.get('ok'):
             print(f'пропущено (немає «ок» Оксани): {p["src"]}')
-    built_paths = {p['path'] for p in pages} | {BLOG['path']}
+    built_paths = {p['path'] for p in pages} | {BLOG['path']} | {p['path'] for p in LEGAL}
     out, articles = {}, []
     for p in pages:
         doc, info = build_page(p)
@@ -478,6 +499,8 @@ def main():
             articles.append((p, info))
     articles.sort(key=lambda x: x[0]['date'], reverse=True)
     out[BLOG['path']] = build_blog_index(articles)
+    for lp in LEGAL:
+        out[lp['path']] = build_legal(lp)
     for path, doc in out.items():
         check(path, doc, built_paths)
     if dry:

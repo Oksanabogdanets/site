@@ -30,6 +30,10 @@ CSS = """
 #oks-form button:hover{transform:translateY(-2px)}
 #oks-form button[disabled]{opacity:.6;cursor:default;transform:none}
 #oks-form .fm-note{color:#6a6a6a;font-size:12px;line-height:1.35;margin-top:10px}
+/* 06.10: обов'язкова незапозначена галочка згоди з посиланнями на документи (юр-аналіз) */
+#oks-form .fm-ck{display:flex;gap:10px;align-items:flex-start;color:#9b9b9b;font-size:12.5px;letter-spacing:0;line-height:1.4;margin:2px 0 16px;cursor:pointer}
+#oks-form .fm-ck input{width:18px;height:18px;flex:0 0 18px;margin:1px 0 0;padding:0;border-radius:4px;accent-color:#f6d4aa;cursor:pointer}
+#oks-form .fm-ck a{color:#f6d4aa}
 #oks-form .fm-ok{display:none;color:#f6d4aa;font-size:18px;line-height:1.4;padding:22px 0}
 #oks-form .fm-hp{position:absolute;left:-9999px;opacity:0}
 /* 29.09 п.20: замість окремого блоку «Обговоримо проєкт» з кнопками — месенджери під формою */
@@ -50,7 +54,7 @@ JS = """
     e.preventDefault();
     var b=f.querySelector('button'); b.disabled=true; b.textContent='Надсилаю…';
     var v=function(n){return (f.querySelector('[name='+n+']')||{}).value||'';};
-    var data={ name:v('name'), instagram:v('instagram'), phone:v('phone'), page:location.href,
+    var data={ name:v('name'), instagram:v('instagram'), phone:v('phone'), page:location.href, consent:'так (галочка під формою)',
       _subject:'Заявка з сайту кейсів: '+v('name')+' ('+v('instagram')+')', _template:'table', _captcha:'false', _honey:v('_honey') };
     try{
       var r=await fetch('%s',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
@@ -72,8 +76,10 @@ def html():
             '<label>Нік в Instagram</label><input name="instagram" type="text" required maxlength="80" placeholder="@">'
             '<label>Телефон</label><input name="phone" type="tel" required maxlength="40" placeholder="+380">'
             '<input class="fm-hp" name="_honey" tabindex="-1" autocomplete="off">'
+            '<label class="fm-ck"><input type="checkbox" name="consent" required> <span>Я ознайомився(-лася) з '
+            '<a href="/privacy-policy.html" target="_blank">Політикою конфіденційності</a> і даю '
+            '<a href="/consent.html" target="_blank">Згоду на обробку персональних даних</a></span></label>'
             '<button type="submit">Записатися на сесію</button>'
-            '<div class="fm-note">Натискаючи кнопку, ви погоджуєтесь на обробку персональних даних.</div>'
             '</form><div id="oks-form-ok" class="fm-ok">Дякую! Заявка вже в Оксани — напише вам протягом дня.</div>'
             '<div class="fm-alt"><span>або напишіть нам:</span>'
             '<a href="%s" target="_blank" rel="noopener">Telegram</a>'
