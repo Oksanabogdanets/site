@@ -29,7 +29,7 @@ ROOT = os.path.dirname(S)
 
 GOLD = '#f6d4aa'
 SITE = 'https://oksanabogdanets.com.ua/'                # власний домен з 02.10, сайт на головній
-OGIMG = 'https://oksanabogdanets.com.ua/cases/og-cases.jpg'
+OGIMG = 'https://oksanabogdanets.com.ua/cases/og-cases.jpg?v=2'   # ?v=2 — нове прев'ю 06.10, щоб Instagram не брав стару з кешу
 KVIZ = 'https://oksanabogdanets.com.ua/kviz-strategy/'
 
 sys.path.insert(0, S)

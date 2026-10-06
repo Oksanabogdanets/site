@@ -22,7 +22,7 @@ ROOT = Path(__file__).resolve().parent.parent
 SITE = 'https://oksanabogdanets.com.ua'
 SRC = Path(os.environ.get('SEO_SRC', Path.home() / 'Desktop' / 'фабрика SEO' / '03-статті'))
 AUTHOR = 'Оксана Богданець'
-OG_IMAGE = SITE + '/cases/og-cases.jpg'
+OG_IMAGE = SITE + '/cases/og-cases.jpg?v=2'   # нове прев'ю 06.10
 TG = 'https://t.me/ksysha_bogdanets'
 IG = 'https://ig.me/m/ksysha.bogdanets'
 FORM = '/#oks-form'          # форма запису на головній
