@@ -31,6 +31,7 @@ GOLD = '#f6d4aa'
 SITE = 'https://oksanabogdanets.com.ua/'                # власний домен з 02.10, сайт на головній
 OGIMG = 'https://oksanabogdanets.com.ua/cases/og-cases.jpg?v=2'   # ?v=2 — нове прев'ю 06.10, щоб Instagram не брав стару з кешу
 KVIZ = 'https://oksanabogdanets.com.ua/kviz-strategy/'
+HERO_CTA = '#oks-form'   # 12.10 Оксана: «на всіх посиланнях без квіза» — кнопка першого екрана веде на форму на сторінці
 
 sys.path.insert(0, S)
 import blocks, niches, team, packages, faq, form, consent  # noqa: E402  (модулі без Tilda — перевикористовуємо)
@@ -254,7 +255,7 @@ def hero():
             '<div class="hero-r"><p class="hero-txt">Отримайте індивідуальну стратегію, яка побудує ваш особистий бренд та збільшить потік клієнтів</p>'
             '<a class="cta" href="%s"><span class="cta-t">Записатись на стратегічну сесію</span><span class="cta-i">%s</span></a></div>'
             '</div></div></section>'
-            '<div class="mos"><div class="mos-cols">%s</div></div>') % (header(), img('badge2.png', w=400), KVIZ, ARROW, cols)
+            '<div class="mos"><div class="mos-cols">%s</div></div>') % (header(), img('badge2.png', w=400), HERO_CTA, ARROW, cols)
 
 
 # ---------------------------------------------------------------- «Для кого»
@@ -764,6 +765,9 @@ def build():
     else:
         open(os.path.join(OUT, PAGE), 'w', encoding='utf-8').write(html)
     used = set(re.findall(r'v2/[\w.-]+', html))
+    kp_page = os.path.join(os.path.dirname(S), 'kp', 'index.html')   # картинки сторінки КП (kp.py) не прибираємо
+    if os.path.exists(kp_page):
+        used |= set(re.findall(r'v2/[\w.-]+', open(kp_page, encoding='utf-8').read()))
     for f in os.listdir(IMGDIR):                       # прибрати старі версії картинок
         if 'v2/' + f not in used:
             os.remove(os.path.join(IMGDIR, f))
