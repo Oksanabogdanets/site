@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Покрокова інструкція: монтаж Reels у Claude · Оксана Богданець</title>
+<meta name="description" content="Від вихідника до готового Reels: які інструменти поставити, які приклади дати і як попросити Claude змонтувати відео у вашому стилі.">
+<meta property="og:title" content="Монтаж Reels у Claude — покрокова інструкція">
+<meta property="og:description" content="Від вихідника до готового Reels без CapCut і монтажера.">
+<link rel="icon" type="image/png" href="/cases/v2/favicon-c86237b7.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url(/cases/v2/inter-cyrillic-4e255302.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url(/cases/v2/inter-latin-65850a37.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+2212}
+:root{--gold:#f6d4aa;--muted:#a6a29a}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:#000;color:#fff;font-family:'Inter',Arial,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.55}
+img{display:block;max-width:100%;height:auto}
+.wrap{max-width:720px;margin:0 auto;padding:0 20px}
+.hero{padding:56px 0 36px;background:radial-gradient(120% 90% at 80% 0%,#241a12 0%,#0b0907 55%,#000 100%)}
+.lbl{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--gold);border-radius:30px;padding:8px 16px}
+h1{margin:18px 0 0;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:44px;line-height:1.05}
+.sub{margin-top:14px;color:#d9d4ca;font-size:18px}
+.need{margin-top:22px;background:#111;border:1px solid rgba(246,212,170,.2);border-radius:18px;padding:18px 20px;font-size:16px}
+.need b{color:var(--gold)}
+.step{padding:34px 0;border-top:1px solid #1c1c1c}
+.n{font-family:'Oswald',sans-serif;color:var(--gold);font-size:15px;letter-spacing:.1em;text-transform:uppercase}
+h2{margin:8px 0 12px;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:28px;line-height:1.1}
+p{margin:0 0 12px;color:#e6e1d8;font-size:17px}
+.shot{margin:16px 0;border-radius:18px;overflow:hidden;border:1px solid #222}
+.prompt{position:relative;background:#f6f1ea;color:#141414;border-radius:16px;padding:18px 18px 52px;font-size:16px;line-height:1.5;margin:14px 0}
+.prompt .t{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#a0631d;margin-bottom:8px}
+.copy{position:absolute;right:12px;bottom:12px;border:0;border-radius:20px;background:#141414;color:#fff;font-size:13px;font-weight:600;padding:8px 14px;cursor:pointer}
+ul{margin:0 0 12px;padding-left:20px;color:#e6e1d8;font-size:17px}
+li{margin-bottom:6px}
+.tip{background:#111;border-left:3px solid var(--gold);border-radius:8px;padding:12px 16px;color:#d9d4ca;font-size:15px;margin-top:12px}
+.cta{margin:20px 0 60px;background:linear-gradient(160deg,#241a12 0%,#0d0a08 60%,#000 100%);border:1px solid rgba(246,212,170,.3);border-radius:22px;padding:28px 22px;text-align:center}
+.cta h2{font-size:26px}
+.btn{display:inline-block;margin-top:16px;background:var(--gold);color:#000;text-decoration:none;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:18px;padding:18px 30px;border-radius:40px}
+.foot{color:#6f6a62;font-size:13px;text-align:center;padding-bottom:40px}
+@media (max-width:480px){h1{font-size:34px}h2{font-size:24px}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+  <span class="lbl">Покрокова інструкція</span>
+  <h1>Монтаж Reels у Claude — від вихідника до готового ролика</h1>
+  <p class="sub">Без CapCut і без монтажера. Саме так змонтований мій ролик «Монтаж у Claude».</p>
+  <div class="need"><b>Що знадобиться:</b> платна підписка Claude (Pro або Max) і застосунок Claude на компʼютері (Mac або Windows) з вкладкою Code. Ваше сире відео з телефона і 3–10 роликів, монтаж яких вам подобається.</div>
+</div></header>
+
+<main class="wrap">
+<section class="step">
+  <div class="n">Крок 1</div>
+  <h2>Встановіть інструменти</h2>
+  <p>Claude монтує не «кнопками», а кодом. Тому йому потрібні інструменти для монтажу. Їх він ставить сам — просто попросіть:</p>
+  <img class="shot" src="step7.5.jpg" alt="Встанови інструменти: Remotion, HyperFrames, FFmpeg, Whisper, yt-dlp" loading="lazy">
+  <div class="prompt"><div class="t">Скопіюйте в Claude</div><span class="txt">Встанови мені інструменти для монтажу відео: Remotion (монтаж кодом), HyperFrames (моушн і 3D), FFmpeg (нарізка і склейка), Whisper (голос у текст), yt-dlp (завантаження відео). Після встановлення перевір, що все працює, і коротко напиши, що де лежить.</span><button class="copy">Скопіювати</button></div>
+  <div class="tip">Якщо Claude питає дозвіл щось встановити — дозволяйте. Це робиться один раз.</div>
+</section>
+
+<section class="step">
+  <div class="n">Крок 2</div>
+  <h2>Покажіть приклади, які вам подобаються</h2>
+  <p>Завантажте від 3 до 10 роликів: свої найкращі або конкурентів, у яких подобається монтаж. Claude розбере стиль і запамʼятає його.</p>
+  <img class="shot" src="step13.jpg" alt="Приклади монтажу: свої і конкурентів" loading="lazy">
+  <div class="prompt"><div class="t">Скопіюйте в Claude</div><span class="txt">Ось приклади монтажу, які мені подобаються. Розбери стиль кожного: титри (шрифт, розмір, де стоять), субтитри, зуми, переходи, вставки, темп склейок, музика. Зведи це в один «мій стиль монтажу» і збережи, щоб наступного разу монтувати так само.</span><button class="copy">Скопіювати</button></div>
+  <div class="tip">Ролики конкурентів можна просто дати посиланням — Claude сам завантажить їх через yt-dlp.</div>
+</section>
+
+<section class="step">
+  <div class="n">Крок 3</div>
+  <h2>Дайте сире відео і попросіть змонтувати</h2>
+  <p>Закидаєте відео так, як зняли: з паузами, дублями, з усім. І обовʼязково на першому монтажі просіть залишити можливість редагування — тоді ви самі зможете рухати деталі.</p>
+  <img class="shot" src="step19.jpg" alt="Запит у Claude: залиш можливість редагування" loading="lazy">
+  <div class="prompt"><div class="t">Скопіюйте в Claude</div><span class="txt">Змонтуй це відео в моєму стилі монтажу. Виріж паузи, дублі й зайві слова, додай субтитри на весь ролик, зуми на ключових словах і великий титр-хук у перші 3 секунди. Формат 9:16. Приступаючи до монтажу, залиш можливість редагування, щоб я сама могла змінювати розташування елементів.</span><button class="copy">Скопіювати</button></div>
+</section>
+
+<section class="step">
+  <div class="n">Крок 4</div>
+  <h2>Правте словами</h2>
+  <p>Подивіться результат і просто напишіть, що змінити. Як редактору, тільки він робить це за хвилину.</p>
+  <img class="shot" src="step22.jpg" alt="Правка словами: перенеси текст з обличчя над голову" loading="lazy">
+  <ul>
+    <li>«Перенеси текст з обличчя над голову»</li>
+    <li>«Зроби субтитри більшими і жовтими»</li>
+    <li>«Музику тихіше на 30%»</li>
+    <li>«Тут вставку прибери, залиш мене в кадрі»</li>
+  </ul>
+</section>
+
+<section class="step">
+  <div class="n">Крок 5</div>
+  <h2>Збережіть як свій скіл</h2>
+  <p>Коли результат подобається — попросіть зберегти весь процес. Наступного разу ви просто пишете «змонтуй у моєму стилі» і закидаєте відео.</p>
+  <div class="prompt"><div class="t">Скопіюйте в Claude</div><span class="txt">Збережи весь цей процес як скіл «Мій монтаж Reels»: стиль, налаштування, порядок дій і мої правки. Щоб наступного разу я писала тільки «змонтуй у моєму стилі» і давала відео.</span><button class="copy">Скопіювати</button></div>
+  <div class="tip">Перший монтаж з налаштуванням займає 20–40 хвилин. Далі — кілька хвилин на ролик.</div>
+</section>
+
+<section class="cta">
+  <h2>Хочете, щоб я налаштувала це під вашу нішу?</h2>
+  <p>Монтаж — це супер, але без системи результату не буде. На діагностиці 30 хвилин подивимось вашу сторінку і що з контенту можна віддати Claude: сценарії, монтаж, каруселі, воронки.</p>
+  <a class="btn" href="/rozbir/?src=montazh">Записатися на діагностику</a>
+</section>
+<p class="foot">© Оксана Богданець · @ksysha.bogdanets</p>
+</main>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){var t=b.parentNode.querySelector('.txt').innerText;(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(function(){b.textContent='Скопійовано ✓';setTimeout(function(){b.textContent='Скопіювати'},1800)}).catch(function(){var r=document.createRange();r.selectNodeContents(b.parentNode.querySelector('.txt'));var s=getSelection();s.removeAllRanges();s.addRange(r)})})});
+</script>
+</body>
+</html>
