@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Безкоштовний розбір запуску з Claude · Оксана Богданець</title>
+<meta name="description" content="30 хвилин у Zoom: агент Claude наживо розбирає вашу нішу, ми визначаємо продукт і складаємо план запуску на 4 тижні.">
+<meta property="og:title" content="Безкоштовний розбір: ваш запуск з Claude">
+<meta property="og:description" content="30 хвилин у Zoom. Агент наживо розбере вашу нішу, а я складу з вами план запуску на 4 тижні.">
+<meta property="og:image" content="https://oksanabogdanets.com.ua/cases/v2/oksana-about-suit-ef2929f5.webp">
+<link rel="icon" type="image/png" href="/cases/v2/favicon-c86237b7.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap">
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url(/cases/v2/inter-cyrillic-4e255302.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 700;font-display:swap;src:url(/cases/v2/inter-latin-65850a37.woff2) format('woff2');unicode-range:U+0000-00FF,U+2000-206F,U+20AC,U+2122,U+2212}
+:root{--gold:#f6d4aa;--gold2:#d9a441;--line:#2a2a2a;--muted:#a6a29a;--card:#111}
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:#000;color:#fff;font-family:'Inter',Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,p{margin:0}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+.gold{color:var(--gold)}
+.osw{font-family:'Oswald','Arial Narrow',sans-serif;text-transform:uppercase}
+
+/* перший екран */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;background:radial-gradient(120% 90% at 80% 10%,#241a12 0%,#0b0907 55%,#000 100%)}
+.hero-in{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:48px 0}
+.lbl{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#000;background:var(--gold);border-radius:30px;padding:8px 16px}
+.hero h1{margin-top:20px;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:50px;line-height:1.04;letter-spacing:.005em}
+.hero-sub{margin-top:16px;font-size:18px;line-height:1.45;color:#d9d4ca;max-width:520px}
+.checks{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:10px}
+.checks li{display:flex;gap:10px;align-items:center;font-size:16px;font-weight:500}
+.checks li::before{content:"";flex:0 0 20px;height:20px;border-radius:50%;background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/14px no-repeat}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:28px;border:0;cursor:pointer;text-decoration:none;
+  background:var(--gold);color:#000;font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  font-size:19px;line-height:1.15;padding:20px 34px;border-radius:40px;box-shadow:0 14px 40px rgba(246,212,170,.22);transition:transform .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.55;cursor:default;transform:none}
+.trust{margin-top:22px;display:grid;gap:6px;font-size:14px;color:var(--muted)}
+.trust b{color:#fff;font-weight:600}
+.ph{position:relative;border-radius:28px;overflow:hidden;border:1px solid rgba(246,212,170,.25);aspect-ratio:4/5}
+.ph img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.ph-cap{position:absolute;left:16px;right:16px;bottom:16px;background:rgba(0,0,0,.72);border-radius:16px;padding:12px 14px;font-size:14px;line-height:1.35}
+.ph-cap b{display:block;font-size:16px}
+
+/* секції */
+.sec{padding:80px 0;border-top:1px solid #151515}
+.sec h2{font-family:'Oswald',sans-serif;font-weight:700;text-transform:uppercase;font-size:38px;line-height:1.08;text-align:center;max-width:820px;margin:0 auto}
+.sec .intro{margin:14px auto 0;max-width:640px;text-align:center;color:var(--muted);font-size:17px;line-height:1.5}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.card{background:linear-gradient(160deg,#241a12 0%,#0d0a08 55%,#000 100%);border:1px solid rgba(246,212,170,.18);border-radius:22px;padding:26px 22px}
+.card .n{color:var(--gold);font-size:13px;letter-spacing:.08em}
+.card h3{margin-top:12px;font-size:20px;line-height:1.25}
+.card p{margin-top:10px;color:#bdb8ae;font-size:15px;line-height:1.5}
+.cases{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:40px}
+.case{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px}
+.case-top{display:flex;gap:12px;align-items:center}
+.case-top img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.case-top span{font-size:14px;color:var(--muted)}
+.case-top b{display:block;color:#fff;font-size:15px}
+.case h3{margin-top:16px;font-size:22px;line-height:1.2;color:var(--gold)}
+.case p{margin-top:8px;font-size:15px;line-height:1.5;color:#cfcac0}
+.no{max-width:720px;margin:36px auto 0;display:grid;gap:12px}
+.no div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;font-size:16px;line-height:1.45;display:flex;gap:12px}
+.no div::before{content:"✕";color:#e8806c;font-weight:700}
+.end{text-align:center}
+.end .btn{margin-top:30px}
+.end p{margin-top:16px;color:var(--muted);font-size:14px}
+.ft{padding:30px 0 40px;border-top:1px solid #151515;color:#6f6a61;font-size:13px;text-align:center;line-height:1.7}
+.ft a{color:#8d887f}
+
+/* квіз */
+.qz{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.86);display:none;align-items:center;justify-content:center;padding:16px}
+.qz.open{display:flex}
+.qz-box{position:relative;width:100%;max-width:520px;max-height:calc(100svh - 32px);overflow:auto;background:#0e0c0a;border:1px solid rgba(246,212,170,.3);border-radius:24px;padding:28px 24px 24px}
+.qz-x{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:none;color:#fff;font-size:22px;cursor:pointer}
+.bar{height:4px;background:#222;border-radius:4px;overflow:hidden;margin:6px 48px 22px 0}
+.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .3s}
+.pane{display:none}
+.pane.on{display:block}
+.step{color:var(--gold);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.pane h3{margin:10px 0 18px;font-family:'Oswald',sans-serif;font-weight:600;text-transform:uppercase;font-size:24px;line-height:1.15}
+.pane p{font-size:15px;line-height:1.5;color:#d6d1c7;margin-bottom:12px}
+.opts{display:grid;gap:10px}
+.opt{width:100%;text-align:left;background:#161310;border:1.5px solid #2f2a24;border-radius:14px;color:#fff;font:inherit;font-weight:500;font-size:16px;padding:15px 16px;cursor:pointer}
+.opt:hover{border-color:rgba(246,212,170,.55)}
+.opt.sel{background:var(--gold);border-color:var(--gold);color:#000}
+.fld{margin-top:12px}
+.fld label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.fld input{width:100%;background:#161310;border:1.5px solid #2f2a24;border-radius:14px;color:#fff;font:inherit;font-size:16px;padding:15px 16px;-webkit-appearance:none}
+.fld input:focus{outline:none;border-color:var(--gold)}
+.qz .btn{width:100%;margin-top:20px;font-size:17px;padding:17px 20px}
+.back{display:block;margin:12px auto 0;background:none;border:0;color:var(--muted);font:inherit;font-size:14px;cursor:pointer}
+.err{display:none;color:#f0a898;font-size:13px;margin-top:10px}
+.err.on{display:block}
+.tiny{margin-top:14px;font-size:12px;color:#6f6a61;text-align:center;line-height:1.5}
+.tiny a{color:#8d887f}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+
+@media (max-width:900px){
+ .hero{min-height:0}
+ .hero-in{grid-template-columns:1fr;gap:28px;padding:32px 0 48px}
+ .hero-r{order:-1;max-width:340px}
+ .hero h1{font-size:36px}
+ .grid3,.cases{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+ .wrap{padding:0 16px}
+ .hero h1{font-size:31px}
+ .hero-sub{font-size:16px}
+ .btn{width:100%;font-size:17px;padding:18px 20px}
+ .sec{padding:56px 0}
+ .sec h2{font-size:28px}
+ .hero-r{max-width:none}
+ .ph{aspect-ratio:5/4}
+}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap hero-in">
+    <div>
+      <span class="lbl">Безкоштовна зустріч-розбір · 30 хв у Zoom</span>
+      <h1>Як експертці вести Instagram без найму SMM, <span class="gold">коли контент, монтаж і рекламу робить Claude</span></h1>
+      <p class="hero-sub">Агент наживо розбере вашу нішу і конкуренток, а я складу з вами план запуску вашого продукту на 4 тижні.</p>
+      <ul class="checks">
+        <li>Без команди і монтажерки</li>
+        <li>Без знання коду і техніки</li>
+        <li>Навіть якщо зараз мало підписників</li>
+      </ul>
+      <button class="btn" type="button" data-open>Записатися на безкоштовний розбір</button>
+      <div class="trust">
+        <span>✦ <b>3 роки</b> запускаю експерток у Reels</span>
+        <span>✦ <b>7 000 $ з одного ролика</b> для юридичної компанії</span>
+      </div>
+    </div>
+    <div class="hero-r">
+      <div class="ph">
+        <img src="/cases/v2/oksana-about-suit-ef2929f5.webp" alt="Оксана Богданець" width="800" height="1000">
+        <div class="ph-cap"><b>Оксана Богданець</b>Reels-продюсерка. Розбори проводжу сама</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>За 30 хвилин <span class="gold">ми</span></h2>
+    <div class="grid3">
+      <div class="card"><div class="n">01</div><h3>Подивимося вашу нішу очима агента</h3><p>Агент наживо знайде 10 конкуренток, покаже, що в них купують, і збере болі клієнток їхніми словами з коментарів.</p></div>
+      <div class="card"><div class="n">02</div><h3>Визначимо продукт і ціну</h3><p>З якими можна вийти вже цього місяця, а не «колись, коли буде більше підписників».</p></div>
+      <div class="card"><div class="n">03</div><h3>Складемо план запуску на 4 тижні</h3><p>Що знімати, що писати, звідки брати заявки і що з цього за вас зроблять агенти Claude.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Результати <span class="gold">моїх клієнтів</span></h2>
+    <p class="intro">Раніше ці запуски робила моя команда. Тепер аналіз ринку, сценарії, монтаж і рекламу роблять агенти, а я перевіряю.</p>
+    <div class="cases">
+      <div class="case"><div class="case-top"><img src="/cases/v2/ava-zv1-352d4e26.webp" alt="" width="52" height="52" loading="lazy"><div><b>«Звільнимо»</b><span>юридична компанія</span></div></div><h3>7 000 $ з одного ролика</h3><p>Акаунт виріс з 23 до 238 тис. підписників, ролики приносять заявки постійно.</p></div>
+      <div class="case"><div class="case-top"><img src="/cases/v2/ava-nina-f2e5bb7b.webp" alt="" width="52" height="52" loading="lazy"><div><b>Ніна Демиденко</b><span>психологиня</span></div></div><h3>З 1 201 до 6 210 підписників</h3><p>За перший місяць в Instagram і TikTok. Найпопулярніший ролик набрав 382 тис. переглядів.</p></div>
+      <div class="case"><div class="case-top"><img src="/cases/v2/ava-julia-54230b7d.webp" alt="" width="52" height="52" loading="lazy"><div><b>Юлія</b><span>кар'єрна консультантка</span></div></div><h3>+700 цільових з 10 Reels</h3><p>Аудиторія зросла у 7 разів, і тепер вона набирає групу на менторство.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="wrap">
+    <h2>Цей розбір <span class="gold">не для вас</span>, якщо</h2>
+    <div class="no">
+      <div>Ви шукаєте кнопку, яка все зробить без вашої участі.</div>
+      <div>У вас немає досвіду чи знань, які можна продавати.</div>
+      <div>Ви не готові давати запуску 4–6 годин на тиждень.</div>
+      <div>Ви не плануєте цього місяця вкладатися в навчання чи супровід. Наприкінці розбору я розповім, як можна працювати зі мною, якщо вам це підійде.</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec end">
+  <div class="wrap">
+    <h2>Розборів <span class="gold">9 на тиждень</span>, бо я проводжу їх сама</h2>
+    <button class="btn" type="button" data-open>Записатися на безкоштовний розбір</button>
+    <p>Займе хвилину: 4 коротких питання і ваш контакт</p>
+  </div>
+</section>
+
+<footer class="ft"><div class="wrap">© 2026 Оксана Богданець · <a href="/consent.html">Згода на обробку персональних даних</a> · <a href="/privacy-policy.html">Політика конфіденційності</a></div></footer>
+
+<!-- Квіз -->
+<div class="qz" id="qz" role="dialog" aria-modal="true" aria-label="Запис на безкоштовний розбір">
+  <div class="qz-box">
+    <button class="qz-x" type="button" aria-label="Закрити" data-close>×</button>
+    <div class="bar"><i id="bar"></i></div>
+
+    <div class="pane" data-step="1">
+      <div class="step">Питання 1 з 4</div>
+      <h3>У якій ніші ви хочете запустити свій продукт?</h3>
+      <div class="opts" data-key="Ніша">
+        <button class="opt" type="button">Психологія / коучинг</button>
+        <button class="opt" type="button">Б'юті / косметологія</button>
+        <button class="opt" type="button">Здоров'я / тіло / фітнес</button>
+        <button class="opt" type="button">Освіта / репетиторство</button>
+        <button class="opt" type="button">Бізнес / кар'єра / фінанси</button>
+        <button class="opt" type="button" data-other>Інша ніша</button>
+      </div>
+      <div class="fld" id="otherWrap" hidden><label for="other">Напишіть свою нішу</label><input id="other" type="text" autocomplete="off" placeholder="Наприклад: нутриціологиня, таро, кондитерка"></div>
+      <div class="err">Оберіть варіант або напишіть свою нішу.</div>
+      <button class="btn" type="button" data-next>Далі</button>
+    </div>
+
+    <div class="pane" data-step="2">
+      <div class="step">Питання 2 з 4</div>
+      <h3>Що у вас уже є?</h3>
+      <div class="opts" data-key="Що вже є">
+        <button class="opt" type="button">Тільки досвід і знання</button>
+        <button class="opt" type="button">Instagram є, а продукту немає</button>
+        <button class="opt" type="button">Продукт є, а продажів мало</button>
+        <button class="opt" type="button">Продаю, але все роблю сама</button>
+      </div>
+      <div class="err">Оберіть один варіант.</div>
+      <button class="btn" type="button" data-next>Далі</button>
+      <button class="back" type="button" data-back>← Назад</button>
+    </div>
+
+    <div class="pane" data-step="3">
+      <div class="step">Питання 3 з 4</div>
+      <h3>Який зараз ваш дохід на місяць?</h3>
+      <p>Загалом, не тільки з онлайну. Бачу відповіді тільки я.</p>
+      <div class="opts" data-key="Дохід зараз">
+        <button class="opt" type="button">До $500</button>
+        <button class="opt" type="button">$500 – 1 000</button>
+        <button class="opt" type="button">$1 000 – 3 000</button>
+        <button class="opt" type="button">$3 000 – 5 000</button>
+        <button class="opt" type="button">Понад $5 000</button>
+      </div>
+      <div class="err">Оберіть один варіант.</div>
+      <button class="btn" type="button" data-next>Далі</button>
+      <button class="back" type="button" data-back>← Назад</button>
+    </div>
+
+    <div class="pane" data-step="4">
+      <div class="step">Питання 4 з 4</div>
+      <h3>Скільки хочете заробляти через 2–3 місяці?</h3>
+      <div class="opts" data-key="Ціль через 2–3 міс">
+        <button class="opt" type="button">$1 000 – 3 000</button>
+        <button class="opt" type="button">$3 000 – 5 000</button>
+        <button class="opt" type="button">$5 000 – 10 000</button>
+        <button class="opt" type="button">Понад $10 000</button>
+      </div>
+      <div class="err">Оберіть один варіант.</div>
+      <button class="btn" type="button" data-next>Далі</button>
+      <button class="back" type="button" data-back>← Назад</button>
+    </div>
+
+    <div class="pane" data-step="5">
+      <div class="step">Останній крок</div>
+      <h3>Куди вам написати, щоб узгодити час розбору?</h3>
+      <div class="fld"><label for="name">Ваше ім'я</label><input id="name" type="text" autocomplete="given-name"></div>
+      <div class="fld"><label for="ig">Ваш Instagram</label><input id="ig" type="text" autocomplete="off" autocapitalize="none" placeholder="@нік"></div>
+      <div class="fld"><label for="tg">Telegram або телефон</label><input id="tg" type="text" autocomplete="tel" placeholder="@нік або +380…"></div>
+      <input class="hp" type="text" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="err" id="eContacts">Напишіть ім'я і Telegram або телефон.</div>
+      <div class="err" id="eSend">Не вдалося надіслати. Спробуйте ще раз або напишіть мені в Telegram.</div>
+      <button class="btn" type="button" id="send">Записатися на розбір</button>
+      <button class="back" type="button" data-back>← Назад</button>
+      <p class="tiny">Натискаючи кнопку, ви погоджуєтесь з <a href="/consent.html" target="_blank" rel="noopener">обробкою персональних даних</a>.</p>
+    </div>
+
+    <div class="pane" data-step="6">
+      <div class="step">Готово</div>
+      <h3>Дякую! <span class="gold">Ви записані</span></h3>
+      <div id="calYes" hidden>
+        <p>Оберіть зручний день і час розбору. Посилання на Zoom прийде одразу після вибору.</p>
+        <a class="btn" id="calBtn" href="#" target="_blank" rel="noopener">Обрати дату і час</a>
+      </div>
+      <div id="calNo">
+        <p>Протягом дня я напишу вам, щоб узгодити час розбору. Щоб не чекати, напишіть мені в Telegram самі: повідомлення вже готове.</p>
+        <a class="btn" id="tgBtn" href="https://t.me/ksysha_bogdanets" target="_blank" rel="noopener">Написати в Telegram</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Куди летять відповіді: FormSubmit (як у /kviz/), листи приходять на пошту Оксани.
+var ENDPOINT = 'https://formsubmit.co/ajax/5c554157cf1eeb4492b86d791350d154';
+// Посилання на календар (Calendly або Cal.com). Поки порожнє, після квізу пропонуємо написати в Telegram.
+var CAL_URL = '';
+var TG = 'ksysha_bogdanets';
+
+var qp = new URLSearchParams(location.search);
+var SRC = qp.get('src') || qp.get('utm_campaign') || qp.get('utm_source') || 'прямий перехід';
+var answers = {}, cur = 1, TOTAL = 5;
+var qz = document.getElementById('qz');
+
+function show(n){
+  cur = n;
+  document.querySelectorAll('.pane').forEach(function(p){ p.classList.toggle('on', +p.dataset.step === n); });
+  document.getElementById('bar').style.width = Math.round(((n-1)/TOTAL)*100) + '%';
+  qz.querySelector('.qz-box').scrollTop = 0;
+}
+function open(){ qz.classList.add('open'); document.body.style.overflow='hidden'; show(cur > 5 ? 6 : cur); }
+function close(){ qz.classList.remove('open'); document.body.style.overflow=''; }
+document.querySelectorAll('[data-open]').forEach(function(b){ b.addEventListener('click', open); });
+document.querySelector('[data-close]').addEventListener('click', close);
+qz.addEventListener('click', function(e){ if (e.target === qz) close(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+
+document.querySelectorAll('.opts').forEach(function(box){
+  box.addEventListener('click', function(e){
+    var b = e.target.closest('.opt'); if (!b) return;
+    box.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
+    b.classList.add('sel');
+    var pane = box.closest('.pane');
+    pane.querySelector('.err').classList.remove('on');
+    if (box.dataset.key === 'Ніша'){
+      var other = b.hasAttribute('data-other');
+      document.getElementById('otherWrap').hidden = !other;
+      if (other){ document.getElementById('other').focus(); return; }
+    }
+    answers[box.dataset.key] = b.textContent.trim();
+    setTimeout(function(){ show(cur + 1); }, 180);
+  });
+});
+document.getElementById('other').addEventListener('input', function(){ document.querySelector('[data-step="1"] .err').classList.remove('on'); });
+
+document.querySelectorAll('[data-next]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pane = btn.closest('.pane'), box = pane.querySelector('.opts');
+    var sel = box.querySelector('.opt.sel');
+    if (box.dataset.key === 'Ніша' && sel && sel.hasAttribute('data-other')){
+      var t = document.getElementById('other').value.trim();
+      if (!t){ pane.querySelector('.err').classList.add('on'); return; }
+      answers['Ніша'] = 'Інша: ' + t;
+    } else if (!sel){ pane.querySelector('.err').classList.add('on'); return; }
+    else answers[box.dataset.key] = sel.textContent.trim();
+    show(cur + 1);
+  });
+});
+document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click', function(){ show(Math.max(1, cur - 1)); }); });
+['name','tg'].forEach(function(id){ document.getElementById(id).addEventListener('input', function(){ document.getElementById('eContacts').classList.remove('on'); }); });
+
+function val(id){ return document.getElementById(id).value.trim(); }
+document.getElementById('send').addEventListener('click', async function(){
+  var btn = this;
+  document.getElementById('eSend').classList.remove('on');
+  if (!val('name') || !val('tg')){ document.getElementById('eContacts').classList.add('on'); return; }
+  if (val('website')){ done(); return; }
+  var data = {
+    _subject: 'Розбір Claude: ' + val('name') + ' · ' + (answers['Ніша'] || '') + ' · ' + SRC,
+    _template: 'table', _captcha: 'false',
+    "Ім'я": val('name'), 'Instagram': val('ig'), 'Telegram / телефон': val('tg'),
+    'Ніша': answers['Ніша'] || '', 'Що вже є': answers['Що вже є'] || '',
+    'Дохід зараз': answers['Дохід зараз'] || '', 'Ціль через 2–3 міс': answers['Ціль через 2–3 міс'] || '',
+    'Джерело': SRC, 'Час': new Date().toLocaleString('uk-UA')
+  };
+  try { localStorage.setItem('rozbir-draft', JSON.stringify(data)); } catch(e){}
+  btn.disabled = true; btn.textContent = 'Надсилаю…';
+  try {
+    var r = await fetch(ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'}, body: JSON.stringify(data)});
+    var j = await r.json().catch(function(){ return {}; });
+    if (r.ok && String(j.success) !== 'false') done(); else document.getElementById('eSend').classList.add('on');
+  } catch(e){ document.getElementById('eSend').classList.add('on'); }
+  btn.disabled = false; btn.textContent = 'Записатися на розбір';
+});
+
+function done(){
+  var msg = 'Вітаю! Я ' + val('name') + ', щойно записалась на безкоштовний розбір запуску з Claude. Моя ніша: ' + (answers['Ніша'] || '') + '. Коли можна поговорити?';
+  document.getElementById('tgBtn').href = 'https://t.me/' + TG + '?text=' + encodeURIComponent(msg);
+  if (CAL_URL){
+    var u = CAL_URL + (CAL_URL.indexOf('?') > -1 ? '&' : '?') + 'name=' + encodeURIComponent(val('name'));
+    document.getElementById('calBtn').href = u;
+    document.getElementById('calYes').hidden = false;
+    document.getElementById('calNo').hidden = true;
+  }
+  show(6);
+  document.getElementById('bar').style.width = '100%';
+}
+</script>
+</body>
+</html>
